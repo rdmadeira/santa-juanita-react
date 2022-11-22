@@ -94,12 +94,11 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0 0;
     margin: 0 0;
     font-family: 'Barlow', sans-serif;
-    color: var(--opera-mauve);
 }
 body {
     /* overflow-x: hidden; */
     font-size: var(--step-0);
-    width: 100vw;
+    width: 100%;
 }
 ul {
     list-style: none;

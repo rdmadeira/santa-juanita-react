@@ -1,0 +1,9 @@
+.invalid {
+  border: solid red 2px;
+}
+
+span {
+  color: red;
+  font-weight: 500;
+  font-size: var(--step--1);
+}

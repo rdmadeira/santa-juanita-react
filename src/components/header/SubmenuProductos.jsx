@@ -1,0 +1,47 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledSubmenuProductos = styled.ul`
+  position: absolute;
+  background-color: var(--lavender-blush);
+  top: 35px;
+  left: -30;
+  z-index: 5;
+  padding: 5px 0 5px 0;
+  width: max-content;
+`;
+
+export const LinkContainer = styled.li`
+  font-weight: 300;
+  display: flex;
+  color: var(--opera-mauve);
+  font-size: var(--step-0);
+  &:hover {
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+    opacity: 1;
+    background: var(--opera-mauve);
+    color: var(--snow);
+  }
+`;
+
+export const SubmenuProductos = () => {
+  return (
+    <StyledSubmenuProductos>
+      <LinkContainer>
+        <NavLink to="/velas">Velas</NavLink>
+      </LinkContainer>
+      <LinkContainer>
+        <NavLink to="/difusores">Difusores</NavLink>
+      </LinkContainer>
+      <LinkContainer>
+        <NavLink to="/sales">Sales de baño</NavLink>
+      </LinkContainer>
+      <LinkContainer>
+        <NavLink to="/bombas">Bombas Efervecentes</NavLink>
+      </LinkContainer>
+    </StyledSubmenuProductos>
+  );
+};
