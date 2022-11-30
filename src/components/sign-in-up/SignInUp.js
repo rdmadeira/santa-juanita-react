@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import SignInUpInput from '../components/signinup/SignInUpInput.jsx';
-import SignInUpButton from '../components/signinup/SignInUpButton.jsx';
-import { VALIDATE_EMAIL } from '../utils/validateInputs';
-import {
-  GoogleSvg,
-  FacebookSvg,
-  AppleSvg,
-} from '../components/redes_logos/LogosSvg';
+import SignInUpInput from '../signinup/SignInUpInput.jsx';
+import SignInUpButton from '../signinup/SignInUpButton.jsx';
+import { VALIDATE_EMAIL } from '../../utils/validateInputs';
+import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
+import { useSelector } from 'react-redux';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
-  background-color: var(--snow);
+  position: absolute;
+  display: none;
+  z-index: 10;
+  background-color: #faf7f9f0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -84,8 +84,9 @@ const RedesButtonsStyled = styled.div`
   border-radius: 3px;
 `;
 
-const SignInUp = () => {
-  const users = useLoaderData();
+const SignInUp = ({ hidden }) => {
+  const users = useSelector((store) => store.users);
+  console.log(users);
   /* const initialState = {
     formIsValid: false,
     inputs: {
@@ -99,15 +100,18 @@ const SignInUp = () => {
 
   /* const changeHandler = (e) => {}; */
 
-  const closeHandle = () => {
-    location.href = '/';
-  };
-
   return (
-    <SignInUpContainer className="bounce-in-top">
-      <CloseButton onClick={closeHandle}>x</CloseButton>
+    <SignInUpContainer
+      className={
+        hidden === false
+          ? 'slide-out-top'
+          : hidden === true
+          ? 'bounce-in-top'
+          : ''
+      }>
+      <CloseButton /* onClick={closeHandle} */>x</CloseButton>
       <FormContainer>
-        <FormSignInUp users={users}>
+        <FormSignInUp>
           <SpanStyled>Back</SpanStyled>
           <h3>INGRESÁ O CREÁ SU CUENTA</h3>
           <SignInUpInput

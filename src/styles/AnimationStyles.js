@@ -148,12 +148,12 @@ export const AnimationStyles = createGlobalStyle`
     -ms-animation: shake infinite 17s 14s ease-in-out alternate;
 }
 .bounce-in-top {
-    display: flex;
-	-webkit-animation: bounce-in-top 1.1s both !important;
+    display: flex !important;
+	-webkit-animation: bounce-in-top 1.1s both ;
 	        animation: bounce-in-top 1.1s both;
 }
 .slide-out-top {
-    display: flex;
+    display: flex !important;
     -webkit-animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
 	        animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
 }

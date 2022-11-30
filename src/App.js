@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
 import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer.jsx';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
+import SignInUp from './components/sign-in-up/SignInUp';
 
 const StyledMain = styled.main`
   width: 100%;
@@ -16,12 +17,15 @@ const StyledMain = styled.main`
 `;
 
 function App() {
+  const [hiddenSignInUp, setHiddenSignInUp] = useState(undefined);
+
   return (
     <>
       <GlobalStyle />
       <AnimationStyles />
-      <Header />
+      <Header setHiddenSignInUp={setHiddenSignInUp} hidden={hiddenSignInUp} />
       <StyledMain>
+        <SignInUp hidden={hiddenSignInUp} />
         <Outlet />
       </StyledMain>
       <Footer />

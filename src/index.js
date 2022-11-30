@@ -10,7 +10,9 @@ import Sales from './pages/Sales';
 import Bombas from './pages/Bombas';
 import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
-import SignInUp from './pages/SignInUp';
+import { store, persistor } from './redux/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
@@ -45,20 +47,20 @@ const router = createBrowserRouter([
         element: <Galeria />,
         path: '/gallery',
       },
-      {
-        element: <SignInUp />,
-        path: '/signinup',
-        loader: () => {
-          const users = localStorage.getItem('users') || [];
-          return users;
-        },
-      },
     ],
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

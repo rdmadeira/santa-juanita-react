@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -37,9 +37,14 @@ const StyledLoginSignUp = styled.div`
   font-size: var(--step--1);
   border-bottom: 1px solid var(--twilight-lavender);
   margin: 0 2vw;
+  cursor: pointer;
 `;
 
-const Header = () => {
+const Header = ({ hidden, setHiddenSignInUp }) => {
+  const toggleHiddenSignInUpSection = () => {
+    setHiddenSignInUp(!hidden);
+  };
+
   return (
     <StyledHeader>
       <Logo></Logo>
@@ -47,8 +52,8 @@ const Header = () => {
         <h1>Santa Juanita - Mimos al Alma</h1>
         <HeaderMenu></HeaderMenu>
       </StyledNav>
-      <StyledLoginSignUp>
-        <Link to="/signinup">Login / SignUp</Link>
+      <StyledLoginSignUp onClick={toggleHiddenSignInUpSection}>
+        <span>Login / SignUp</span>
       </StyledLoginSignUp>
     </StyledHeader>
   );
