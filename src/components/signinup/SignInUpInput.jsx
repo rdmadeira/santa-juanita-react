@@ -45,6 +45,7 @@ const SignInUpInput = ({ name, type, id, validators }) => {
         onChange={changeHandler}
         validators={validators}
         className={state?.isValid ? '' : 'invalid'}
+        value={state.value}
       />
       {!state.isValid && <span>{`Invalid ${name}!`}</span>}
     </>

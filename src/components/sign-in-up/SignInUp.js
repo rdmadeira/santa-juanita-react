@@ -86,19 +86,11 @@ const RedesButtonsStyled = styled.div`
 
 const SignInUp = ({ hidden }) => {
   const users = useSelector((store) => store.users);
-  console.log(users);
-  /* const initialState = {
-    formIsValid: false,
-    inputs: {
-      email: {
-        value: '',
-        isValid: false,
-      },
-    },
-    user: null,
-  }; */
+  //const user = useSelector((store) => store.user);
 
-  /* const changeHandler = (e) => {}; */
+  const submitHandle = (e) => {
+    e.preventDefault;
+  };
 
   return (
     <SignInUpContainer
@@ -111,7 +103,7 @@ const SignInUp = ({ hidden }) => {
       }>
       <CloseButton /* onClick={closeHandle} */>x</CloseButton>
       <FormContainer>
-        <FormSignInUp>
+        <FormSignInUp onSubmit={submitHandle}>
           <SpanStyled>Back</SpanStyled>
           <h3>INGRESÁ O CREÁ SU CUENTA</h3>
           <SignInUpInput
@@ -120,6 +112,7 @@ const SignInUp = ({ hidden }) => {
             id="email"
             validators={[VALIDATE_EMAIL()]}
           />
+
           <SignInUpButton />
         </FormSignInUp>
       </FormContainer>

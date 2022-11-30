@@ -1,13 +1,13 @@
-const INITIAL_USER = {};
+import { checkUser } from '../../utils/formVerifyUser';
 
-export const userReducer = (state = INITIAL_USER, action) => {
+export const userReducer = (state = null, action) => {
   switch (action.type) {
     case 'LOG_IN':
       return {
-        user: action.payload,
+        user: checkUser(action.payload),
       };
 
     default:
-      break;
+      return state;
   }
 };

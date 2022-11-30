@@ -1,9 +1,7 @@
 export const checkUser = ({ username, password }, users) => {
-  const userLogin = users.filter(
+  const userLogin = users.find(
     (item) =>
       item.username === username && password && item.password === password
   );
-  userLogin ? userLogin : createUser(username, users);
+  userLogin ? userLogin : null;
 };
-
-const createUser = (username, users) => {};
