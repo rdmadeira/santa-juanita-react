@@ -1,7 +1,4 @@
-export const checkUser = ({ username, password }, users) => {
-  const userLogin = users.find(
-    (item) =>
-      item.username === username && password && item.password === password
-  );
-  userLogin ? userLogin : null;
+export const checkUser = (email, users) => {
+  const userLogin = users.find((item) => item.email === email);
+  return userLogin ? userLogin : null;
 };

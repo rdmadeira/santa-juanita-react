@@ -25,7 +25,7 @@ function App() {
       <AnimationStyles />
       <Header setHiddenSignInUp={setHiddenSignInUp} hidden={hiddenSignInUp} />
       <StyledMain>
-        <SignInUp hidden={hiddenSignInUp} />
+        <SignInUp hidden={hiddenSignInUp} setHidden={setHiddenSignInUp} />
         <Outlet />
       </StyledMain>
       <Footer />

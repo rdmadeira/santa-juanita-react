@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import styled from 'styled-components';
 import { inputChangeReducer } from '../../reducers/inputChangeReducer';
 import { validateInputs } from '../../utils/validateInputs';
@@ -17,17 +17,18 @@ const Label = styled.label`
   width: fit-content;
 `;
 
-const SignInUpInput = ({ name, type, id, validators }) => {
+const SignInUpInput = ({ name, type, id, validators, onInput }) => {
   const initialState = {
     value: '',
     isValid: true,
+    onBlur: false,
   };
-
   const [state, dispatch] = useReducer(inputChangeReducer, initialState);
+  useEffect(() => {
+    onInput(id, state.value, state.isValid);
+  }, [state.value]);
 
   const changeHandler = (e) => {
-    /*    console.log(state); */
-
     dispatch({
       type: 'INPUT_CHANGE',
       value: e.target.value,
@@ -46,8 +47,9 @@ const SignInUpInput = ({ name, type, id, validators }) => {
         validators={validators}
         className={state?.isValid ? '' : 'invalid'}
         value={state.value}
+        onBlur={() => dispatch({ type: 'ONBLUR' })}
       />
-      {!state.isValid && <span>{`Invalid ${name}!`}</span>}
+      {!state.isValid && state.onBlur && <span>{`Invalid ${name}!`}</span>}
     </>
   );
 };

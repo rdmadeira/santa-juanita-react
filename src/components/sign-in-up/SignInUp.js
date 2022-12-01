@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useReducer, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SignInUpInput from '../signinup/SignInUpInput.jsx';
 import SignInUpButton from '../signinup/SignInUpButton.jsx';
-import { VALIDATE_EMAIL } from '../../utils/validateInputs';
+import {
+  /* validateInputs, */
+  VALIDATE_EMAIL,
+  VALIDATE_MIN_LENGTH,
+  VALIDATOR_TYPE_REQUIRE,
+} from '../../utils/validateInputs';
 import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector } from 'react-redux';
+import { signinupFormReducer } from '../../reducers/signinupFormReducer';
+import { checkUser } from '../../utils/formVerifyUser.js';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
@@ -84,12 +91,41 @@ const RedesButtonsStyled = styled.div`
   border-radius: 3px;
 `;
 
-const SignInUp = ({ hidden }) => {
+const SignInUp = ({ hidden, setHidden }) => {
   const users = useSelector((store) => store.users);
+  const initialState = {
+    inputs: { email: { value: '', isValid: false } },
+    isValid: false,
+    isLogin: null,
+    user: null, //prueba!!
+  };
+  const [state, dispatch] = useReducer(signinupFormReducer, initialState);
+  const emailInput = useRef();
+
   //const user = useSelector((store) => store.user);
 
   const submitHandle = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+  };
+
+  const inputHandle = useCallback((id, value, isValid) => {
+    if (id === 'email') {
+      dispatch({ type: 'CHECK_USER', user: checkUser(value, users) });
+    }
+    dispatch({
+      type: 'INPUT_ON_CHANGE',
+      inputs: {
+        ...state.inputs,
+        [id]: {
+          value: value,
+          isValid: isValid,
+        },
+      },
+    });
+  }, []);
+
+  const closeHandle = () => {
+    setHidden(false);
   };
 
   return (
@@ -101,7 +137,7 @@ const SignInUp = ({ hidden }) => {
           ? 'bounce-in-top'
           : ''
       }>
-      <CloseButton /* onClick={closeHandle} */>x</CloseButton>
+      <CloseButton onClick={closeHandle}>x</CloseButton>
       <FormContainer>
         <FormSignInUp onSubmit={submitHandle}>
           <SpanStyled>Back</SpanStyled>
@@ -111,8 +147,18 @@ const SignInUp = ({ hidden }) => {
             type="email"
             id="email"
             validators={[VALIDATE_EMAIL()]}
+            ref={emailInput}
+            onInput={inputHandle}
           />
-
+          {state.user && (
+            <SignInUpInput
+              name="password"
+              type="password"
+              id="password"
+              validators={[VALIDATE_MIN_LENGTH(6), VALIDATOR_TYPE_REQUIRE()]}
+              onInput={inputHandle}
+            />
+          )}
           <SignInUpButton />
         </FormSignInUp>
       </FormContainer>

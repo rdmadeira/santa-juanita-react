@@ -5,8 +5,13 @@ export const inputChangeReducer = (state, action) => {
         ...state,
         value: action.value,
         isValid: action.isValid,
+        onBlur: false,
       };
-
+    case 'ONBLUR':
+      return {
+        ...state,
+        onBlur: true,
+      };
     default:
       return state;
   }
