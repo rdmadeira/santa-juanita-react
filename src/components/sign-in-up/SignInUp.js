@@ -1,18 +1,22 @@
-import React, { useReducer, useRef, useCallback } from 'react';
+import React, { useReducer, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import SignInUpInput from '../signinup/SignInUpInput.jsx';
-import SignInUpButton from '../signinup/SignInUpButton.jsx';
+// import SignInUpInput from '../signinup/SignInUpInput.jsx';
+
 import {
-  /* validateInputs, */
-  VALIDATE_EMAIL,
-  VALIDATE_MIN_LENGTH,
+  SignUpForm,
+  LoginForm,
+  CheckUserForm,
+} from '../signinup/SignInUpForms.jsx';
+/* import {
+  validateInputs,
   VALIDATOR_TYPE_REQUIRE,
-} from '../../utils/validateInputs';
+  VALIDATE_MIN_LENGTH,
+} from '../../utils/validateInputs'; */
 import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector } from 'react-redux';
 import { signinupFormReducer } from '../../reducers/signinupFormReducer';
-import { checkUser } from '../../utils/formVerifyUser.js';
+import { checkUser, checkFormisValid } from '../../utils/formVerifyUser.js';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
@@ -45,7 +49,7 @@ const GFADivStyled = styled(FormContainer)`
   padding-top: 2.5vw;
 `;
 
-const FormSignInUp = styled.form`
+export const FormSignInUp = styled.form`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -59,14 +63,19 @@ const FormSignInUp = styled.form`
 
 const SpanStyled = styled.span`
   position: relative;
+  display: flex;
   top: 0px;
-  left: 0px;
-  padding: 2px 7px 7px;
+  left: 10%;
+  align-self: flex-start;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 7px 2px;
   border-radius: 5%;
   border: solid 1px var(--twilight-lavender);
   color: var(--twilight-lavender);
   font-size: max(min(2.5vw, 21px), 17px);
-  width: 25%;
+  width: 10%;
+  cursor: pointer;
 `;
 
 const CloseButton = styled.div`
@@ -94,35 +103,81 @@ const RedesButtonsStyled = styled.div`
 const SignInUp = ({ hidden, setHidden }) => {
   const users = useSelector((store) => store.users);
   const initialState = {
-    inputs: { email: { value: '', isValid: false } },
+    inputs: { email: { value: '', isValid: false, onblur: false } },
     isValid: false,
     isLogin: null,
     user: null, //prueba!!
   };
   const [state, dispatch] = useReducer(signinupFormReducer, initialState);
-  const emailInput = useRef();
+  useEffect(() => {
+    dispatch({
+      type: 'FORM_VALIDATE',
+      isValid: checkFormisValid(state.inputs),
+    });
+  }, [state.inputs, state.isValid]);
 
   //const user = useSelector((store) => store.user);
 
-  const submitHandle = (e) => {
+  const submitCheckEmailHandle = (e) => {
     e.preventDefault();
+    state.isValid &&
+      state.user &&
+      dispatch({
+        type: 'SUBMIT_CHECK_EMAIL',
+        isLogin: true,
+        inputs: {
+          ...state.inputs,
+          password: {
+            value: '',
+            isValid: null,
+          },
+        },
+      });
+    state.isValid &&
+      state.user === null &&
+      dispatch({
+        type: 'SUBMIT_CHECK_EMAIL',
+        isLogin: false,
+        inputs: {
+          ...state.inputs,
+          password: {
+            value: '',
+            isValid: null,
+            onBlur: false,
+          },
+          name: {
+            value: '',
+            isValid: null,
+            onBlur: false,
+          },
+          lastname: {
+            value: '',
+            isValid: null,
+            onBlur: false,
+          },
+        },
+      });
   };
 
-  const inputHandle = useCallback((id, value, isValid) => {
-    if (id === 'email') {
-      dispatch({ type: 'CHECK_USER', user: checkUser(value, users) });
-    }
-    dispatch({
-      type: 'INPUT_ON_CHANGE',
-      inputs: {
-        ...state.inputs,
-        [id]: {
-          value: value,
-          isValid: isValid,
+  const inputHandle = useCallback(
+    (id, value, isValid, onBlur) => {
+      if (id === 'email') {
+        dispatch({ type: 'CHECK_USER', user: checkUser(value, users) });
+      }
+      dispatch({
+        type: 'INPUT_ON_CHANGE',
+        inputs: {
+          ...state.inputs,
+          [id]: {
+            value: value,
+            isValid: isValid,
+            onBlur: onBlur,
+          },
         },
-      },
-    });
-  }, []);
+      });
+    },
+    [state.inputs]
+  );
 
   const closeHandle = () => {
     setHidden(false);
@@ -139,28 +194,42 @@ const SignInUp = ({ hidden, setHidden }) => {
       }>
       <CloseButton onClick={closeHandle}>x</CloseButton>
       <FormContainer>
-        <FormSignInUp onSubmit={submitHandle}>
-          <SpanStyled>Back</SpanStyled>
-          <h3>INGRESÁ O CREÁ SU CUENTA</h3>
-          <SignInUpInput
-            name="email"
-            type="email"
-            id="email"
-            validators={[VALIDATE_EMAIL()]}
-            ref={emailInput}
-            onInput={inputHandle}
+        {state.isLogin !== null && (
+          <SpanStyled
+            onClick={() => {
+              return dispatch({
+                type: 'RETURN_CHECK_EMAIL',
+                initialState: initialState,
+              });
+            }}
+            className="fade-in-right">
+            Back
+          </SpanStyled>
+        )}
+        <h3>
+          {state.isLogin === null
+            ? 'INGRESÁ O CREÁ SU CUENTA'
+            : state.isLogin
+            ? 'INGRESÁ'
+            : 'CREÁ SU CUENTA'}
+        </h3>
+        {state.isLogin === null && (
+          <CheckUserForm
+            inputHandle={inputHandle}
+            state={state}
+            onSubmit={submitCheckEmailHandle}
           />
-          {state.user && (
-            <SignInUpInput
-              name="password"
-              type="password"
-              id="password"
-              validators={[VALIDATE_MIN_LENGTH(6), VALIDATOR_TYPE_REQUIRE()]}
-              onInput={inputHandle}
-            />
-          )}
-          <SignInUpButton />
-        </FormSignInUp>
+        )}
+        {state.isLogin === false && (
+          <SignUpForm
+            inputHandle={inputHandle}
+            state={state}
+            className={state.isLogin === false ? 'fade-in-right' : ''}
+          />
+        )}
+        {state.isLogin === true && (
+          <LoginForm state={state} inputHandle={inputHandle} />
+        )}
       </FormContainer>
       <FormContainer>
         <h4> __________ O __________ </h4>

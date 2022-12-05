@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
   border-bottom: solid 30px var(--mulberry);
   transition: 0.5s ease all;
   position: relative;
-  z-index: 2;
+  z-index: 12;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -28,6 +28,7 @@ const StyledNav = styled.nav`
 
 const StyledLoginSignUp = styled.div`
   position: absolute;
+  z-index: 12;
   top: 0;
   right: 0;
   display: flex;

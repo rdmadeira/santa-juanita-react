@@ -11,6 +11,7 @@ export const inputChangeReducer = (state, action) => {
       return {
         ...state,
         onBlur: true,
+        isValid: action.isValid,
       };
     default:
       return state;

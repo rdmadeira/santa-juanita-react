@@ -17,16 +17,24 @@ const Label = styled.label`
   width: fit-content;
 `;
 
-const SignInUpInput = ({ name, type, id, validators, onInput }) => {
+const SignInUpInput = ({
+  name,
+  type,
+  id,
+  validators,
+  onInput,
+  readonly,
+  value,
+}) => {
   const initialState = {
-    value: '',
-    isValid: true,
+    value: value || '',
+    isValid: null,
     onBlur: false,
   };
   const [state, dispatch] = useReducer(inputChangeReducer, initialState);
   useEffect(() => {
-    onInput(id, state.value, state.isValid);
-  }, [state.value]);
+    onInput(id, state.value, state.isValid, state.onBlur);
+  }, [state.value, state.isValid]);
 
   const changeHandler = (e) => {
     dispatch({
@@ -45,9 +53,15 @@ const SignInUpInput = ({ name, type, id, validators, onInput }) => {
         type={type}
         onChange={changeHandler}
         validators={validators}
-        className={state?.isValid ? '' : 'invalid'}
-        value={state.value}
-        onBlur={() => dispatch({ type: 'ONBLUR' })}
+        className={!state.isValid && state.onBlur ? 'invalid' : ''}
+        value={value}
+        onBlur={() =>
+          dispatch({
+            type: 'ONBLUR',
+            isValid: validateInputs(validators, state.value),
+          })
+        }
+        readOnly={readonly}
       />
       {!state.isValid && state.onBlur && <span>{`Invalid ${name}!`}</span>}
     </>

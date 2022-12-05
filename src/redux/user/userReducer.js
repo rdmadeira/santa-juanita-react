@@ -1,11 +1,11 @@
-import { checkUser } from '../../utils/formVerifyUser';
+import { createNewUser } from '../../utils/userUtils';
 
-export const userReducer = (state = null, action) => {
+const INITIAL_STATE = {};
+
+export const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'LOG_IN':
-      return {
-        user: checkUser(action.payload),
-      };
+    case 'CREATE_USER':
+      return createNewUser(action.payload.inputs);
 
     default:
       return state;

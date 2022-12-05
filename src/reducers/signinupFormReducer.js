@@ -10,6 +10,20 @@ export const signinupFormReducer = (state, action) => {
         ...state,
         user: action.user,
       };
+    case 'FORM_VALIDATE':
+      return {
+        ...state,
+        isValid: action.isValid,
+      };
+    case 'SUBMIT_CHECK_EMAIL':
+      return {
+        ...state,
+        isLogin: action.isLogin,
+        inputs: action.inputs,
+      };
+    case 'RETURN_CHECK_EMAIL':
+      return action.initialState;
+
     default:
       return state;
   }

@@ -110,8 +110,71 @@ export const AnimationStyles = createGlobalStyle`
       opacity: 0;
     }
   }
+  @keyframes fade-out-right {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+  }
+@keyframes fade-in-right {
+    0% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+@keyframes fade-in-left {
+    0% {
+      -webkit-transform: translateX(-50px);
+              transform: translateX(-50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+@keyframes fade-out-left {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateX(-50px);
+              transform: translateX(-50px);
+      opacity: 0;
+    }
+  }
 
-
+.fade-in-right {
+	-webkit-animation: fade-in-right 0.6s 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-right 0.6s 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-out-left {
+	-webkit-animation: fade-out-left 0.7s 0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: fade-out-left 0.7s 0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.fade-in-left {
+	-webkit-animation: fade-in-left 0.6s 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-left 0.6s 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-out-right {
+	-webkit-animation: fade-out-right 0.7s 0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: fade-out-right 0.7s 0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
 .fade-in-blur-first {
     animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
     -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
