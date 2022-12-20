@@ -177,6 +177,24 @@ const SignInUp = ({ hidden, setHidden }) => {
 
   const closeHandle = () => {
     setHidden(false);
+    setTimeout(
+      () => dispatch({ type: 'RETURN_CHECK_EMAIL', state: initialState }),
+      2000
+    );
+  };
+
+  const setIsLogin = () => {
+    dispatch({
+      type: 'SUBMIT_CHECK_EMAIL',
+      isLogin: true,
+      inputs: {
+        ...state.inputs,
+        password: {
+          value: '',
+          isValid: null,
+        },
+      },
+    });
   };
 
   return (
@@ -221,6 +239,7 @@ const SignInUp = ({ hidden, setHidden }) => {
             inputHandle={inputHandle}
             state={state}
             className={state.isLogin === false ? 'fade-in-right' : ''}
+            setIsLogin={setIsLogin}
           />
         )}
         {state.isLogin === true && (

@@ -22,7 +22,7 @@ export const signinupFormReducer = (state, action) => {
         inputs: action.inputs,
       };
     case 'RETURN_CHECK_EMAIL':
-      return action.initialState;
+      return action.state;
 
     default:
       return state;

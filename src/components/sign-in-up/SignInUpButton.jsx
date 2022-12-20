@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   padding: 1.2vw;
@@ -9,11 +9,17 @@ const Button = styled.button`
   font-size: 1rem;
   border: none;
   cursor: pointer;
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      background: #88446a21;
+    `}
 `;
 
-const SignInUpButton = ({ isLogin }) => {
+const SignInUpButton = ({ isLogin, disabled }) => {
   return (
-    <Button>
+    <Button disabled={disabled}>
       {isLogin === true
         ? 'LOG IN'
         : isLogin === false

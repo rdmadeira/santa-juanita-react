@@ -25,6 +25,7 @@ const SignInUpInput = ({
   onInput,
   readonly,
   value,
+  errorText,
 }) => {
   const initialState = {
     value: value || '',
@@ -63,7 +64,7 @@ const SignInUpInput = ({
         }
         readOnly={readonly}
       />
-      {!state.isValid && state.onBlur && <span>{`Invalid ${name}!`}</span>}
+      {!state.isValid && state.onBlur && <span>{errorText}</span>}
     </>
   );
 };

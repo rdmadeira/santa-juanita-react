@@ -19,7 +19,6 @@ export const validateInputs = (validators = [], value) => {
         isValid && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value);
     }
     if (validator.type === VALIDATOR_REQUIRE) {
-      console.log(VALIDATOR_REQUIRE);
       isValid = isValid && value.trim().length > 0;
     }
     if (validator.type === VALID_MIN_LENGTH) {

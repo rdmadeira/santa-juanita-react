@@ -34,16 +34,29 @@ export const CheckUserForm = ({ inputHandle, state, className, onSubmit }) => {
         validators={[VALIDATE_EMAIL()]}
         ref={emailInput}
         onInput={inputHandle}
+        errorText="Ingrese un email válido"
       />
-      <SignInUpButton isLogin={state.isLogin} />
+      <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
     </Form>
   );
 };
 
 export const LoginForm = ({ state, emailInput, inputHandle, className }) => {
+  // const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+  const goToUserPage = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: 'CREATE_USER',
+      payload: {
+        inputs: state.inputs,
+      },
+    });
+  };
   return (
     <>
-      <Form className={className}>
+      <Form className={className} onSubmit={goToUserPage}>
         <SignInUpInput
           name="email"
           type="email"
@@ -54,35 +67,34 @@ export const LoginForm = ({ state, emailInput, inputHandle, className }) => {
           value={state.inputs.email.value}
           readonly="readonly"
         />
-        {state.isLogin === true ||
-          (state.isLogin === false && (
-            <SignInUpInput
-              name="password"
-              type="password"
-              id="password"
-              validators={[VALIDATE_MIN_LENGTH(6), VALIDATOR_TYPE_REQUIRE()]}
-              onInput={inputHandle}
-            />
-          ))}
-        <SignInUpButton isLogin={state.isLogin} />
+        {state.isLogin === true && (
+          <SignInUpInput
+            name="password"
+            type="password"
+            id="password"
+            validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
+            onInput={inputHandle}
+            errorText="Ingrese mínimo 8 caracteres"
+          />
+        )}
+        <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
       </Form>
     </>
   );
 };
 
-export const SignUpForm = ({ state, emailInput, inputHandle, className }) => {
+export const SignUpForm = ({
+  state,
+  emailInput,
+  inputHandle,
+  className,
+  setIsLogin,
+}) => {
   const users = useSelector((store) => store.users);
-  /*const user = useSelector((store) => store.user); */
   const dispatch = useDispatch();
 
   const submitNewUser = (e) => {
     e.preventDefault();
-    dispatch({
-      type: 'CREATE_USER',
-      payload: {
-        inputs: state.inputs,
-      },
-    });
     dispatch({
       type: 'USER_IN_USERS',
       payload: {
@@ -90,6 +102,7 @@ export const SignUpForm = ({ state, emailInput, inputHandle, className }) => {
         users: users,
       },
     });
+    setIsLogin();
   };
 
   return (
@@ -101,6 +114,7 @@ export const SignUpForm = ({ state, emailInput, inputHandle, className }) => {
           id="name"
           validators={[VALIDATOR_TYPE_REQUIRE()]}
           onInput={inputHandle}
+          errorText="Campo obligatório"
         />
         <SignInUpInput
           name="lastname"
@@ -108,6 +122,7 @@ export const SignUpForm = ({ state, emailInput, inputHandle, className }) => {
           id="lastname"
           validators={[VALIDATOR_TYPE_REQUIRE()]}
           onInput={inputHandle}
+          errorText="Campo obligatório"
         />
         <SignInUpInput
           name="email"
@@ -123,11 +138,12 @@ export const SignUpForm = ({ state, emailInput, inputHandle, className }) => {
           name="password"
           type="password"
           id="password"
-          validators={[VALIDATE_MIN_LENGTH(6), VALIDATOR_TYPE_REQUIRE()]}
+          validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
           onInput={inputHandle}
+          errorText="Ingrese mínimo 8 caracteres"
         />
 
-        <SignInUpButton isLogin={state.isLogin} />
+        <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
       </Form>
     </>
   );
