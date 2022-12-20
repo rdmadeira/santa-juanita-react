@@ -1,7 +1,7 @@
 import React, { useRef /* , useEffect */ } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SignInUpInput from './SignInUpInput.jsx';
-import SignInUpButton from '../signinup/SignInUpButton.jsx';
+import SignInUpButton from './SignInUpButton.jsx';
 
 import {
   VALIDATOR_TYPE_REQUIRE,

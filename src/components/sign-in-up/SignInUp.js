@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import SignInUpInput from '../signinup/SignInUpInput.jsx';
 
-import {
-  SignUpForm,
-  LoginForm,
-  CheckUserForm,
-} from '../signinup/SignInUpForms.jsx';
+import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
 /* import {
   validateInputs,
   VALIDATOR_TYPE_REQUIRE,
