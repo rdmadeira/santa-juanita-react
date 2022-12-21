@@ -3,7 +3,8 @@ export const checkUser = (email, users) => {
   return userLogin ? userLogin : null;
 };
 
-export const checkFormisValid = (obj) => {
+// No se usa más con el hook useForm:
+/* export const checkFormisValid = (obj) => {
   const objArray = Object.values(obj);
   let formValid = true;
 
@@ -13,3 +14,4 @@ export const checkFormisValid = (obj) => {
 
   return formValid;
 };
+ */

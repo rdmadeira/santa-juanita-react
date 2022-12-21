@@ -53,13 +53,16 @@ const useForm = (initialInputs, initialFormValidation) => {
     });
   }, []);
 
-  const setFormData = useCallback((inputData, formValidation) => {
-    dispatch({
-      type: 'SET_DATA',
-      inputs: inputData,
-      isValid: formValidation,
-    });
-  }, []);
+  const setFormData = useCallback(
+    (inputData, formValidation) => {
+      dispatch({
+        type: 'SET_DATA',
+        inputs: inputData,
+        isValid: formValidation,
+      });
+    },
+    [formState.inputs]
+  );
 
   return [formState, inputHandle, setFormData];
 };

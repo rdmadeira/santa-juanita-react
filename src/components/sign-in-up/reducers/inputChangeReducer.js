@@ -13,6 +13,12 @@ export const inputChangeReducer = (state, action) => {
         onBlur: true,
         isValid: action.isValid,
       };
+    case 'RESET_PASSWORD':
+      return {
+        ...state,
+        value: '',
+        isValid: false,
+      };
     default:
       return state;
   }

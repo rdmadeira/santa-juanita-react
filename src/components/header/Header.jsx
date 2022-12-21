@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
@@ -42,6 +43,7 @@ const StyledLoginSignUp = styled.div`
 `;
 
 const Header = ({ hidden, setHiddenSignInUp }) => {
+  const user = useSelector((store) => store.user);
   const toggleHiddenSignInUpSection = () => {
     setHiddenSignInUp(!hidden);
   };
@@ -54,7 +56,7 @@ const Header = ({ hidden, setHiddenSignInUp }) => {
         <HeaderMenu></HeaderMenu>
       </StyledNav>
       <StyledLoginSignUp onClick={toggleHiddenSignInUpSection}>
-        <span>Login / SignUp</span>
+        <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>
       </StyledLoginSignUp>
     </StyledHeader>
   );

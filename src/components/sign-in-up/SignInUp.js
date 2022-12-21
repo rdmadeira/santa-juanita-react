@@ -1,8 +1,10 @@
-import React, { useReducer, useCallback, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, {
+  useState /* , useReducer, useCallback, useEffect */,
+} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import SignInUpInput from '../signinup/SignInUpInput.jsx';
-
+import useForm from '../../hooks/useForm.js';
 import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
 /* import {
   validateInputs,
@@ -10,9 +12,9 @@ import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
   VALIDATE_MIN_LENGTH,
 } from '../../utils/validateInputs'; */
 import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
-import { useSelector } from 'react-redux';
-import { signinupFormReducer } from '../../reducers/signinupFormReducer';
-import { checkUser, checkFormisValid } from '../../utils/formVerifyUser.js';
+import { useSelector, useDispatch } from 'react-redux';
+// import { signinupFormReducer } from '../../reducers/signinupFormReducer';
+import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
@@ -98,25 +100,79 @@ const RedesButtonsStyled = styled.div`
 
 const SignInUp = ({ hidden, setHidden }) => {
   const users = useSelector((store) => store.users);
-  const initialState = {
-    inputs: { email: { value: '', isValid: false, onblur: false } },
-    isValid: false,
+  // const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isLogin, setIsLogin] = useState(null);
+  const [isValidPassword, setIsValidPassword] = useState(null);
+
+  /* const initialState = {
     isLogin: null,
     user: null, //prueba!!
+  
+  }; */
+  const initialInputs = {
+    email: { value: '', isValid: false, onblur: false },
   };
-  const [state, dispatch] = useReducer(signinupFormReducer, initialState);
-  useEffect(() => {
+
+  const [formState, inputHandle, setFormData] = useForm(initialInputs, false);
+
+  // const [state, dispatch] = useReducer(signinupFormReducer, initialState);
+
+  /* useEffect(() => {
     dispatch({
       type: 'FORM_VALIDATE',
       isValid: checkFormisValid(state.inputs),
     });
-  }, [state.inputs, state.isValid]);
+  }, [state.inputs, state.isValid]); */
 
   //const user = useSelector((store) => store.user);
 
-  const submitCheckEmailHandle = (e) => {
+  const submitCheckEmailHandler = (e) => {
     e.preventDefault();
-    state.isValid &&
+    let checkedUser = checkUser(formState.inputs.email.value, users);
+    if (checkedUser === null) {
+      setIsLogin(false);
+      setFormData(
+        {
+          ...formState.inputs,
+          name: {
+            value: '',
+            isValid: false,
+            onBlur: false,
+          },
+          lastname: {
+            value: '',
+            isValid: false,
+            onBlur: false,
+          },
+          password: {
+            value: '',
+            isValid: false,
+            onBlur: false,
+          },
+        },
+        false
+      );
+      return;
+    }
+    if (checkedUser) {
+      setIsLogin(true);
+      setFormData(
+        {
+          ...formState.inputs,
+          password: {
+            value: '',
+            isValid: false,
+            onBlur: false,
+          },
+        },
+        false
+      );
+    }
+    return;
+    /* formState.isValid &&
       state.user &&
       dispatch({
         type: 'SUBMIT_CHECK_EMAIL',
@@ -154,8 +210,23 @@ const SignInUp = ({ hidden, setHidden }) => {
         },
       });
   };
+ */
+  };
 
-  const inputHandle = useCallback(
+  const loginHandle = (e) => {
+    e.preventDefault();
+    let passwordValue = formState.inputs.password.value;
+    let user = checkUser(formState.inputs.email.value, users);
+    if (passwordValue === user.password) {
+      setIsValidPassword(true);
+      dispatch({ type: 'SET_USER', user: user });
+      navigate('/user');
+      return;
+    }
+
+    setIsValidPassword(false);
+  };
+  /* const inputHandle = useCallback(
     (id, value, isValid, onBlur) => {
       if (id === 'email') {
         dispatch({ type: 'CHECK_USER', user: checkUser(value, users) });
@@ -173,29 +244,22 @@ const SignInUp = ({ hidden, setHidden }) => {
       });
     },
     [state.inputs]
-  );
+  ); */
 
   const closeHandle = () => {
     setHidden(false);
-    setTimeout(
-      () => dispatch({ type: 'RETURN_CHECK_EMAIL', state: initialState }),
-      2000
-    );
+    setTimeout(() => {
+      setIsLogin(null);
+      setFormData(initialInputs, false);
+    }, 2000);
   };
 
-  const setIsLogin = () => {
+  /* const setIsLogin = (boolean) => {
     dispatch({
       type: 'SUBMIT_CHECK_EMAIL',
-      isLogin: true,
-      inputs: {
-        ...state.inputs,
-        password: {
-          value: '',
-          isValid: null,
-        },
-      },
+      isLogin: boolean,
     });
-  };
+  }; */
 
   return (
     <SignInUpContainer
@@ -208,42 +272,48 @@ const SignInUp = ({ hidden, setHidden }) => {
       }>
       <CloseButton onClick={closeHandle}>x</CloseButton>
       <FormContainer>
-        {state.isLogin !== null && (
+        {isLogin !== null && (
           <SpanStyled
             onClick={() => {
-              return dispatch({
-                type: 'RETURN_CHECK_EMAIL',
-                initialState: initialState,
-              });
+              setFormData(initialInputs, false);
+              setIsLogin(null);
             }}
             className="fade-in-right">
             Back
           </SpanStyled>
         )}
         <h3>
-          {state.isLogin === null
+          {isLogin === null
             ? 'INGRESÁ O CREÁ SU CUENTA'
-            : state.isLogin
+            : isLogin
             ? 'INGRESÁ'
             : 'CREÁ SU CUENTA'}
         </h3>
-        {state.isLogin === null && (
+        {isLogin === null && (
           <CheckUserForm
             inputHandle={inputHandle}
-            state={state}
-            onSubmit={submitCheckEmailHandle}
+            setFormData={setFormData}
+            isLogin={isLogin}
+            formState={formState}
+            onSubmit={submitCheckEmailHandler}
           />
         )}
-        {state.isLogin === false && (
+        {isLogin === false && (
           <SignUpForm
             inputHandle={inputHandle}
-            state={state}
-            className={state.isLogin === false ? 'fade-in-right' : ''}
-            setIsLogin={setIsLogin}
+            className={isLogin === false ? 'fade-in-right' : ''}
+            isLogin={isLogin}
+            formState={formState}
           />
         )}
-        {state.isLogin === true && (
-          <LoginForm state={state} inputHandle={inputHandle} />
+        {isLogin === true && (
+          <LoginForm
+            inputHandle={inputHandle}
+            formState={formState}
+            onSubmit={loginHandle}
+            isValidPassword={isValidPassword}
+            setIsValidPassword={setIsValidPassword}
+          />
         )}
       </FormContainer>
       <FormContainer>

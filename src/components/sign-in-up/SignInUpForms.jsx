@@ -7,7 +7,7 @@ import {
   VALIDATOR_TYPE_REQUIRE,
   VALIDATE_EMAIL,
   VALIDATE_MIN_LENGTH,
-} from '../../utils/validateInputs';
+} from '../../utils/form_utils/validateInputs';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -22,7 +22,13 @@ const Form = styled.form`
   transition: all 0.5s ease;
 `;
 
-export const CheckUserForm = ({ inputHandle, state, className, onSubmit }) => {
+export const CheckUserForm = ({
+  inputHandle,
+  isLogin,
+  formState,
+  className,
+  onSubmit,
+}) => {
   const emailInput = useRef();
 
   return (
@@ -36,27 +42,36 @@ export const CheckUserForm = ({ inputHandle, state, className, onSubmit }) => {
         onInput={inputHandle}
         errorText="Ingrese un email válido"
       />
-      <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
+      <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
     </Form>
   );
 };
 
-export const LoginForm = ({ state, emailInput, inputHandle, className }) => {
+export const LoginForm = ({
+  formState,
+  isLogin,
+  emailInput,
+  inputHandle,
+  className,
+  onSubmit,
+  isValidPassword,
+  setIsValidPassword,
+}) => {
   // const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
+  /*  const dispatch = useDispatch();
 
   const goToUserPage = (e) => {
     e.preventDefault();
     dispatch({
       type: 'CREATE_USER',
       payload: {
-        inputs: state.inputs,
+        inputs: formState.inputs,
       },
     });
-  };
+  }; */
   return (
     <>
-      <Form className={className} onSubmit={goToUserPage}>
+      <Form className={className} onSubmit={onSubmit}>
         <SignInUpInput
           name="email"
           type="email"
@@ -64,30 +79,37 @@ export const LoginForm = ({ state, emailInput, inputHandle, className }) => {
           validators={[VALIDATE_EMAIL()]}
           ref={emailInput}
           onInput={inputHandle}
-          value={state.inputs.email.value}
+          value={formState.inputs.email.value}
+          isValid={true}
           readonly="readonly"
         />
-        {state.isLogin === true && (
-          <SignInUpInput
-            name="password"
-            type="password"
-            id="password"
-            validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
-            onInput={inputHandle}
-            errorText="Ingrese mínimo 8 caracteres"
-          />
-        )}
-        <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
+        <SignInUpInput
+          name="password"
+          type="password"
+          id="password"
+          validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
+          onInput={inputHandle}
+          isValidPassword={isValidPassword}
+          setIsValidPassword={setIsValidPassword}
+          errorText={
+            isValidPassword === false
+              ? 'Contraseña incorrecta'
+              : 'Ingrese mínimo 8 caracteres'
+          } // Encontrar un estado para error de password
+        />
+
+        <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
       </Form>
     </>
   );
 };
 
 export const SignUpForm = ({
-  state,
+  formState,
   emailInput,
   inputHandle,
   className,
+  isLogin,
   setIsLogin,
 }) => {
   const users = useSelector((store) => store.users);
@@ -98,11 +120,11 @@ export const SignUpForm = ({
     dispatch({
       type: 'USER_IN_USERS',
       payload: {
-        inputs: state.inputs,
+        inputs: formState.inputs,
         users: users,
       },
     });
-    setIsLogin();
+    setIsLogin(true);
   };
 
   return (
@@ -131,7 +153,7 @@ export const SignUpForm = ({
           validators={[VALIDATE_EMAIL()]}
           ref={emailInput}
           onInput={inputHandle}
-          value={state.inputs.email.value}
+          value={formState.inputs.email.value}
           readonly="readonly"
         />
         <SignInUpInput
@@ -143,7 +165,7 @@ export const SignUpForm = ({
           errorText="Ingrese mínimo 8 caracteres"
         />
 
-        <SignInUpButton isLogin={state.isLogin} disabled={!state.isValid} />
+        <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
       </Form>
     </>
   );
