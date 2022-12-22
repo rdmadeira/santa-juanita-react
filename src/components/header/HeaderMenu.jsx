@@ -13,7 +13,7 @@ const StyledMenu = styled.ul`
   margin-top: 10px;
 `;
 
-export const HeaderMenu = () => {
+export const HeaderMenu = ({ menu }) => {
   const [showProductos, setshowProductos] = useState(false);
 
   const disappearSubmenu = () => {
@@ -21,7 +21,34 @@ export const HeaderMenu = () => {
   };
   return (
     <StyledMenu>
-      <LinkContainer>
+      {menu.map((li) => {
+        if (li.children) {
+          return (
+            <LinkContainer
+              key={li.name}
+              style={{ position: 'relative' }}
+              onMouseOver={() => setshowProductos(true)}
+              onMouseLeave={disappearSubmenu}>
+              <NavLink relative="route" to={li.linkTo}>
+                {li.name}
+              </NavLink>
+              {showProductos === true ? (
+                <SubmenuProductos submenu={li.children}></SubmenuProductos>
+              ) : (
+                ''
+              )}
+            </LinkContainer>
+          );
+        } else {
+          return (
+            <LinkContainer key={li.name}>
+              <NavLink to={li.linkTo}>{li.name}</NavLink>
+            </LinkContainer>
+          );
+        }
+      })}
+
+      {/* <LinkContainer>
         <NavLink to="/">Home</NavLink>
       </LinkContainer>
       <LinkContainer
@@ -37,7 +64,7 @@ export const HeaderMenu = () => {
       <LinkContainer
         style={{ padding: '7px 15px 7px 15px', cursor: 'pointer' }}>
         Contacto
-      </LinkContainer>
+      </LinkContainer> */}
     </StyledMenu>
   );
 };

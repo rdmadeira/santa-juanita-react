@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
-//import { Link } from 'react-router-dom';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -42,18 +42,22 @@ const StyledLoginSignUp = styled.div`
   cursor: pointer;
 `;
 
-const Header = ({ hidden, setHiddenSignInUp }) => {
+const Header = ({ hidden, setHiddenSignInUp, menu }) => {
   const user = useSelector((store) => store.user);
+  const navigate = useNavigate();
   const toggleHiddenSignInUpSection = () => {
-    setHiddenSignInUp(!hidden);
+    !user && setHiddenSignInUp(!hidden);
+    user && navigate('/user');
   };
 
   return (
     <StyledHeader>
-      <Logo></Logo>
+      <NavLink to="/">
+        <Logo></Logo>
+      </NavLink>
       <StyledNav>
         <h1>Santa Juanita - Mimos al Alma</h1>
-        <HeaderMenu></HeaderMenu>
+        <HeaderMenu menu={menu}></HeaderMenu>
       </StyledNav>
       <StyledLoginSignUp onClick={toggleHiddenSignInUpSection}>
         <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>

@@ -28,21 +28,18 @@ export const LinkContainer = styled.li`
   }
 `;
 
-export const SubmenuProductos = () => {
+export const SubmenuProductos = ({ submenu }) => {
   return (
     <StyledSubmenuProductos>
-      <LinkContainer>
-        <NavLink to="/velas">Velas</NavLink>
-      </LinkContainer>
-      <LinkContainer>
-        <NavLink to="/difusores">Difusores</NavLink>
-      </LinkContainer>
-      <LinkContainer>
-        <NavLink to="/sales">Sales de baño</NavLink>
-      </LinkContainer>
-      <LinkContainer>
-        <NavLink to="/bombas">Bombas Efervecentes</NavLink>
-      </LinkContainer>
+      {submenu.map((li) => {
+        return (
+          <LinkContainer key={li.name}>
+            <NavLink relative="route" to={li.linkTo}>
+              {li.name}
+            </NavLink>
+          </LinkContainer>
+        );
+      })}
     </StyledSubmenuProductos>
   );
 };

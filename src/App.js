@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
-import Header from './components/header/Header.jsx';
-import Footer from './components/footer/Footer.jsx';
+// import Header from './components/header/Header.jsx';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Velas from './pages/Velas';
@@ -11,19 +10,8 @@ import Bombas from './pages/Bombas';
 import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
 import User from './pages/User';
-import { Outlet, createBrowserRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import SignInUp from './components/sign-in-up/SignInUp';
-import { useSelector } from 'react-redux';
-
-const StyledMain = styled.main`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  background: #c99191b3;
-`;
+import { createBrowserRouter, Outlet } from 'react-router-dom';
+import Index from './pages/Index';
 
 export const router = createBrowserRouter([
   {
@@ -31,54 +19,75 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        element: <Home />,
+        element: <Index />,
         path: '/',
+        children: [
+          {
+            element: <Home />,
+            path: '/',
+          },
+          {
+            path: '/productos',
+            element: <Products />,
+          },
+          {
+            element: <Velas />,
+            path: '/velas',
+          },
+          {
+            element: <Sales />,
+            path: '/sales',
+          },
+          {
+            element: <Difusores />,
+            path: '/difusores',
+          },
+          {
+            element: <Bombas />,
+            path: '/bombas',
+          },
+          {
+            element: <Galeria />,
+            path: '/gallery',
+          },
+        ],
       },
       {
-        path: '/products',
-        element: <Products />,
-      },
-      {
-        element: <Velas />,
-        path: '/velas',
-      },
-      {
-        element: <Sales />,
-        path: '/sales',
-      },
-      {
-        element: <Difusores />,
-        path: '/difusores',
-      },
-      {
-        element: <Bombas />,
-        path: '/bombas',
-      },
-      {
-        element: <Galeria />,
-        path: '/gallery',
-      },
-      {
-        path: '/user',
+        path: 'user',
         element: <User />,
+        children: [
+          {
+            path: 'productos',
+            element: <Products />,
+          },
+          {
+            element: <Velas />,
+            path: 'velas',
+          },
+          {
+            element: <Sales />,
+            path: 'sales',
+          },
+          {
+            element: <Difusores />,
+            path: 'difusores',
+          },
+          {
+            element: <Bombas />,
+            path: 'bombas',
+          },
+        ],
       },
     ],
   },
 ]);
-function App() {
-  const [hiddenSignInUp, setHiddenSignInUp] = useState(undefined);
-  const user = useSelector((store) => store.user);
 
+function App() {
   return (
     <>
       <GlobalStyle />
       <AnimationStyles />
-      <Header setHiddenSignInUp={setHiddenSignInUp} hidden={hiddenSignInUp} />
-      <StyledMain user={user}>
-        <SignInUp hidden={hiddenSignInUp} setHidden={setHiddenSignInUp} />
-        <Outlet />
-      </StyledMain>
-      <Footer />
+      <Outlet />
     </>
   );
 }
