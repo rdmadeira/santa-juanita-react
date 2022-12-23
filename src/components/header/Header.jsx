@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
-import { HeaderMenu } from './HeaderMenu.jsx';
+/* import LogoutLogo from '../../assets/logout_logo/logout.svg';
+ */ import { HeaderMenu } from './HeaderMenu.jsx';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -34,25 +35,37 @@ const StyledLoginSignUp = styled.div`
   right: 0;
   display: flex;
   align-items: center;
-  column-gap: 1vw;
+  column-gap: 10px;
   color: var(--twilight-lavender);
   font-size: var(--step--1);
-  border-bottom: 1px solid var(--twilight-lavender);
+  /*   border-bottom: 1px solid var(--twilight-lavender);
+ */
   margin: 0 2vw;
   cursor: pointer;
+  padding: 10px 3px;
+  &:hover {
+    background-color: #ebd9e3;
+  }
+`;
+
+const LogoutLogo = styled.img`
+  width: 20px;
+  height: 20px;
 `;
 
 const Header = ({ hidden, setHiddenSignInUp, menu }) => {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const toggleHiddenSignInUpSection = () => {
     !user && setHiddenSignInUp(!hidden);
-    user && navigate('/user');
+    user && dispatch({ type: 'LOGOUT' }) && navigate('/');
   };
 
   return (
     <StyledHeader>
-      <NavLink to="/">
+      <NavLink to={user ? '/user' : '/'}>
         <Logo></Logo>
       </NavLink>
       <StyledNav>
@@ -61,6 +74,12 @@ const Header = ({ hidden, setHiddenSignInUp, menu }) => {
       </StyledNav>
       <StyledLoginSignUp onClick={toggleHiddenSignInUpSection}>
         <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>
+        {user && (
+          <LogoutLogo
+            src={
+              process.env.PUBLIC_URL + '/assets/logout_logo/logout.svg'
+            }></LogoutLogo>
+        )}
       </StyledLoginSignUp>
     </StyledHeader>
   );

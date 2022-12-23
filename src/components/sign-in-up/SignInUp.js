@@ -117,7 +117,7 @@ const SignInUp = ({ hidden, setHidden }) => {
   };
 
   const [formState, inputHandle, setFormData] = useForm(initialInputs, false);
-
+  console.log(formState);
   // const [state, dispatch] = useReducer(signinupFormReducer, initialState);
 
   /* useEffect(() => {
@@ -132,11 +132,15 @@ const SignInUp = ({ hidden, setHidden }) => {
   const submitCheckEmailHandler = (e) => {
     e.preventDefault();
     let checkedUser = checkUser(formState.inputs.email.value, users);
+
+    // console.log(checkedUser);
+
     if (checkedUser === null) {
       setIsLogin(false);
       setFormData(
         {
           ...formState.inputs,
+
           name: {
             value: '',
             isValid: false,
@@ -220,7 +224,8 @@ const SignInUp = ({ hidden, setHidden }) => {
     if (passwordValue === user.password) {
       setIsValidPassword(true);
       dispatch({ type: 'SET_USER', user: user });
-      navigate('/user');
+      setHidden(undefined);
+      navigate('/user/productos');
       return;
     }
 
@@ -303,6 +308,7 @@ const SignInUp = ({ hidden, setHidden }) => {
             inputHandle={inputHandle}
             className={isLogin === false ? 'fade-in-right' : ''}
             isLogin={isLogin}
+            setIsLogin={setIsLogin}
             formState={formState}
           />
         )}

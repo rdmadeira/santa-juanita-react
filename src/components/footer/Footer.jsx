@@ -33,22 +33,22 @@ const Footer = () => {
       <LogoFooter />
       <SocialLogosContainer>
         <SocialLogo
-          imageUrl="./assets/instagram-logo-2.svg"
+          imageUrl={process.env.PUBLIC_URL + '/assets/instagram-logo-2.svg'}
           name="instagram"
           link="https://www.instagram.com/santajuanitaok/"
         />
         <SocialLogo
-          imageUrl="./assets/whatsapp-logo.svg"
+          imageUrl={process.env.PUBLIC_URL + '/assets/whatsapp-logo.svg'}
           name="whatsapp"
           link="https://api.whatsapp.com/send?phone=5491153429939&text=Deja%20Aqui%20Tu%20Mensaje"
         />
         <SocialLogo
-          imageUrl="./assets/face-logo.svg"
+          imageUrl={process.env.PUBLIC_URL + '/assets/face-logo.svg'}
           name="facebook"
           link="#"
         />
         <SocialLogo
-          imageUrl="./assets/twitter-logo.svg"
+          imageUrl={process.env.PUBLIC_URL + '/assets/twitter-logo.svg'}
           name="twitter"
           link="#"
         />

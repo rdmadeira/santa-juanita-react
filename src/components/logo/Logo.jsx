@@ -13,7 +13,7 @@ const Logo = () => {
   return (
     <LogoDiv>
       <img
-        src="./assets/logo.png"
+        src={process.env.PUBLIC_URL + '/assets/logo.png'}
         alt="logo-of-santa-juanita"
         width="100%"
         height="auto"

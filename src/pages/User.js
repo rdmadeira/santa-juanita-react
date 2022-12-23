@@ -12,10 +12,7 @@ const User = () => {
       <AnimationStyles />
       <Header
         menu={[
-          {
-            name: 'Home',
-            linkTo: '/user',
-          },
+          { name: 'Home', linkTo: '/user' },
           {
             name: 'Productos',
             linkTo: 'productos',
@@ -26,6 +23,8 @@ const User = () => {
               { name: 'Bombas efervecentes', linkTo: 'bombas' },
             ],
           },
+          { name: 'Galeria', linkTo: 'galeria' },
+          { name: 'Contacto', linkTo: 'contacto' },
         ]}
       />
       <Outlet />

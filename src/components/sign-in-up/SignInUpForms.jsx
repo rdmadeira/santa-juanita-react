@@ -154,6 +154,7 @@ export const SignUpForm = ({
           ref={emailInput}
           onInput={inputHandle}
           value={formState.inputs.email.value}
+          isValid={formState.inputs.email.isValid}
           readonly="readonly"
         />
         <SignInUpInput
