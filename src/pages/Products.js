@@ -1,20 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
-import ProductosMain from '../components/Productos/ProductosMain';
-
-const StyledMain = styled.main`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  background: #c99191b3;
-`;
+import { useSelector } from 'react-redux';
+import ProductosMain from '../components/Productos/ProductosMain.jsx';
+import { StyledMain } from '../components/Productos/StyledMain.jsx';
 
 const Products = () => {
+  let productos = useSelector((store) => store.productos?.todoslosproductos);
   return (
     <StyledMain>
-      <ProductosMain />
+      <ProductosMain productos={productos} />
     </StyledMain>
   );
 };

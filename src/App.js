@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux/es/exports';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
+import { getProducts } from './redux/productos/productosActions';
 // import Header from './components/header/Header.jsx';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -87,6 +89,11 @@ export const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   return (
     <>
       <GlobalStyle />

@@ -4,12 +4,13 @@ import styled from 'styled-components';
 const LoadingContain = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-color: var(--lavender-blush);
   flex-direction: column;
   padding: 5vw 5vw;
   color: var(--thistle);
+  height: 100vh;
 `;
 
 const LoadingPage = () => {

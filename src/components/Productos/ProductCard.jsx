@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const ProductCtn = styled.div`
@@ -40,7 +40,22 @@ const SizeSelect = styled.select`
   margin-left: 7px;
 `;
 
+const BtnAgregar = styled.button`
+  padding: 6px;
+  width: 50%;
+  align-self: center;
+  color: var(--snow);
+  background-color: var(--mulberry);
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--pink-lavender);
+  }
+`;
+
 export const ProductCard = ({ producto }) => {
+  const [size, setSize] = useState('medium');
+
   return (
     <>
       <ProductCtn>
@@ -48,12 +63,17 @@ export const ProductCard = ({ producto }) => {
         <h3 style={{ padding: '0 7px' }}>{producto.name}</h3>
         <ProductDescription>{producto.description}</ProductDescription>
         {producto.type === 'vela' && (
-          <SizeSelect>
+          <SizeSelect onChange={(e) => setSize(e.target.value)}>
             <option value="medium">Mediano</option>
             <option value="big">Grande</option>
           </SizeSelect>
         )}
-        <ProductPrice>{producto.price}</ProductPrice>
+        <BtnAgregar>Agregar al Carrito</BtnAgregar>
+        <ProductPrice>
+          {producto.type === 'vela'
+            ? producto.content[size].price
+            : producto.price}
+        </ProductPrice>
       </ProductCtn>
     </>
   );
