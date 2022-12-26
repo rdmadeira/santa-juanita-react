@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
-/* import LogoutLogo from '../../assets/logout_logo/logout.svg';
- */ import { HeaderMenu } from './HeaderMenu.jsx';
+import { HeaderMenu } from './HeaderMenu.jsx';
+import { Cart } from './Cart.jsx';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -81,6 +81,7 @@ const Header = ({ hidden, setHiddenSignInUp, menu }) => {
             }></LogoutLogo>
         )}
       </StyledLoginSignUp>
+      {user && <Cart user={user} />}
     </StyledHeader>
   );
 };

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { addToCart } from '../../redux/cart/cartActions';
+import { device } from '../../styles/media_queries/mediaQueries';
+import { formatPrices } from '../../utils/products_utils/formatPrices';
 
 const ProductCtn = styled.div`
   display: flex;
@@ -11,13 +15,39 @@ const ProductCtn = styled.div`
   border-radius: 15px 15px 15px 0;
   color: var(--opera-mauve);
   transition: 0.4s transform ease-out;
+  @media ${device.laptop} {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 48%;
+  } ;
 `;
 
+const ProductImage = styled.img`
+  aspect-ratio: 1.85;
+  @media ${device.laptop} {
+    width: 50%;
+    height: 213px;
+    border-radius: 0 0 15px 0;
+  }
+`;
+
+const ProductTitle = styled.h3`
+  padding: 0 7px;
+  @media ${device.laptop} {
+    width: 50%;
+    order: 1;
+  }
+`;
 const ProductDescription = styled.p`
   font-size: 15px;
   line-height: 1.5;
   flex: auto;
   padding: 0px 7px;
+  @media ${device.laptop} {
+    order: 0;
+    width: 50%;
+    padding: 5px 10px;
+  }
 `;
 
 const ProductPrice = styled.p`
@@ -30,6 +60,9 @@ const ProductPrice = styled.p`
   width: 100%;
   text-align: end;
   border-radius: 0 0 15px 0;
+  @media ${device.laptop} {
+    order: 3;
+  }
 `;
 
 const SizeSelect = styled.select`
@@ -38,6 +71,10 @@ const SizeSelect = styled.select`
   color: var(--pink-lavender);
   padding: 5px 5px;
   margin-left: 7px;
+  @media ${device.laptop} {
+    order: 2;
+    width: unset;
+  }
 `;
 
 const BtnAgregar = styled.button`
@@ -51,16 +88,31 @@ const BtnAgregar = styled.button`
   &:hover {
     background-color: var(--pink-lavender);
   }
+  @media ${device.laptop} {
+    order: 2;
+    width: 28%;
+    margin-left: 10px;
+  }
 `;
 
-export const ProductCard = ({ producto }) => {
+export const ProductCard = ({ producto /* , setHiddenSignInUp */ }) => {
   const [size, setSize] = useState('medium');
+  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+  const addItemToCart = (prod) => {
+    console.log(prod);
+    user && dispatch(addToCart(prod));
+    /* !user && setHiddenSignInUp(false); */
+  };
 
   return (
     <>
       <ProductCtn>
-        <img src={producto.img} alt={producto.name} />
-        <h3 style={{ padding: '0 7px' }}>{producto.name}</h3>
+        <ProductImage src={producto.img} alt={producto.name} />
+        <ProductTitle style={{ padding: '0 7px' }}>
+          {producto.name}
+        </ProductTitle>
         <ProductDescription>{producto.description}</ProductDescription>
         {producto.type === 'vela' && (
           <SizeSelect onChange={(e) => setSize(e.target.value)}>
@@ -68,11 +120,13 @@ export const ProductCard = ({ producto }) => {
             <option value="big">Grande</option>
           </SizeSelect>
         )}
-        <BtnAgregar>Agregar al Carrito</BtnAgregar>
+        <BtnAgregar onClick={() => addItemToCart(producto)}>
+          Agregar al Carrito
+        </BtnAgregar>
         <ProductPrice>
           {producto.type === 'vela'
-            ? producto.content[size].price
-            : producto.price}
+            ? formatPrices(producto.content[size].price)
+            : formatPrices(producto.price)}
         </ProductPrice>
       </ProductCtn>
     </>
