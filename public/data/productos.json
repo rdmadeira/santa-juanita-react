@@ -1,7 +1,7 @@
 {
   "velas": {
     "article": {
-      "img": "./assets/velas-5.jpg",
+      "img": "/assets/velas-5.jpg",
       "alt_img_txt": "vela-de-soja",
       "title": "Velas de Soja",
       "sub_title": "Qué es la cera de soja y qué beneficios tiene?",
@@ -109,7 +109,7 @@
   },
   "difusores": {
     "article": {
-      "img": "./assets/difusores-3.jpg",
+      "img": "/assets/difusores-3.jpg",
       "alt_img_txt": "difusores-de-varillas",
       "title": "Difusores de Varillas",
       "sub_title": "Qué es un Difusor de Varillas?",
@@ -177,7 +177,7 @@
   },
   "sales": {
     "article": {
-      "img": "./assets/sales-2.jpg",
+      "img": "/assets/sales-2.jpg",
       "alt_img_txt": "sales-de-baño",
       "title": "Sales de Baño",
       "sub_title": "Que beneficios traen los baños con sales?",
@@ -234,7 +234,7 @@
   },
   "bombas": {
     "article": {
-      "img": "./assets/bomba-efervescente-3.jpeg",
+      "img": "/assets/bomba-efervescente-3.jpeg",
       "alt_img_txt": "bombas-efervecentes-para-baño",
       "title": "Bombas Efervecentes para Baño",
       "sub_title": "Bombas de baño para relajarse entre burbujas",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React /* , { useState } */ from 'react';
 import Header from '../components/header/Header.jsx';
 import Footer from '../components/footer/Footer.jsx';
 import { Outlet } from 'react-router-dom';
@@ -16,13 +16,14 @@ const StyledMain = styled.main`
 `;
 
 const Index = () => {
-  const [hiddenSignInUp, setHiddenSignInUp] = useState(undefined);
+  // const [hiddenSignInUp, setHiddenSignInUp] = useState(undefined);
+
   const user = useSelector((store) => store.user);
   return (
     <>
       <Header
-        setHiddenSignInUp={setHiddenSignInUp}
-        hidden={hiddenSignInUp}
+        /* setHiddenSignInUp={setHiddenSignInUp}
+        hidden={hiddenSignInUp} */
         menu={[
           { name: 'Home', linkTo: '/' },
           {
@@ -40,7 +41,7 @@ const Index = () => {
         ]}
       />
       <StyledMain user={user}>
-        <SignInUp hidden={hiddenSignInUp} setHidden={setHiddenSignInUp} />
+        <SignInUp /* hidden={hiddenSignInUp} setHidden={setHiddenSignInUp} */ />
         <Outlet />
       </StyledMain>
       <Footer />

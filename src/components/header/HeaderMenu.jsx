@@ -25,7 +25,7 @@ export const HeaderMenu = ({ menu }) => {
         if (li.children) {
           return (
             <LinkContainer
-              key={li.name}
+              key={Math.random().toString()}
               style={{ position: 'relative' }}
               onMouseOver={() => setshowProductos(true)}
               onMouseLeave={disappearSubmenu}>

@@ -101,7 +101,6 @@ export const ProductCard = ({ producto /* , setHiddenSignInUp */ }) => {
   const dispatch = useDispatch();
 
   const addItemToCart = (prod) => {
-    console.log(prod);
     user && dispatch(addToCart(prod));
     /* !user && setHiddenSignInUp(false); */
   };
@@ -121,7 +120,7 @@ export const ProductCard = ({ producto /* , setHiddenSignInUp */ }) => {
           </SizeSelect>
         )}
         <BtnAgregar onClick={() => addItemToCart(producto)}>
-          Agregar al Carrito
+          {user ? 'Agregar al Carrito' : 'Entrá en su tienda'}
         </BtnAgregar>
         <ProductPrice>
           {producto.type === 'vela'

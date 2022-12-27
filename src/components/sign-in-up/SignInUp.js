@@ -15,6 +15,7 @@ import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
+import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
@@ -98,8 +99,9 @@ const RedesButtonsStyled = styled.div`
   border-radius: 3px;
 `;
 
-const SignInUp = ({ hidden, setHidden }) => {
+const SignInUp = (/* { hidden, setHidden } */) => {
   const users = useSelector((store) => store.users);
+  const isHidden = useSelector((store) => store.hiddenSignUp);
   // const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -117,8 +119,8 @@ const SignInUp = ({ hidden, setHidden }) => {
   };
 
   const [formState, inputHandle, setFormData] = useForm(initialInputs, false);
-  console.log(formState);
-  // const [state, dispatch] = useReducer(signinupFormReducer, initialState);
+  /*   console.log(formState);
+   */ // const [state, dispatch] = useReducer(signinupFormReducer, initialState);
 
   /* useEffect(() => {
     dispatch({
@@ -224,8 +226,10 @@ const SignInUp = ({ hidden, setHidden }) => {
     if (passwordValue === user.password) {
       setIsValidPassword(true);
       dispatch({ type: 'SET_USER', user: user });
-      setHidden(undefined);
-      navigate('/user/productos');
+      /*       setHidden(undefined);
+       */
+      dispatch(hiddenSignUpAction(null));
+      navigate(`/users/${user.id}/productos`);
       return;
     }
 
@@ -252,7 +256,7 @@ const SignInUp = ({ hidden, setHidden }) => {
   ); */
 
   const closeHandle = () => {
-    setHidden(false);
+    dispatch(hiddenSignUpAction(false));
     setTimeout(() => {
       setIsLogin(null);
       setFormData(initialInputs, false);
@@ -269,9 +273,9 @@ const SignInUp = ({ hidden, setHidden }) => {
   return (
     <SignInUpContainer
       className={
-        hidden === false
+        isHidden === false
           ? 'slide-out-top'
-          : hidden === true
+          : isHidden === true
           ? 'bounce-in-top'
           : ''
       }>

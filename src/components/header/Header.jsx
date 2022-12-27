@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { Cart } from './Cart.jsx';
+import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -53,19 +54,20 @@ const LogoutLogo = styled.img`
   height: 20px;
 `;
 
-const Header = ({ hidden, setHiddenSignInUp, menu }) => {
+const Header = ({ menu }) => {
   const user = useSelector((store) => store.user);
+  const hiddenSignInUp = useSelector((store) => store.hiddenSignUp);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const toggleHiddenSignInUpSection = () => {
-    !user && setHiddenSignInUp(!hidden);
+    !user && dispatch(hiddenSignUpAction(!hiddenSignInUp));
     user && dispatch({ type: 'LOGOUT' }) && navigate('/');
   };
 
   return (
     <StyledHeader>
-      <NavLink to={user ? '/user' : '/'}>
+      <NavLink to={user ? `/users/${user.id}` : '/'}>
         <Logo></Logo>
       </NavLink>
       <StyledNav>

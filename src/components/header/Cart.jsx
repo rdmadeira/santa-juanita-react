@@ -12,7 +12,7 @@ const CartContainer = styled.div`
   transition: 0.6s ease all;
   bottom: 20px;
   right: 20px;
-  z-index: 5;
+  z-index: 3;
   cursor: pointer;
   &:hover {
     opacity: 1;

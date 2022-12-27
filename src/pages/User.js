@@ -4,15 +4,17 @@ import { AnimationStyles } from '../styles/AnimationStyles';
 import Header from '../components/header/Header.jsx';
 import { Outlet } from 'react-router-dom';
 import Footer from '../components/footer/Footer.jsx';
+import { useSelector } from 'react-redux';
 
 const User = () => {
+  const user = useSelector((store) => store.user);
   return (
     <>
       <GlobalStyle />
       <AnimationStyles />
       <Header
         menu={[
-          { name: 'Home', linkTo: '/user' },
+          { name: 'Home', linkTo: `/users/${user.id}` },
           {
             name: 'Productos',
             linkTo: 'productos',

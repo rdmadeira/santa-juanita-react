@@ -15,16 +15,12 @@ const ProductsContain = styled.div`
   width: 100%;
 `;
 
-const ProductosMain = ({ productos, setHiddenSignInUp }) => {
+const ProductosMain = ({ productos }) => {
   return (
     <>
       <ProductsContain>
         {productos?.map((producto) => (
-          <Producto
-            producto={producto}
-            key={producto.name}
-            setHiddenSignInUp={setHiddenSignInUp}
-          />
+          <Producto producto={producto} key={producto.id} />
         ))}
       </ProductsContain>
     </>

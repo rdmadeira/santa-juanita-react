@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         children: [
           {
             element: <Home />,
-            path: '/',
+            index: true,
           },
           {
             path: '/productos',
@@ -55,11 +55,11 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: 'user',
+        path: 'users/:id',
         element: <User />,
         children: [
           {
-            path: '',
+            index: true,
             element: <Home />,
           },
           {

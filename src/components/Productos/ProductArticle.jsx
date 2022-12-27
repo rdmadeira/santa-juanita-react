@@ -12,7 +12,7 @@ const ProductArticleShadow = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 4;
 `;
 
 const ProductArticleContainer = styled.div`
@@ -27,7 +27,7 @@ const ProductArticleContainer = styled.div`
   padding: 3vw 2vw;
   position: absolute;
   top: 30px;
-  z-index: 3;
+  z-index: 5;
 `;
 
 const ArticleImage = styled.img`
@@ -75,7 +75,7 @@ const BtnCerrar = styled.div`
 
 const ProductArticle = ({ articleContent }) => {
   const [hidden, setHidden] = useState(false);
-
+  console.log(articleContent.img);
   return (
     !hidden && (
       <>
@@ -83,19 +83,19 @@ const ProductArticle = ({ articleContent }) => {
         <BtnCerrar>X</BtnCerrar>
         <ProductArticleContainer>
           <ArticleImage
-            src={articleContent.img}
+            src={process.env.PUBLIC_URL + articleContent.img}
             alt={articleContent.alt_img_txt}
           />
           <ArticleContent>
             <h2>{articleContent.title}</h2>
             <ArticleH3>{articleContent.sub_title}</ArticleH3>
             {articleContent.content.map((p) => (
-              <ArticleP key={p.slice(0, 5)}>{p}</ArticleP>
+              <ArticleP key={p.slice(15, 25)}>{p}</ArticleP>
             ))}
             {articleContent.list_content && (
               <ArticleUl>
                 {articleContent.list_content.map((li) => (
-                  <li key={li.slice(0, 5)}>{li}</li>
+                  <li key={li.slice(0, 10)}>{li}</li>
                 ))}
               </ArticleUl>
             )}
