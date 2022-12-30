@@ -5,6 +5,7 @@ import Header from '../components/header/Header.jsx';
 import { Outlet } from 'react-router-dom';
 import Footer from '../components/footer/Footer.jsx';
 import { useSelector } from 'react-redux';
+import MyCart from '../components/cartItems/CartItems.jsx';
 
 const User = () => {
   const user = useSelector((store) => store.user);
@@ -29,7 +30,10 @@ const User = () => {
           { name: 'Contacto', linkTo: 'contacto' },
         ]}
       />
-      <Outlet />
+      <div>
+        <MyCart />
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { addToCart } from '../../redux/cart/cartActions';
 import { device } from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
+import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
 
 const ProductCtn = styled.div`
   display: flex;
@@ -95,14 +96,14 @@ const BtnAgregar = styled.button`
   }
 `;
 
-export const ProductCard = ({ producto /* , setHiddenSignInUp */ }) => {
+export const ProductCard = ({ producto }) => {
   const [size, setSize] = useState('medium');
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const addItemToCart = (prod) => {
-    user && dispatch(addToCart(prod));
-    /* !user && setHiddenSignInUp(false); */
+    user && dispatch(addToCart(prod, size));
+    !user && dispatch(hiddenSignUpAction(true));
   };
 
   return (

@@ -75,7 +75,6 @@ const BtnCerrar = styled.div`
 
 const ProductArticle = ({ articleContent }) => {
   const [hidden, setHidden] = useState(false);
-  console.log(articleContent.img);
   return (
     !hidden && (
       <>

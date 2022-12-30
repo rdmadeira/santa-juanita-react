@@ -1,5 +1,11 @@
 export const checkItemInMyCart = (itemToAdd, myCart) => {
-  const existingItem = myCart.find((producto) => producto.id === itemToAdd.id);
+  const existingItem = myCart.find((producto) => {
+    if (itemToAdd.type === 'vela') {
+      return producto.id === itemToAdd.id && producto.size === itemToAdd.size;
+    }
+
+    return producto.id === itemToAdd.id;
+  });
 
   if (existingItem) {
     return myCart.map((cartItem) => {
@@ -8,5 +14,15 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
         : cartItem;
     });
   }
-  return [...myCart, { ...itemToAdd, quantity: 1 }];
+
+  return [
+    ...myCart,
+    {
+      ...itemToAdd,
+      quantity: 1,
+      price: itemToAdd.price,
+      size: itemToAdd.size,
+      sub_description: itemToAdd.sub_description,
+    },
+  ];
 };
