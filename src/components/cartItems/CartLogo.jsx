@@ -35,10 +35,10 @@ const CartNumber = styled.span`
   border: 1px solid var(--snow);
 `;
 
-export const Cart = () => {
+export const Cart = ({ setHiddenCart }) => {
   const myCart = useSelector((store) => store.cart);
   return (
-    <CartContainer>
+    <CartContainer onClick={() => setHiddenCart(false)}>
       <CartImg
         src={process.env.PUBLIC_URL + '/assets/shopping-cart-icon.png'}
         alt="cart-icon"

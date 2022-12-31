@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalStyle } from '../styles/GlobalStyle';
 import { AnimationStyles } from '../styles/AnimationStyles';
 import Header from '../components/header/Header.jsx';
@@ -9,11 +9,14 @@ import MyCart from '../components/cartItems/CartItems.jsx';
 
 const User = () => {
   const user = useSelector((store) => store.user);
+  const [hiddenCart, setHiddenCart] = useState(false);
+
   return (
     <>
       <GlobalStyle />
       <AnimationStyles />
       <Header
+        setHiddenCart={setHiddenCart}
         menu={[
           { name: 'Home', linkTo: `/users/${user.id}` },
           {
@@ -30,10 +33,13 @@ const User = () => {
           { name: 'Contacto', linkTo: 'contacto' },
         ]}
       />
-      <div>
-        <MyCart />
+      <main
+        style={{
+          position: 'relative',
+        }}>
+        <MyCart hidden={hiddenCart} setHidden={setHiddenCart} />
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );

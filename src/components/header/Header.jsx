@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
-import { Cart } from './Cart.jsx';
+import { Cart } from '../cartItems/CartLogo.jsx';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
 
 const StyledHeader = styled.header`
@@ -54,7 +54,11 @@ const LogoutLogo = styled.img`
   height: 20px;
 `;
 
-const Header = ({ menu }) => {
+const CartLogo = styled(Cart)`
+  position: fixed;
+`;
+
+const Header = ({ menu, setHiddenCart }) => {
   const user = useSelector((store) => store.user);
   const hiddenSignInUp = useSelector((store) => store.hiddenSignUp);
   const dispatch = useDispatch();
@@ -83,7 +87,7 @@ const Header = ({ menu }) => {
             }></LogoutLogo>
         )}
       </StyledLoginSignUp>
-      {user && <Cart user={user} />}
+      {user && <CartLogo user={user} setHiddenCart={setHiddenCart} />}
     </StyledHeader>
   );
 };

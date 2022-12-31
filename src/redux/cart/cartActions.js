@@ -8,3 +8,10 @@ export const addToCart = (producto, size) => {
     },
   };
 };
+
+export const changeQuantityItem = (string, item) => {
+  return {
+    type: string,
+    payload: { ...item },
+  };
+};

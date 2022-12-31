@@ -20,7 +20,7 @@ const ProductosMain = ({ productos }) => {
     <>
       <ProductsContain>
         {productos?.map((producto) => (
-          <Producto producto={producto} key={producto.id} />
+          <Producto producto={producto} key={producto.name + producto.id} />
         ))}
       </ProductsContain>
     </>
