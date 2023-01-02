@@ -5,6 +5,7 @@ import { StyledMain } from '../components/Productos/StyledMain.jsx';
 
 const Products = () => {
   let productos = useSelector((store) => store.productos?.todoslosproductos);
+
   return (
     <StyledMain>
       <ProductosMain productos={productos} />

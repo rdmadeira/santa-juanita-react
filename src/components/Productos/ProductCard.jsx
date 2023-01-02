@@ -105,7 +105,6 @@ export const ProductCard = ({ producto }) => {
     user && dispatch(addToCart(prod, size));
     !user && dispatch(hiddenSignUpAction(true));
   };
-
   return (
     <>
       <ProductCtn>

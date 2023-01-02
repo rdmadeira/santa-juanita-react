@@ -14,7 +14,6 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
         : cartItem;
     });
   }
-
   return [
     ...myCart,
     {
@@ -25,4 +24,18 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
       sub_description: itemToAdd.sub_description,
     },
   ];
+};
+
+export const deleteItemFromCart = (itemToDelete, cartItems) => {
+  return cartItems.filter((cartItem) => {
+    if (cartItem.type === 'vela') {
+      return !(
+        cartItem.id === itemToDelete.id && cartItem.size === itemToDelete.size
+      );
+    } else {
+      return !(cartItem.id === itemToDelete.id);
+    }
+  });
+
+  /* return [...updatedCartItems]; */
 };

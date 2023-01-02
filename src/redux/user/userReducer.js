@@ -8,6 +8,11 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       return action.user;
     case 'LOGOUT':
       return INITIAL_STATE;
+    case 'SET_USER_CART':
+      return {
+        ...state,
+        myCart: action.payload,
+      };
     default:
       return state;
   }
