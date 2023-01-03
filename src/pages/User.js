@@ -9,7 +9,7 @@ import MyCart from '../components/cartItems/CartItems.jsx';
 
 const User = () => {
   const user = useSelector((store) => store.user);
-  const [hiddenCart, setHiddenCart] = useState(false);
+  const [hiddenCart, setHiddenCart] = useState(true);
 
   return (
     <>

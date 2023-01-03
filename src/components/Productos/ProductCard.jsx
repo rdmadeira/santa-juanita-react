@@ -5,6 +5,7 @@ import { addToCart } from '../../redux/cart/cartActions';
 import { device } from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
+import { StyledButton as BtnAgregar } from '../ui/Button.jsx';
 
 const ProductCtn = styled.div`
   display: flex;
@@ -78,24 +79,6 @@ const SizeSelect = styled.select`
   }
 `;
 
-const BtnAgregar = styled.button`
-  padding: 6px;
-  width: 50%;
-  align-self: center;
-  color: var(--snow);
-  background-color: var(--mulberry);
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--pink-lavender);
-  }
-  @media ${device.laptop} {
-    order: 2;
-    width: 28%;
-    margin-left: 10px;
-  }
-`;
-
 export const ProductCard = ({ producto }) => {
   const [size, setSize] = useState('medium');
   const user = useSelector((store) => store.user);
@@ -119,7 +102,9 @@ export const ProductCard = ({ producto }) => {
             <option value="big">Grande</option>
           </SizeSelect>
         )}
-        <BtnAgregar onClick={() => addItemToCart(producto)}>
+        <BtnAgregar
+          onClick={() => addItemToCart(producto)}
+          device={device.laptop}>
           {user ? 'Agregar al Carrito' : 'Entrá en su tienda'}
         </BtnAgregar>
         <ProductPrice>

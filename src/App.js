@@ -12,6 +12,7 @@ import Bombas from './pages/Bombas';
 import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
 import User from './pages/User';
+import Payment from './pages/Payment';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Index from './pages/Index';
 
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
             element: <Bombas />,
             path: 'bombas',
           },
+          {
+            element: <Payment />,
+            path: 'payment',
+          },
         ],
       },
     ],
@@ -93,7 +98,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+  }, []);
   return (
     <>
       <GlobalStyle />

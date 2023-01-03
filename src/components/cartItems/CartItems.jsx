@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
 import { device } from '../../styles/media_queries/mediaQueries';
+import { StyledButton } from '../ui/Button.jsx';
 import {
   changeQuantityItem,
   deleteItemAction,
@@ -16,7 +18,6 @@ const MyCartContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   z-index: 999;
-  cursor: pointer;
 `;
 
 const MyCartContent = styled.div`
@@ -24,13 +25,15 @@ const MyCartContent = styled.div`
   z-index: 1000;
   background-color: var(--snow);
   width: 95%;
+  max-height: 80%;
+  overflow-y: auto;
   margin-top: 5vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: 5vw 2vw;
-  row-gap: 10px;
+  row-gap: 3vw;
   font-size: min(max(2vw, 12px), 20px);
   @media ${device.tablet} {
     width: 80%;
@@ -41,6 +44,7 @@ const MyCartShadow = styled.div`
   width: 100%;
   height: 100%;
   background: #3c1d2fb0;
+  cursor: pointer;
 `;
 
 const CartLogo = styled.img`
@@ -84,7 +88,9 @@ const ChangeQtyButton = styled.div`
 
 const MyCart = ({ hidden, setHidden }) => {
   const cartItems = useSelector((store) => store.cart);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch({ type: 'SET_USER_CART', payload: cartItems });
@@ -98,6 +104,10 @@ const MyCart = ({ hidden, setHidden }) => {
     dispatch(deleteItemAction(cartItem));
   };
 
+  const goToPayment = () => {
+    setHidden(true);
+    navigate('payment');
+  };
   /* dispatch({ type: 'RESET' }); */
   return (
     <>
@@ -119,46 +129,62 @@ const MyCart = ({ hidden, setHidden }) => {
             <CartItem>No items</CartItem>
           )}
           {cartItems.length > 0 && (
-            <CartItems>
-              {cartItems.map((cartItem) => (
-                <>
-                  <CartItem key={cartItem.name + cartItem.size}>
-                    {cartItem.type === 'vela'
-                      ? cartItem.name + ' - ' + cartItem.size
-                      : cartItem.name}
-                  </CartItem>
-                  <CartItem key={cartItem.price}>
-                    {formatPrices(cartItem.price)}
-                  </CartItem>
-                  <CartItem key={cartItem.quantity}>
-                    {cartItem.quantity}
-                  </CartItem>
-                  <CartItem key={cartItem.price + cartItem.quantity}>
-                    {formatPrices(cartItem.price * cartItem.quantity)}
-                  </CartItem>
-                  <CartItem key={cartItem.name + cartItem.quantity}>
-                    <ChangeQtyButton
-                      onClick={() => changeQuantity('INCREMENT', cartItem)}>
-                      +
-                    </ChangeQtyButton>
-                    <div>{cartItem.quantity}</div>
-                    <ChangeQtyButton
-                      onClick={() =>
-                        cartItem.quantity > 1 &&
-                        changeQuantity('DECREMENT', cartItem)
-                      }
-                      disabled={cartItem.quantity <= 1}>
-                      -
-                    </ChangeQtyButton>
+            <>
+              <CartItems>
+                {cartItems.map((cartItem) => (
+                  <>
+                    <CartItem key={cartItem.name + cartItem.size}>
+                      {cartItem.type === 'vela'
+                        ? cartItem.name + ' - ' + cartItem.size
+                        : cartItem.name}
+                    </CartItem>
+                    <CartItem key={cartItem.price}>
+                      {formatPrices(cartItem.price)}
+                    </CartItem>
+                    <CartItem key={cartItem.quantity}>
+                      {cartItem.quantity}
+                    </CartItem>
+                    <CartItem key={cartItem.price + cartItem.quantity}>
+                      {formatPrices(cartItem.price * cartItem.quantity)}
+                    </CartItem>
+                    <CartItem key={cartItem.name + cartItem.quantity}>
+                      <ChangeQtyButton
+                        onClick={() => changeQuantity('INCREMENT', cartItem)}>
+                        +
+                      </ChangeQtyButton>
+                      <div>{cartItem.quantity}</div>
+                      <ChangeQtyButton
+                        onClick={() =>
+                          cartItem.quantity > 1 &&
+                          changeQuantity('DECREMENT', cartItem)
+                        }
+                        disabled={cartItem.quantity <= 1}>
+                        -
+                      </ChangeQtyButton>
 
-                    <DeleteLogo
-                      src={process.env.PUBLIC_URL + '/assets/delete-full.svg'}
-                      onClick={() => deleteItem(cartItem)}
-                    />
-                  </CartItem>
-                </>
-              ))}
-            </CartItems>
+                      <DeleteLogo
+                        src={process.env.PUBLIC_URL + '/assets/delete-full.svg'}
+                        onClick={() => deleteItem(cartItem)}
+                      />
+                    </CartItem>
+                  </>
+                ))}
+              </CartItems>
+              <CartItems>
+                <CartItem>SubTotal: </CartItem>
+                <CartItem>
+                  {formatPrices(
+                    cartItems.reduce(
+                      (accumulator, currentValue) =>
+                        accumulator +
+                        currentValue.price * currentValue.quantity,
+                      0
+                    )
+                  )}
+                </CartItem>
+              </CartItems>
+              <StyledButton onClick={goToPayment}>Pagar</StyledButton>
+            </>
           )}
         </MyCartContent>
       </MyCartContainer>
