@@ -6,6 +6,8 @@ const PaymentConteiner = styled.section`
   background: white;
   height: 80vh;
   width: 100%;
+  display: flex;
+  padding: 3vw 5vw;
 `;
 
 const PaymentSection = () => {
