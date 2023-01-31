@@ -71,7 +71,7 @@ const Header = ({ menu, setHiddenCart }) => {
 
   return (
     <StyledHeader>
-      <NavLink to={user ? `/users/${user.id}` : '/'}>
+      <NavLink to="/">
         <Logo></Logo>
       </NavLink>
       <StyledNav>
@@ -87,7 +87,7 @@ const Header = ({ menu, setHiddenCart }) => {
             }></LogoutLogo>
         )}
       </StyledLoginSignUp>
-      {user && <CartLogo user={user} setHiddenCart={setHiddenCart} />}
+      {user && <CartLogo setHiddenCart={setHiddenCart} />}
     </StyledHeader>
   );
 };

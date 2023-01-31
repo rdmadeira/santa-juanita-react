@@ -19,48 +19,44 @@ import Contact from './pages/Contact';
 
 export const router = createBrowserRouter([
   {
+    element: <Index />,
     path: '/',
-    element: <App />,
     children: [
       {
-        element: <Index />,
-        path: '/',
-        children: [
-          {
-            element: <Home />,
-            index: true,
-          },
-          {
-            path: '/productos',
-            element: <Products />,
-          },
-          {
-            element: <Velas />,
-            path: '/velas',
-          },
-          {
-            element: <Sales />,
-            path: '/sales',
-          },
-          {
-            element: <Difusores />,
-            path: '/difusores',
-          },
-          {
-            element: <Bombas />,
-            path: '/bombas',
-          },
-          {
-            element: <Galeria />,
-            path: '/galeria',
-          },
-          {
-            element: <Contact />,
-            path: '/contacto',
-          },
-        ],
+        element: <Home />,
+        index: true,
       },
       {
+        path: '/productos',
+        element: <Products />,
+      },
+      {
+        element: <Velas />,
+        path: '/velas',
+      },
+      {
+        element: <Sales />,
+        path: '/sales',
+      },
+      {
+        element: <Difusores />,
+        path: '/difusores',
+      },
+      {
+        element: <Bombas />,
+        path: '/bombas',
+      },
+      {
+        element: <Galeria />,
+        path: '/galeria',
+      },
+      {
+        element: <Contact />,
+        path: '/contacto',
+      },
+    ],
+  },
+  /* {
         path: 'users/:id',
         element: <User />,
         children: [
@@ -93,9 +89,7 @@ export const router = createBrowserRouter([
             path: 'payment',
           },
         ],
-      },
-    ],
-  },
+      }, */
 ]);
 
 function App() {
@@ -106,9 +100,10 @@ function App() {
   }, []);
   return (
     <>
-      <GlobalStyle />
-      <AnimationStyles />
-      <Outlet />
+      <GlobalStyle>
+        <AnimationStyles />
+        <Index />
+      </GlobalStyle>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { /* App,  */ router } from './App';
+import App, { /* App,  */ router } from './App';
 import reportWebVitals from './reportWebVitals';
 /* import Home from './pages/Home';
 import Products from './pages/Products';
@@ -19,7 +19,9 @@ root.render(
   <>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <RouterProvider router={router} />
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
       </PersistGate>
     </Provider>
   </>

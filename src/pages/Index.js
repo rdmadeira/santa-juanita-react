@@ -42,7 +42,6 @@ const Index = () => {
       />
       <StyledMain user={user}>
         <SignInUp signInUpHidden={signInUpHidden} />
-
         <Outlet />
       </StyledMain>
       <Footer />
