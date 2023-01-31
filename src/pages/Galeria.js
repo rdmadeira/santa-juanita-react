@@ -1,7 +1,8 @@
 import React from 'react';
+import GaleriaContent from '../components/galeria/GaleriaContent';
 
 const Galeria = () => {
-  return <div>Galeria</div>;
+  return <GaleriaContent />;
 };
 
 export default Galeria;
