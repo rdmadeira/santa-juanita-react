@@ -15,6 +15,7 @@ import User from './pages/User';
 import Payment from './pages/Payment';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Index from './pages/Index';
+import Contact from './pages/Contact';
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
           {
             element: <Galeria />,
             path: '/galeria',
+          },
+          {
+            element: <Contact />,
+            path: '/contacto',
           },
         ],
       },

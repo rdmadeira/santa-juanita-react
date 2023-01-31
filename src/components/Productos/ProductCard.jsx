@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { addToCart } from '../../redux/cart/cartActions';
 import { device } from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
-import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
+import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import { StyledButton as BtnAgregar } from '../ui/Button.jsx';
 
 const ProductCtn = styled.div`

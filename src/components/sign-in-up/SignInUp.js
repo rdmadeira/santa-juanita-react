@@ -1,5 +1,6 @@
 import React, {
-  useState /* , useReducer, useCallback, useEffect */,
+  useState,
+  useEffect /* , useReducer, useCallback, useEffect */,
 } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,7 +16,7 @@ import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
-import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpAction';
+import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
 const SignInUpContainer = styled.section`
   width: 100vw;
@@ -99,9 +100,8 @@ const RedesButtonsStyled = styled.div`
   border-radius: 3px;
 `;
 
-const SignInUp = (/* { hidden, setHidden } */) => {
+const SignInUp = ({ signInUpHidden }) => {
   const users = useSelector((store) => store.users);
-  const isHidden = useSelector((store) => store.hiddenSignUp);
   // const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -122,12 +122,9 @@ const SignInUp = (/* { hidden, setHidden } */) => {
   /*   console.log(formState);
    */ // const [state, dispatch] = useReducer(signinupFormReducer, initialState);
 
-  /* useEffect(() => {
-    dispatch({
-      type: 'FORM_VALIDATE',
-      isValid: checkFormisValid(state.inputs),
-    });
-  }, [state.inputs, state.isValid]); */
+  useEffect(() => {
+    dispatch(hiddenSignUpAction(null));
+  }, []);
 
   //const user = useSelector((store) => store.user);
 
@@ -273,9 +270,9 @@ const SignInUp = (/* { hidden, setHidden } */) => {
   return (
     <SignInUpContainer
       className={
-        isHidden === false
+        signInUpHidden === false
           ? 'slide-out-top'
-          : isHidden === true
+          : signInUpHidden === true
           ? 'bounce-in-top'
           : ''
       }>

@@ -3,12 +3,12 @@ import { cartReducer } from './cart/cartReducer';
 import { usersReducer } from './users/usersReducer';
 import { userReducer } from './user/userReducer';
 import { productosReducer } from './productos/productosReducer';
-import { hiddenSignUpReducer } from './hiddenSignUp/hiddenSignUpReducer';
+import { hiddenSignUpContactReducer } from './hiddenSignUp/hiddenSignUpContactReducer';
 
 export const rootReducer = combineReducers({
   users: usersReducer,
   cart: cartReducer,
   user: userReducer,
   productos: productosReducer,
-  hiddenSignUp: hiddenSignUpReducer,
+  hiddenComponents: hiddenSignUpContactReducer,
 });

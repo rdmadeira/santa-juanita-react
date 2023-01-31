@@ -16,7 +16,7 @@ const StyledMain = styled.main`
 `;
 
 const Index = () => {
-  // const [hiddenSignInUp, setHiddenSignInUp] = useState(undefined);
+  const { signInUpHidden } = useSelector((store) => store.hiddenComponents);
 
   const user = useSelector((store) => store.user);
   return (
@@ -41,7 +41,8 @@ const Index = () => {
         ]}
       />
       <StyledMain user={user}>
-        <SignInUp /* hidden={hiddenSignInUp} setHidden={setHiddenSignInUp} */ />
+        <SignInUp signInUpHidden={signInUpHidden} />
+
         <Outlet />
       </StyledMain>
       <Footer />
