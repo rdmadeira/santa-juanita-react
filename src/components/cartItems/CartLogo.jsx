@@ -1,5 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
+
 import styled from 'styled-components';
 
 const CartContainer = styled.div`
@@ -35,10 +37,12 @@ const CartNumber = styled.span`
   border: 1px solid var(--snow);
 `;
 
-export const Cart = ({ setHiddenCart }) => {
+export const CartLogo = () => {
   const myCart = useSelector((store) => store.cart);
+  const dispatch = useDispatch();
+
   return (
-    <CartContainer onClick={() => setHiddenCart(false)}>
+    <CartContainer onClick={() => dispatch(hiddenCartActions.toggleCart())}>
       <CartImg
         src={process.env.PUBLIC_URL + '/assets/shopping-cart-icon.png'}
         alt="cart-icon"

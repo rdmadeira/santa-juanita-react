@@ -34,3 +34,5 @@ export const deleteItemAction = (cartItem) => {
     payload: cartItem,
   };
 };
+
+export const cartReset = () => ({ type: 'RESET' });

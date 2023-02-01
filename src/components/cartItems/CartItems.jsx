@@ -9,6 +9,10 @@ import {
   changeQuantityItem,
   deleteItemAction,
 } from '../../redux/cart/cartActions';
+import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
+import * as userActions from '../../redux/user/userActions';
+import * as ordersActions from '../../redux/orders/ordersActions';
+import * as cartActions from '../../redux/cart/cartActions';
 
 const MyCartContainer = styled.div`
   width: 100%;
@@ -42,7 +46,7 @@ const MyCartContent = styled.div`
 const MyCartShadow = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 200%;
   background: #3c1d2fb0;
   cursor: pointer;
 `;
@@ -86,15 +90,16 @@ const ChangeQtyButton = styled.div`
   ${({ disabled }) => disabled && 'opacity: 0.2'}
 `;
 
-const MyCart = ({ hidden, setHidden }) => {
+const MyCartItems = ({ hidden }) => {
   const cartItems = useSelector((store) => store.cart);
+  const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch({ type: 'SET_USER_CART', payload: cartItems });
-  }, [cartItems]);
+    dispatch(userActions.setUserCart(cartItems));
+  }, [cartItems, dispatch]);
 
   const changeQuantity = (string, cartItem) => {
     dispatch(changeQuantityItem(string, cartItem));
@@ -105,14 +110,19 @@ const MyCart = ({ hidden, setHidden }) => {
   };
 
   const goToPayment = () => {
-    setHidden(true);
-    navigate('payment');
+    dispatch(hiddenCartActions.toggleCart());
+    dispatch(ordersActions.createOrderSuccess(user, cartItems));
+    dispatch(cartActions.cartReset());
+    dispatch(userActions.setUserCart([]));
+    navigate('orders');
   };
-  /* dispatch({ type: 'RESET' }); */
+
   return (
     <>
       <MyCartContainer hidden={hidden}>
-        <MyCartShadow onClick={() => setHidden(!hidden)} />
+        <MyCartShadow
+          onClick={() => dispatch(hiddenCartActions.toggleCart())}
+        />
         <MyCartContent>
           <CartLogo
             src={process.env.PUBLIC_URL + '/assets/shopping-cart-icon.png'}
@@ -123,7 +133,7 @@ const MyCart = ({ hidden, setHidden }) => {
               <CartItem>$</CartItem>
               <CartItem>Cant.</CartItem>
               <CartItem>Sub-total</CartItem>
-              <CartItem> ? </CartItem>
+              <CartItem>Change ?</CartItem>
             </CartItems>
           ) : (
             <CartItem>No items</CartItem>
@@ -192,4 +202,4 @@ const MyCart = ({ hidden, setHidden }) => {
   );
 };
 
-export default MyCart;
+export default MyCartItems;

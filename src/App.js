@@ -11,51 +11,64 @@ import Sales from './pages/Sales';
 import Bombas from './pages/Bombas';
 import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
-import User from './pages/User';
-import Payment from './pages/Payment';
+import Orders from './pages/Orders';
+
+/* import User from './pages/User';
+import Payment from './pages/Payment'; */
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Index from './pages/Index';
 import Contact from './pages/Contact';
 
 export const router = createBrowserRouter([
   {
-    element: <Index />,
+    element: <App />,
     path: '/',
     children: [
       {
-        element: <Home />,
-        index: true,
-      },
-      {
-        path: '/productos',
-        element: <Products />,
-      },
-      {
-        element: <Velas />,
-        path: '/velas',
-      },
-      {
-        element: <Sales />,
-        path: '/sales',
-      },
-      {
-        element: <Difusores />,
-        path: '/difusores',
-      },
-      {
-        element: <Bombas />,
-        path: '/bombas',
-      },
-      {
-        element: <Galeria />,
-        path: '/galeria',
-      },
-      {
-        element: <Contact />,
-        path: '/contacto',
+        element: <Index />,
+        path: '/',
+        children: [
+          {
+            element: <Home />,
+            index: true,
+          },
+          {
+            path: '/productos',
+            element: <Products />,
+          },
+          {
+            element: <Velas />,
+            path: '/velas',
+          },
+          {
+            element: <Sales />,
+            path: '/sales',
+          },
+          {
+            element: <Difusores />,
+            path: '/difusores',
+          },
+          {
+            element: <Bombas />,
+            path: '/bombas',
+          },
+          {
+            element: <Galeria />,
+            path: '/galeria',
+          },
+          {
+            element: <Contact />,
+            path: '/contacto',
+          },
+          {
+            path: '/orders',
+            element: <Orders />,
+          },
+        ],
       },
     ],
   },
+
   /* {
         path: 'users/:id',
         element: <User />,
@@ -100,10 +113,9 @@ function App() {
   }, []);
   return (
     <>
-      <GlobalStyle>
-        <AnimationStyles />
-        <Index />
-      </GlobalStyle>
+      <GlobalStyle />
+      <AnimationStyles />
+      <Outlet />
     </>
   );
 }

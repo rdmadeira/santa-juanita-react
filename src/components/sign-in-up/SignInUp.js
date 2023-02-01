@@ -226,7 +226,7 @@ const SignInUp = ({ signInUpHidden }) => {
       /*       setHidden(undefined);
        */
       dispatch(hiddenSignUpAction(null));
-      navigate(`/users/${user.id}/productos`);
+      navigate(`/`);
       return;
     }
 

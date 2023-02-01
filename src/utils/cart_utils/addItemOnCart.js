@@ -9,9 +9,15 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
 
   if (existingItem) {
     return myCart.map((cartItem) => {
-      return cartItem.id === itemToAdd.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem;
+      if (itemToAdd.type === 'vela') {
+        return cartItem.id === itemToAdd.id && cartItem.size === itemToAdd.size
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem;
+      } else {
+        return cartItem.id === itemToAdd.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem;
+      }
     });
   }
   return [

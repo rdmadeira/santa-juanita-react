@@ -4,6 +4,7 @@ import Footer from '../components/footer/Footer.jsx';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SignInUp from '../components/sign-in-up/SignInUp';
+import MyCartItems from '../components/cartItems/CartItems.jsx';
 import styled from 'styled-components';
 
 const StyledMain = styled.main`
@@ -16,7 +17,9 @@ const StyledMain = styled.main`
 `;
 
 const Index = () => {
-  const { signInUpHidden } = useSelector((store) => store.hiddenComponents);
+  const { signInUpHidden, cartHidden } = useSelector(
+    (store) => store.hiddenComponents
+  );
 
   const user = useSelector((store) => store.user);
   return (
@@ -42,6 +45,7 @@ const Index = () => {
       />
       <StyledMain user={user}>
         <SignInUp signInUpHidden={signInUpHidden} />
+        {!cartHidden && <MyCartItems />}
         <Outlet />
       </StyledMain>
       <Footer />

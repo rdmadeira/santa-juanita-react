@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
-import { Cart } from '../cartItems/CartLogo.jsx';
+import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
 const StyledHeader = styled.header`
