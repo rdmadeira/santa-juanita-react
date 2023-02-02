@@ -18,3 +18,19 @@ export const createOrder = (user, cart) => {
     status: 'pendiente',
   };
 };
+
+export const dateFormat = (date) => {
+  const fecha = new Date(date);
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false,
+    timeZone: 'America/Los_Angeles',
+  };
+  console.log(fecha);
+  return new Intl.DateTimeFormat('es-AR', options).format(fecha);
+};
