@@ -1,5 +1,6 @@
 export const TOGGLE_SIGN_IN_SHOW = 'TOGGLE_SIGN_IN_SHOW';
 export const TOGGLE_CART_SHOW = 'TOGGLE_CART_SHOW';
+export const TOGGLE_USERMENU_SHOW = 'TOGGLE_USERMENU_SHOW';
 
 export const hiddenSignUpAction = (boolean) => {
   return {
@@ -9,3 +10,5 @@ export const hiddenSignUpAction = (boolean) => {
 };
 
 export const toggleCart = () => ({ type: TOGGLE_CART_SHOW });
+
+export const toggleUserMenu = () => ({ type: TOGGLE_USERMENU_SHOW });

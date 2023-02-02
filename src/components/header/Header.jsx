@@ -1,11 +1,15 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
-import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
+import {
+  hiddenSignUpAction,
+  toggleUserMenu,
+} from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
+import { UserMenu } from './UserMenu.jsx';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -29,7 +33,7 @@ const StyledNav = styled.nav`
   padding: 0vw 2vw 0vw 2vw;
 `;
 
-const StyledLoginSignUp = styled.div`
+const StyledUserLogoDiv = styled.div`
   position: absolute;
   z-index: 12;
   top: 0;
@@ -49,9 +53,9 @@ const StyledLoginSignUp = styled.div`
   }
 `;
 
-const LogoutLogo = styled.img`
-  width: 20px;
-  height: 20px;
+const UserLogo = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 const CartLogo = styled(Cart)`
@@ -60,13 +64,14 @@ const CartLogo = styled(Cart)`
 
 const Header = ({ menu, setHiddenCart }) => {
   const user = useSelector((store) => store.user);
-  const { signInUpHidden } = useSelector((store) => store.hiddenComponents);
+  const { signInUpHidden, userMenuHidden } = useSelector(
+    (store) => store.hiddenComponents
+  );
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const toggleHiddenSignInUpSection = () => {
     !user && dispatch(hiddenSignUpAction(!signInUpHidden));
-    user && dispatch({ type: 'LOGOUT' }) && navigate('/');
+    user && dispatch(toggleUserMenu());
   };
 
   return (
@@ -78,15 +83,14 @@ const Header = ({ menu, setHiddenCart }) => {
         <h1>Santa Juanita - Mimos al Alma</h1>
         <HeaderMenu menu={menu}></HeaderMenu>
       </StyledNav>
-      <StyledLoginSignUp onClick={toggleHiddenSignInUpSection}>
+      <StyledUserLogoDiv onClick={toggleHiddenSignInUpSection}>
         <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>
         {user && (
-          <LogoutLogo
-            src={
-              process.env.PUBLIC_URL + '/assets/logout_logo/logout.svg'
-            }></LogoutLogo>
+          <UserLogo
+            src={process.env.PUBLIC_URL + '/assets/user_logo.png'}></UserLogo>
         )}
-      </StyledLoginSignUp>
+        {!userMenuHidden && <UserMenu />}
+      </StyledUserLogoDiv>
       {user && <CartLogo setHiddenCart={setHiddenCart} />}
     </StyledHeader>
   );
