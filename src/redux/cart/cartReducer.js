@@ -39,6 +39,7 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
 
     case 'RESET':
       return INITIAL_STATE;
+
     default:
       return state;
   }

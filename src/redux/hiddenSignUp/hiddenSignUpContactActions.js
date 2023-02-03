@@ -12,3 +12,8 @@ export const hiddenSignUpAction = (boolean) => {
 export const toggleCart = () => ({ type: TOGGLE_CART_SHOW });
 
 export const toggleUserMenu = () => ({ type: TOGGLE_USERMENU_SHOW });
+
+export const cartLogoEffect = (boolean) => ({
+  type: 'INIT_LOGO_EFECT',
+  payload: boolean,
+});

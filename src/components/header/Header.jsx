@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
 import {
   hiddenSignUpAction,
   toggleUserMenu,
+  cartLogoEffect,
 } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import { UserMenu } from './UserMenu.jsx';
 
@@ -36,18 +37,18 @@ const StyledNav = styled.nav`
 const StyledUserLogoDiv = styled.div`
   position: absolute;
   z-index: 12;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   display: flex;
   align-items: center;
   column-gap: 10px;
   color: var(--twilight-lavender);
   font-size: var(--step--1);
-  /*   border-bottom: 1px solid var(--twilight-lavender);
- */
-  margin: 0 2vw;
+  border: 1px solid var(--opera-mauve);
+  border-radius: 10px;
   cursor: pointer;
-  padding: 10px 3px;
+  padding: 3px;
+
   &:hover {
     background-color: #ebd9e3;
   }
@@ -58,21 +59,53 @@ const UserLogo = styled.img`
   height: 30px;
 `;
 
+const cartAnimation = keyframes`
+0% {
+  transform: scale(1);
+} 50% {
+  transform: scale(1.5);
+} 100% {
+  transform: scale(1);
+}`;
+
 const CartLogo = styled(Cart)`
   position: fixed;
+  ${({ cartEffect }) =>
+    cartEffect
+      ? css`
+          animation: ${cartAnimation} 1s ease;
+        `
+      : null}
 `;
 
 const Header = ({ menu, setHiddenCart }) => {
   const user = useSelector((store) => store.user);
-  const { signInUpHidden, userMenuHidden } = useSelector(
+  const [inOut, setInOut] = useState(false);
+
+  const { signInUpHidden, userMenuHidden, cartEffect } = useSelector(
     (store) => store.hiddenComponents
   );
   const dispatch = useDispatch();
 
   const toggleHiddenSignInUpSection = () => {
     !user && dispatch(hiddenSignUpAction(!signInUpHidden));
-    user && dispatch(toggleUserMenu());
+    if (user) {
+      if (!userMenuHidden) {
+        setInOut(!inOut);
+        setTimeout(() => dispatch(toggleUserMenu(!userMenuHidden)), 900);
+      } else {
+        setInOut(!inOut);
+        dispatch(toggleUserMenu(!userMenuHidden));
+      }
+    }
   };
+
+  useEffect(() => {
+    const interval = setTimeout(() => {
+      return dispatch(cartLogoEffect(false));
+    }, 2000);
+    return () => clearTimeout(interval);
+  }, [cartEffect]);
 
   return (
     <StyledHeader>
@@ -89,9 +122,11 @@ const Header = ({ menu, setHiddenCart }) => {
           <UserLogo
             src={process.env.PUBLIC_URL + '/assets/user_logo.png'}></UserLogo>
         )}
-        {!userMenuHidden && <UserMenu />}
+        {!userMenuHidden && <UserMenu hidden={inOut} />}
       </StyledUserLogoDiv>
-      {user && <CartLogo setHiddenCart={setHiddenCart} />}
+      {user && (
+        <CartLogo setHiddenCart={setHiddenCart} cartEffect={cartEffect} />
+      )}
     </StyledHeader>
   );
 };

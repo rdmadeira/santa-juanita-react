@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { addToCart } from '../../redux/cart/cartActions';
 import { device } from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
-import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
+import {
+  hiddenSignUpAction,
+  cartLogoEffect,
+} from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import { StyledButton as BtnAgregar } from '../ui/Button.jsx';
 
 const ProductCtn = styled.div`
@@ -88,6 +91,11 @@ export const ProductCard = ({ producto }) => {
     user && dispatch(addToCart(prod, size));
     !user && dispatch(hiddenSignUpAction(true));
   };
+
+  const addItemHandle = (prod) => {
+    addItemToCart(prod);
+    dispatch(cartLogoEffect(true));
+  };
   return (
     <>
       <ProductCtn>
@@ -103,7 +111,7 @@ export const ProductCard = ({ producto }) => {
           </SizeSelect>
         )}
         <BtnAgregar
-          onClick={() => addItemToCart(producto)}
+          onClick={() => addItemHandle(producto)}
           device={device.laptop}>
           {user ? 'Agregar al Carrito' : 'Entrá en su tienda'}
         </BtnAgregar>

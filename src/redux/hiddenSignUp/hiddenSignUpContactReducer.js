@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   signInUpHidden: null,
   cartHidden: true,
   userMenuHidden: true,
+  cartEffect: false,
 };
 
 export const hiddenSignUpContactReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,11 @@ export const hiddenSignUpContactReducer = (state = INITIAL_STATE, action) => {
       return { ...state, cartHidden: !state.cartHidden };
     case TOGGLE_USERMENU_SHOW:
       return { ...state, userMenuHidden: !state.userMenuHidden };
+    case 'INIT_LOGO_EFECT':
+      return {
+        ...state,
+        cartEffect: action.payload,
+      };
     default:
       return state;
   }
