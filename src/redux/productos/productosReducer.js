@@ -6,6 +6,7 @@ export const productosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'GET_INIT_PRODUCTS':
       return action.payload;
+
     default:
       return state;
   }

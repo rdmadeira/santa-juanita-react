@@ -13,7 +13,7 @@ export const toggleCart = () => ({ type: TOGGLE_CART_SHOW });
 
 export const toggleUserMenu = () => ({ type: TOGGLE_USERMENU_SHOW });
 
-export const cartLogoEffect = (boolean) => ({
+export const cartLogoEffectAction = (boolean) => ({
   type: 'INIT_LOGO_EFECT',
   payload: boolean,
 });

@@ -1,8 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
-import styled from 'styled-components';
+import './cart_logo_effect.css';
 
 const CartContainer = styled.div`
   width: 8%;
@@ -37,12 +38,14 @@ const CartNumber = styled.span`
   border: 1px solid var(--snow);
 `;
 
-export const CartLogo = () => {
+export const CartLogo = ({ cartEffect }) => {
   const myCart = useSelector((store) => store.cart);
   const dispatch = useDispatch();
 
   return (
-    <CartContainer onClick={() => dispatch(hiddenCartActions.toggleCart())}>
+    <CartContainer
+      onClick={() => dispatch(hiddenCartActions.toggleCart())}
+      className={cartEffect ? 'logo_effect' : ''}>
       <CartImg
         src={process.env.PUBLIC_URL + '/assets/shopping-cart-icon.png'}
         alt="cart-icon"

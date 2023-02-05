@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux/es/exports';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
 import { getProducts } from './redux/productos/productosActions';
+import { getInitStock } from './redux/stock/stockActions';
+// import { initOrders } from './redux/orders/ordersActions';
 // import Header from './components/header/Header.jsx';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -107,10 +109,14 @@ export const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
+  const productos = useSelector((store) => store.productos);
+  const stock = useSelector((store) => store.stock);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+    !productos && dispatch(getProducts());
+    !stock && dispatch(getInitStock());
+    // dispatch(initOrders());
+  }, [dispatch]);
   return (
     <>
       <GlobalStyle />

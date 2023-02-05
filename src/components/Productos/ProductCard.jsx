@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { addToCart } from '../../redux/cart/cartActions';
 import { device } from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
 import {
   hiddenSignUpAction,
-  cartLogoEffect,
+  cartLogoEffectAction,
 } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
-import { StyledButton as BtnAgregar } from '../ui/Button.jsx';
+import { StyledButton } from '../ui/Button.jsx';
 
 const ProductCtn = styled.div`
   display: flex;
@@ -25,6 +25,15 @@ const ProductCtn = styled.div`
     flex-wrap: wrap;
     width: 48%;
   } ;
+`;
+const BtnAgregar = styled(StyledButton)`
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          cursor: not-allowed;
+          background-color: #c082a429;
+        `
+      : ''}
 `;
 
 const ProductImage = styled.img`
@@ -85,20 +94,52 @@ const SizeSelect = styled.select`
 export const ProductCard = ({ producto }) => {
   const [size, setSize] = useState('medium');
   const user = useSelector((store) => store.user);
+  const stocks = useSelector((store) => store.stock);
   const dispatch = useDispatch();
 
-  const addItemToCart = (prod) => {
+  const verifyUserLogin = (prod) => {
     user && dispatch(addToCart(prod, size));
     !user && dispatch(hiddenSignUpAction(true));
   };
 
   const addItemHandle = (prod) => {
-    addItemToCart(prod);
-    dispatch(cartLogoEffect(true));
+    verifyUserLogin(prod);
+    dispatch(cartLogoEffectAction(true));
   };
+
+  const stockButtonHandle = (id) => {
+    const stock = stocks
+      .map((item) => {
+        if (item.id === id) {
+          if (item.type === 'vela') {
+            return item.stock[size];
+          }
+          return item.stock;
+        }
+        return false;
+      })
+      .find((item) => item);
+    return stock > 0 ? '' : 'true';
+  };
+
+  /* const noStockProducts = () => {
+    stocks
+      .map((item) => {
+        if (item.id === id) {
+          if (item.type === 'vela') {
+            return item.stock[size];
+          }
+          return item.stock;
+        }
+        return false;
+      })
+      .find((item) => item);
+  } */
+
   return (
     <>
       <ProductCtn>
+        {}
         <ProductImage src={producto.img} alt={producto.name} />
         <ProductTitle style={{ padding: '0 7px' }}>
           {producto.name}
@@ -112,7 +153,8 @@ export const ProductCard = ({ producto }) => {
         )}
         <BtnAgregar
           onClick={() => addItemHandle(producto)}
-          device={device.laptop}>
+          device={device.laptop}
+          disabled={stockButtonHandle(producto.id)}>
           {user ? 'Agregar al Carrito' : 'Entrá en su tienda'}
         </BtnAgregar>
         <ProductPrice>

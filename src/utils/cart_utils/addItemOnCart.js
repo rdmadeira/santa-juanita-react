@@ -11,7 +11,10 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
     return myCart.map((cartItem) => {
       if (itemToAdd.type === 'vela') {
         return cartItem.id === itemToAdd.id && cartItem.size === itemToAdd.size
-          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          ? {
+              ...cartItem,
+              quantity: cartItem.quantity + 1,
+            }
           : cartItem;
       } else {
         return cartItem.id === itemToAdd.id

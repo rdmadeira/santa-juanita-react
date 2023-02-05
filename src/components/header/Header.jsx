@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import styled, { css, keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
 import {
   hiddenSignUpAction,
   toggleUserMenu,
-  cartLogoEffect,
+  cartLogoEffectAction,
 } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import { UserMenu } from './UserMenu.jsx';
 
@@ -59,23 +59,8 @@ const UserLogo = styled.img`
   height: 30px;
 `;
 
-const cartAnimation = keyframes`
-0% {
-  transform: scale(1);
-} 50% {
-  transform: scale(1.5);
-} 100% {
-  transform: scale(1);
-}`;
-
 const CartLogo = styled(Cart)`
   position: fixed;
-  ${({ cartEffect }) =>
-    cartEffect
-      ? css`
-          animation: ${cartAnimation} 1s ease;
-        `
-      : null}
 `;
 
 const Header = ({ menu, setHiddenCart }) => {
@@ -86,6 +71,10 @@ const Header = ({ menu, setHiddenCart }) => {
     (store) => store.hiddenComponents
   );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => dispatch(cartLogoEffectAction(false)), 1000);
+  }, [cartEffect]);
 
   const toggleHiddenSignInUpSection = () => {
     !user && dispatch(hiddenSignUpAction(!signInUpHidden));
@@ -99,13 +88,6 @@ const Header = ({ menu, setHiddenCart }) => {
       }
     }
   };
-
-  useEffect(() => {
-    const interval = setTimeout(() => {
-      return dispatch(cartLogoEffect(false));
-    }, 2000);
-    return () => clearTimeout(interval);
-  }, [cartEffect]);
 
   return (
     <StyledHeader>

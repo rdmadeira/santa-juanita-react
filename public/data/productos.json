@@ -373,7 +373,8 @@
       "promo": false,
       "type": "difusor",
       "content": "250ml",
-      "price": 680
+      "price": 680,
+      "stock": 10
     },
     {
       "name": "Vainilla",
@@ -385,7 +386,8 @@
       "promo": false,
       "type": "difusor",
       "content": "250ml",
-      "price": 680
+      "price": 680,
+      "stock": 10
     },
     {
       "name": "Bamboo y Sandalo",
@@ -397,7 +399,8 @@
       "promo": false,
       "type": "difusor",
       "content": "250ml",
-      "price": 680
+      "price": 680,
+      "stock": 10
     },
     {
       "name": "Jasmin",

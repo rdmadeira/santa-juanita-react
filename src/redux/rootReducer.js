@@ -5,6 +5,7 @@ import { userReducer } from './user/userReducer';
 import { ordersReducer } from './orders/ordersReducer';
 import { productosReducer } from './productos/productosReducer';
 import { hiddenSignUpContactReducer } from './hiddenSignUp/hiddenSignUpContactReducer';
+import { stockReducer } from './stock/stockReducer';
 
 export const rootReducer = combineReducers({
   users: usersReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   orders: ordersReducer,
   productos: productosReducer,
   hiddenComponents: hiddenSignUpContactReducer,
+  stock: stockReducer,
 });

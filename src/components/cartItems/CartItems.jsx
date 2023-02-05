@@ -13,6 +13,7 @@ import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContact
 import * as userActions from '../../redux/user/userActions';
 import * as ordersActions from '../../redux/orders/ordersActions';
 import * as cartActions from '../../redux/cart/cartActions';
+import { decrementStock } from '../../redux/stock/stockActions';
 
 const MyCartContainer = styled.div`
   width: 100%;
@@ -92,6 +93,7 @@ const ChangeQtyButton = styled.div`
 
 const MyCartItems = ({ hidden }) => {
   const cartItems = useSelector((store) => store.cart);
+  const stock = useSelector((store) => store.stock);
   const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
@@ -112,6 +114,7 @@ const MyCartItems = ({ hidden }) => {
   const goToPayment = () => {
     dispatch(hiddenCartActions.toggleCart());
     dispatch(ordersActions.createOrderSuccess(user, cartItems));
+    dispatch(decrementStock(cartItems, stock));
     dispatch(cartActions.cartReset());
     dispatch(userActions.setUserCart([]));
     navigate('orders');
