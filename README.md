@@ -1,4 +1,26 @@
-# Getting Started with Create React App
+# PROYECTO INTEGRADOR - REACT - FRONT END
+
+## Este proyecto fue creado con el objetivo de presentar un desarollo front-end de una sitio web de una tienda de productos naturales para el bien estar personal. Es una single-page-application usando el paquete React-router-dom.
+
+### Consta de una pagina principal de portada, páginas de productos y sus sub-productos, página de galería de fotos y página para contactos. Contiene sección de login y sign-up, sección de carrito, ordenes y paga de stock.
+
+### Los productos son persistidos en un store de redux-persist, así como usuário, ordenes, carrito y stock.
+
+### Los productos sin stock son mostrados como tal y desabilitados para agregar al carrito.
+
+## Santa Juanita React - Recursos utilizados:
+
+### React Create App + React v18.2.0
+
+### React-Redux v8.0.5 + Redux-Toolkit v1.9.0 + Redux-persist
+
+### React-router-dom v6.4.3
+
+### Styled-components v5.3.6
+
+### uuid v9
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
