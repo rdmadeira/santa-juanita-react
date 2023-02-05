@@ -2,6 +2,8 @@ import {
   TOGGLE_SIGN_IN_SHOW,
   TOGGLE_CART_SHOW,
   TOGGLE_USERMENU_SHOW,
+  HIDDEN_NAV_MENU,
+  SHOW_NAV_MENU,
 } from './hiddenSignUpContactActions';
 
 const INITIAL_STATE = {
@@ -9,6 +11,7 @@ const INITIAL_STATE = {
   cartHidden: true,
   userMenuHidden: true,
   cartEffect: false,
+  navMenuHidden: false,
 };
 
 export const hiddenSignUpContactReducer = (state = INITIAL_STATE, action) => {
@@ -24,6 +27,10 @@ export const hiddenSignUpContactReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartEffect: action.payload,
       };
+    case HIDDEN_NAV_MENU:
+      return { ...state, navMenuHidden: true };
+    case SHOW_NAV_MENU:
+      return { ...state, navMenuHidden: false };
     default:
       return state;
   }

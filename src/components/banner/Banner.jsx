@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 import BannerImage from './BannerImage.jsx';
 import BannerText from './BannerText.jsx';
 
@@ -13,13 +14,20 @@ const BannerContainer = styled.section`
   border-bottom-width: 12vh;
   box-shadow: 0px 3px 25px #88446aa6;
   z-index: 1;
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      flex-flow: column nowrap !important;
+      max-height: unset;
+    `}
 `;
 
 const Banner = () => {
+  const isMobile = useSelector((store) => store.hiddenComponents.navMenuHidden);
   return (
-    <BannerContainer>
-      <BannerImage />
-      <BannerText />
+    <BannerContainer isMobile={isMobile}>
+      <BannerImage isMobile={isMobile} />
+      <BannerText isMobile={isMobile} />
     </BannerContainer>
   );
 };

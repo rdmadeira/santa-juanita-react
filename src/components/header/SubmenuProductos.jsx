@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledSubmenuProductos = styled.ul`
   position: absolute;
@@ -10,6 +10,14 @@ const StyledSubmenuProductos = styled.ul`
   z-index: 5;
   padding: 5px 0 5px 0;
   width: max-content;
+  ${({ showMobileMenu }) =>
+    showMobileMenu &&
+    css`
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      row-gap: 5vh;
+    `}
 `;
 
 export const LinkContainer = styled.li`
@@ -26,14 +34,21 @@ export const LinkContainer = styled.li`
     background: var(--opera-mauve);
     color: var(--snow);
   }
+  ${({ showMobileMenu }) =>
+    showMobileMenu &&
+    css`
+      width: 100%;
+      justify-content: center;
+      font-size: 40px;
+    `}
 `;
 
-export const SubmenuProductos = ({ submenu }) => {
+export const SubmenuProductos = ({ submenu, showMobileMenu }) => {
   return (
-    <StyledSubmenuProductos>
+    <StyledSubmenuProductos showMobileMenu={showMobileMenu}>
       {submenu.map((li) => {
         return (
-          <LinkContainer key={li.name}>
+          <LinkContainer key={li.name} showMobileMenu={showMobileMenu}>
             <NavLink relative="route" to={li.linkTo}>
               {li.name}
             </NavLink>

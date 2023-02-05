@@ -1,17 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const BannerImageContainer = styled.div`
-  width: 40%;
-  min-width: 410px;
   @media screen and (min-width: 1080px) {
     width: 55%;
   }
+  ${({ isMobile }) =>
+    !isMobile
+      ? css`
+          width: 40%;
+          min-width: 410px;
+        `
+      : css`
+          width: 100%;
+          min-width: unset;
+        `}
 `;
 
-const BannerImage = () => {
+const BannerImage = ({ isMobile }) => {
   return (
-    <BannerImageContainer className="fade-in-blur-second">
+    <BannerImageContainer className="fade-in-blur-second" isMobile={isMobile}>
       <img
         src="../assets/hero-foto.jpeg"
         alt="banner-hero"

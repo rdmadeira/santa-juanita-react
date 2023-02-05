@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
+import MenuLogo from './MenuLogo.jsx';
 import {
   hiddenSignUpAction,
   toggleUserMenu,
   cartLogoEffectAction,
+  navMenuHiddenAction,
 } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import { UserMenu } from './UserMenu.jsx';
+import {
+  device,
+  maxDeviceWidth,
+} from '../../styles/media_queries/mediaQueries';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -23,6 +29,11 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   flex-wrap: wrap;
   color: var(--opera-mauve);
+  ${({ navMenuHidden }) =>
+    navMenuHidden &&
+    css`
+      justify-content: center;
+    `}
 `;
 
 const StyledNav = styled.nav`
@@ -65,16 +76,28 @@ const CartLogo = styled(Cart)`
 
 const Header = ({ menu, setHiddenCart }) => {
   const user = useSelector((store) => store.user);
+
+  const [showMobileMenu, setshowMobileMenu] = useState(false);
+
   const [inOut, setInOut] = useState(false);
 
-  const { signInUpHidden, userMenuHidden, cartEffect } = useSelector(
-    (store) => store.hiddenComponents
-  );
+  const { signInUpHidden, userMenuHidden, cartEffect, navMenuHidden } =
+    useSelector((store) => store.hiddenComponents);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setTimeout(() => dispatch(cartLogoEffectAction(false)), 1000);
-  }, [cartEffect]);
+    cartEffect && setTimeout(() => dispatch(cartLogoEffectAction(false)), 1000);
+    window.addEventListener('resize', () => {
+      window.matchMedia(maxDeviceWidth.mobileL).matches &&
+        dispatch(navMenuHiddenAction(maxDeviceWidth.mobileL));
+      window.matchMedia(device.mobileL).matches &&
+        dispatch(navMenuHiddenAction(device.mobileL));
+    });
+  }, [
+    cartEffect,
+    matchMedia(maxDeviceWidth.mobileL).matches,
+    matchMedia(device.mobileL).matches,
+  ]);
 
   const toggleHiddenSignInUpSection = () => {
     !user && dispatch(hiddenSignUpAction(!signInUpHidden));
@@ -90,13 +113,22 @@ const Header = ({ menu, setHiddenCart }) => {
   };
 
   return (
-    <StyledHeader>
+    <StyledHeader navMenuHidden={navMenuHidden}>
       <NavLink to="/">
         <Logo></Logo>
       </NavLink>
+      {navMenuHidden && (
+        <MenuLogo
+          showMobileMenu={showMobileMenu}
+          setshowMobileMenu={setshowMobileMenu}
+        />
+      )}
       <StyledNav>
         <h1>Santa Juanita - Mimos al Alma</h1>
-        <HeaderMenu menu={menu}></HeaderMenu>
+        <HeaderMenu
+          menu={menu}
+          hidden={navMenuHidden}
+          showMobileMenu={showMobileMenu}></HeaderMenu>
       </StyledNav>
       <StyledUserLogoDiv onClick={toggleHiddenSignInUpSection}>
         <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>

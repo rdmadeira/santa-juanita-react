@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   padding: 1.5vw;
@@ -20,12 +20,18 @@ const StyledButton = styled.button`
       inset 0px -1px 25px var(--pink-lavender);
     transition: all 0.2s ease-in;
   }
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: var(--step-2);
+      padding: 10px;
+    `}
 `;
 
-const SectionButton = ({ href }) => {
+const SectionButton = ({ href, isMobile }) => {
   return (
     <Link to={href} style={{ width: 'max-content' }}>
-      <StyledButton>Sepa Más</StyledButton>
+      <StyledButton isMobile={isMobile}>Sepa Más</StyledButton>
     </Link>
   );
 };

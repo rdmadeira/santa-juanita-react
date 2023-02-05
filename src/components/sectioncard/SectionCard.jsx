@@ -1,5 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
+
 import SectionButton from './SectionButton.jsx';
 
 const StyledSection = styled.section`
@@ -11,6 +13,11 @@ const StyledSection = styled.section`
   @media screen and (min-width: 521px) and (max-width: 1080px) and (orientation: portrait) {
     width: 100%;
   }
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      width: 100%;
+    `}
 `;
 
 const SectionImageContainer = styled.div`
@@ -31,23 +38,48 @@ const SectionTextContainer = styled.div`
   z-index: 1;
   background-color: #88446a4d;
   height: 530px;
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      width: 100%;
+      row-gap: 10%;
+      height: 50%;
+      background-color: #f0f8ffab;
+      align-self: center;
+      padding: 30px 10px;
+      color: var(--twilight-lavender);
+    `}
 `;
 
 const H2 = styled.h2`
   font-size: var(--step-1);
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: var(--step-3);
+    `}
 `;
 
 const P = styled.p`
   font-size: var(--step-0);
+  ${({ isMobile }) =>
+    isMobile &&
+    css`
+      font-size: var(--step-2);
+    `}
 `;
 
 const SectionCard = ({ imageUrl, altname, h2Text, pText, href }) => {
+  const isMobile = useSelector((store) => store.hiddenComponents.navMenuHidden);
+
   return (
-    <StyledSection>
-      <SectionTextContainer className="fade-in-blur-third">
-        <H2 className="shake-2">{h2Text}</H2>
-        <P>{pText}</P>
-        <SectionButton href={href} />
+    <StyledSection isMobile={isMobile}>
+      <SectionTextContainer className="fade-in-blur-third" isMobile={isMobile}>
+        <H2 className="shake-2" isMobile={isMobile}>
+          {h2Text}
+        </H2>
+        <P isMobile={isMobile}>{pText}</P>
+        <SectionButton href={href} isMobile={isMobile} />
       </SectionTextContainer>
       <SectionImageContainer className="fade-in-blur-second">
         <img
