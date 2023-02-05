@@ -20,12 +20,29 @@ const ProductCtn = styled.div`
   border-radius: 15px 15px 15px 0;
   color: var(--opera-mauve);
   transition: 0.4s transform ease-out;
+  position: relative;
   @media ${device.laptop} {
     flex-direction: row;
     flex-wrap: wrap;
     width: 48%;
   } ;
 `;
+
+const NoStockShadow = styled.div`
+  position: absolute;
+  background-color: #ffffffae;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 30%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+`;
+
 const BtnAgregar = styled(StyledButton)`
   ${({ disabled }) =>
     disabled
@@ -85,6 +102,7 @@ const SizeSelect = styled.select`
   color: var(--pink-lavender);
   padding: 5px 5px;
   margin-left: 7px;
+  z-index: 3;
   @media ${device.laptop} {
     order: 2;
     width: unset;
@@ -94,7 +112,19 @@ const SizeSelect = styled.select`
 export const ProductCard = ({ producto }) => {
   const [size, setSize] = useState('medium');
   const user = useSelector((store) => store.user);
-  const stocks = useSelector((store) => store.stock);
+  const stock = useSelector((store) =>
+    store.stock
+      .map((item) => {
+        if (item.id === producto.id) {
+          if (item.type === 'vela') {
+            return item.stock[size];
+          }
+          return item.stock;
+        }
+        return false;
+      })
+      .find((item) => item || item === 0)
+  );
   const dispatch = useDispatch();
 
   const verifyUserLogin = (prod) => {
@@ -107,18 +137,7 @@ export const ProductCard = ({ producto }) => {
     dispatch(cartLogoEffectAction(true));
   };
 
-  const stockButtonHandle = (id) => {
-    const stock = stocks
-      .map((item) => {
-        if (item.id === id) {
-          if (item.type === 'vela') {
-            return item.stock[size];
-          }
-          return item.stock;
-        }
-        return false;
-      })
-      .find((item) => item);
+  const stockButtonHandle = () => {
     return stock > 0 ? '' : 'true';
   };
 
@@ -139,7 +158,11 @@ export const ProductCard = ({ producto }) => {
   return (
     <>
       <ProductCtn>
-        {}
+        {stock < 1 && (
+          <NoStockShadow>
+            Sin stock {size === 'medium' ? 'mediano' : 'grande'}
+          </NoStockShadow>
+        )}
         <ProductImage src={producto.img} alt={producto.name} />
         <ProductTitle style={{ padding: '0 7px' }}>
           {producto.name}
