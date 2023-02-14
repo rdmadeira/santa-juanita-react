@@ -4,8 +4,10 @@ import ProductosMain from '../components/Productos/ProductosMain.jsx';
 import { StyledMain } from '../components/Productos/StyledMain.jsx';
 
 const Products = () => {
-  let productos = useSelector((store) => store.productos?.todoslosproductos);
-
+  let productos = useSelector(
+    (store) => store.productos?.todoslosproductos.productos
+  );
+  console.log(productos);
   return (
     <StyledMain>
       <ProductosMain productos={productos} />

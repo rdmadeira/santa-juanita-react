@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "santa-juanita-377619",
+  "private_key_id": "da9f145b3f8211713ab5e4a18a76ef64ff1022d2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDupTLaFOYJx3Za\nqGGYKVR7HP9fHZr4cfS+KDo630ktw8oSAO+8/AObn4pjGegXKjA2gtaf594Ug0KW\nL1ojE82BP6SYiCKJBPcTN6sRJLkD+QQCcnUFt41gNrsDa1qRcvTI3u5z/U4dI0k7\nEkgkBP2Gh7Dbp8xUxcirYoOEiC7JGV/qGHrfQbMgz5NFDmLsfpXK0O9B5nVJdjNo\nR84bsLmqikUvkUjYiLgmYaDYCOig0VFyPhjpUG2gJAJY0REGNt9pKRzrJhxJmNz2\nI680KJKrOvzdWIHbM5kyig6OzWVolWmAqvgV92urHp2OLvr38d5hpL2fnAWqwzNo\nQXLIci3BAgMBAAECgf9Eof4d+iSua07+g66NtFU3kv9eu4T2Ls/UYH1esRi6sLRM\nuTg5gcEH4LpMBgdZoih7hOV015pnC9j6mGOz8t4HbeZId952yZbFUB1CsO0E13jv\nuzssib1/Dj56nUVOz2DW5EZv1UnB14QYGQnmUgkXx651faymNLuhjpOEaiYKb1OU\n4c+RJuCvvI5ABt0wh1QHTBFEYtz91mWwEyRmH4IP+cutT0G1XhxaJbvfkOG1tfX0\nWU31wEl6OCSk7pNZgDLToSPwyAOyQcdomd2+vRec/Nd6uurd3og74vvELngKGpaH\nbissbhBW9FiSYEBsJIOzKq8E2/KEqszPrNo4xIECgYEA+5CysHJZNqiTBz66XzDE\nEAAWbwSlhTTKwDjtK7C9avi1PvlDrwuxHGuYi1Kteswi6sEpD2I5uQCbf4Wkg4Rq\n/Pkm7U88nsBJe1p9PbmmD8jt9CYgqo5qqmrkhmDPGq8VMBmJ4JuJHh6YtPVtmkIL\ngkW3VrZjgBmOtST3obScxyECgYEA8toxkvgfAge0GVPXT+lNzU7bMxXc8/uh1xAo\nX5NRgxM/Il3seSPFjDAbzN1qMHUsuLKdC+5Wm30s0YiXJKZ5kjIE6IUmD6bKeBFr\nPylNnelpcSR/C43aPDh/1QNClLaj2w9E6eo5UkMBkZQSZjFE5SHRHvwyHozlJvnr\nzRbksqECgYEAtzZxDVSaaNZpDlO/BGjNwiFuNTibG+KQ72IGSVWU/n1X8x8zDh9j\nxCEQnhd+xPo7S+GV9+A/zd8FYOCCKk6cZNVIZnjY232Lhs0mfXfh24ko1DGYhN7o\nDGmBOeTzsKlmsvtGkVB1knwSF2jPhBMpspz3o6191ePHLWJY/2o87EECgYBn2FWK\nev8HZzPkAK35RdI3EJk65wZsbhVuWUJqXBxm6Dv+/hq4UkuO/qNknulhfzl4YSg2\nidwO8R/RGY9H5Mfnc+wVYZo85x186jXp9Ed0VvL3ppuM3UOMrLw84f/+h3rZmVXm\nkHmia3SoQ6D6gebr8+HwVfc4iRcT65qhQEDbAQKBgQDIbuFU9QyhOO/p/csYWsht\n/deYqOMP6NWtPont+OhQcwxxhNBzsOdYq+LJgXRbN/FDRUquZW7UG1Exu76TSOWN\ne+BmXKdGKjZVaKPiZ3Ur6Stk3ujCu5GH0ucmGwgvLFF5zD+T6AQ64HlV7EIM3ePo\n0vnLFc6ks9/XTqhowb/qgw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-hmj58@santa-juanita-377619.iam.gserviceaccount.com",
+  "client_id": "101281197381681164043",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-hmj58%40santa-juanita-377619.iam.gserviceaccount.com"
+}

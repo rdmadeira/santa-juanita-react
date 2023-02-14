@@ -14,3 +14,7 @@ export const getProducts = () => {
     dispatch({ type: 'GET_INIT_PRODUCTS', payload: products });
   };
 };
+
+export const sendProductsToStore = (productos) => {
+  return { type: 'UPDATE_PRODUCTS_STORE', payload: productos };
+};

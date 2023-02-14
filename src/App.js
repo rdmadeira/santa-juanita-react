@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { useDispatch /* , useSelector */ } from 'react-redux/es/exports';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
-import { getProducts } from './redux/productos/productosActions';
-import { getInitStock } from './redux/stock/stockActions';
+import { sendProductsToStore } from './redux/productos/productosActions';
+import { sendStockToStore } from './redux/stock/stockActions';
+/* import { getInitStock } from './redux/stock/stockActions';
+ */
 // import { initOrders } from './redux/orders/ordersActions';
 // import Header from './components/header/Header.jsx';
 import Home from './pages/Home';
@@ -17,14 +19,23 @@ import Orders from './pages/Orders';
 
 /* import User from './pages/User';
 import Payment from './pages/Payment'; */
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import { createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
 import Index from './pages/Index';
 import Contact from './pages/Contact';
+import {
+  getProductsFromDataBase,
+  getStockFromDataBase,
+} from './firebase/firebase_utils';
 
 export const router = createBrowserRouter([
   {
     element: <App />,
     path: '/',
+    loader: async () => {
+      const productos = await getProductsFromDataBase();
+      const stock = await getStockFromDataBase();
+      return { productos, stock };
+    },
     children: [
       {
         element: <Index />,
@@ -109,14 +120,13 @@ export const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const productos = useSelector((store) => store.productos);
-  const stock = useSelector((store) => store.stock);
-
+  const { productos, stock } = useLoaderData();
+  /*   const stock = useSelector((store) => store.stock);
+   */
   useEffect(() => {
-    !productos && dispatch(getProducts());
-    !stock && dispatch(getInitStock());
-    // dispatch(initOrders());
-  }, [dispatch]);
+    productos && dispatch(sendProductsToStore(productos));
+    stock && dispatch(sendStockToStore(stock));
+  }, [dispatch, productos]);
   return (
     <>
       <GlobalStyle />

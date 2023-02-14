@@ -11,16 +11,26 @@ const StyledMenu = styled.ul`
   align-items: flex-end;
   column-gap: 10px;
   margin-top: 10px;
-  ${({ showMobileMenu }) =>
-    showMobileMenu
-      ? css`
+  ${({ showMobileMenu, hidden }) => {
+    if (!hidden) {
+      return css`
+        visibility: visible;
+        opacity: 1;
+      `;
+    } else {
+      if (showMobileMenu) {
+        return css`
           visibility: visible;
           opacity: 1;
-        `
-      : css`
+        `;
+      } else {
+        return css`
           visibility: hidden;
-          oppacity: 0;
-        `}
+          opacity: 0;
+        `;
+      }
+    }
+  }}
 
   ${({ hidden }) =>
     hidden &&

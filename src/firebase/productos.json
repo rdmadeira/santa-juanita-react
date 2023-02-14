@@ -1,0 +1,473 @@
+{
+  "velas": {
+    "article": {
+      "img": "/assets/velas-5.jpg",
+      "alt_img_txt": "vela-de-soja",
+      "title": "Velas de Soja",
+      "sub_title": "Qué es la cera de soja y qué beneficios tiene?",
+      "content": [
+        "Es una cera de origen vegetal y a diferencia de la parafina, no tiene ningún derivado del petróleo.",
+        "No posee ninguna sustancia tóxica ni nociva. Por lo tanto, esta vela natural no causa problemas de salud, ni un perjuicio al planeta.",
+        "Al apagarlas dejan un humo transparente y huele a la esencia de la vela. A diferencia de lo que ocurre con las velas de parafina que dejan un humo negro y un ligero olor a quemado. Soltando estas últimas, un hollín que manchan muebles y/o paredes",
+        "Las velas de cera de soja no están compuesta de químicos: dura el doble de tiempo, y se quema completamente haciendo que no se desperdicie nada de su contenido.",
+        "La cera de soja es biodegradable, ecológica y es una fuente ilimitada y renovable.",
+        "Su punto de fusión es de 40° y 45°C por lo cual es más segura, incluso se puede utilizar para realizar masajes relajantes corporales. En cambio con la parafina la temperatura es mayor a 70°C lo que puede provocar quemaduras si se derrama accidentalmente.",
+        "Las velas de soja se pueden utilizar para aromaterapia, para realizar masajes incorporándole hidratantes y humectantes."
+      ]
+    },
+    "productos": [
+      {
+        "name": "Frutos del Bosque",
+        "description": "Vela de soja natural. Color rosa. Esencia de frutos rojos y del bosque. Recipiente en cuenco de madera de guayubira. Encender por primera vez por un periodo de al menos 1 hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 45-55 Hs",
+        "img": "../../assets/productos/velas/frutos-del-bosque.jpg",
+        "keywords": "vela soja aromatica frutos del bosque color rosa",
+        "color": "rosa",
+        "id": "1",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 850,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 1020,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Vainilla Primavera",
+        "description": "Vela de soja natural. Color blanco. Esencia de vainilla. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 55-60 Hs",
+        "img": "../../assets/productos/velas/vainilla.jpg",
+        "keywords": "vela soja aromatica vainilla color blanco",
+
+        "color": "blanco",
+        "id": "2",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 800,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 960,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Lavanda",
+        "description": "Vela de soja natural. Color violeta. Esencia de lavanda. Recipiente en papel reciclado. Encender por primera vez por un periodo de al menos 1 hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs",
+        "img": "../../assets/productos/velas/lavanda.jpg",
+        "keywords": "vela soja aromatica lavanda color violeta",
+        "color": "violeta",
+        "id": "3",
+        "promo": true,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 700,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 840,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Maracuya",
+        "description": "Vela de soja natural. Color amarillo. Esencia de lavanda. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs",
+        "img": "../../assets/productos/velas/maracuya.jpg",
+        "keywords": "vela soja aromatica maracuya color amarillo",
+        "color": "amarillo",
+        "id": "4",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 800,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 960,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      }
+    ]
+  },
+  "difusores": {
+    "article": {
+      "img": "/assets/difusores-3.jpg",
+      "alt_img_txt": "difusores-de-varillas",
+      "title": "Difusores de Varillas",
+      "sub_title": "Qué es un Difusor de Varillas?",
+      "content": [
+        "Se trata de un producto concentrado que sirve para perfumar y decorar pequeños ambientes.",
+        "Vas a encontrar múltiples formas para elaborarlos; nosotras sugerimos seguir estos pasos y respetar estas proporciones para obtener un producto de buena calidad.",
+        "Como funcionan?",
+        "Funcionan por vaporización natural, esto es vaporización por superficie, o sea la superficie expuesta al aire es la que se vaporiza y provoca la difusión natural del aroma.",
+        "Las varillas cumplen un efecto físico y estético; se empapan con la Esencia, y aumentan la superficie de vaporización y luego la difunden. Por eso estas varillas deben estar húmedas en forma permanente, lo que se obtiene invirtiéndolas cuidadosamente, una vez por día al principio, y luego en intervalos menos regulares. A medida que se va consumiendo el líquido del difusor, la vaporización puede resultar menos eficaz, y las varillas cumplen un papel importante.",
+        "Recomendaciones generales sobre el uso de los difusores:",
+        "Utilizar envases adecuados de boca de lo suficientemente ancha para favorecer la vaporización, pero adecuarlos estéticamente a la longitud de las varillas, y al aspecto final de nuestro difusor.",
+        "Las varillas pueden ser de Ratán o Bamboo, hay también algunas de madera aserrada, tipo pino o similar (pero si bien son económicas no son las que más rinden ni las que quedan mejor estéticamente). Recomendamos las de Ratán, que por su constitución demostraron un mejor rendimiento.",
+        "La cantidad de varillas también es importante y tener en cuenta estas cosas:"
+      ],
+      "list_content": [
+        "Deben estar armónicamente distribuidas según el envase que utilicemos, menos de 5 varillas ya no surten efecto en un volumen de 125 cc. Esto habrá que equilibrarlo para lograr una intensidad adecuada y agradable. Recordá que las varillas deben ponerse en forma de abanico, no todas amontonadas",
+        "Utilizar más de un difusor para ambientes relativamente grandes. Con un difusor podremos aromatizar un baño y hasta una pequeña habitación, en general rincones de lectura o lugares de estar. Pero para un ambiente mayor, necesitamos generar un efecto de solapamiento a partir de dos o más difusores ubicados estratégicamente",
+        "No colocarlos en sectores excesivamente ventilados, cerca de las ventanas o corrientes de aire. Las corrientes de aire permiten la difusión, pero todo debe ser equilibrado: Si la ventilación es excesiva, perdería muy rápidamente el efecto",
+        "También debemos tener en cuenta que en ambientes húmedos el difusor puede absorber la humedad del ambiente y por lo tanto resultar menos eficaz",
+        "Ubicar el difusor sobre una superficie poco delicada, porque al tener una concentración elevada de esencia, si el líquido se derrama puede dañar la laca de un mueble o manchar la pintura",
+        "La clásica pregunta: ¿Hay que dar vuelta las varillas? Las varillas deben estar de preferencia constantemente húmedas ya que como dijimos son las que aumentan la superficie de vaporización natural. Al principio podemos rotarlas una vez al día, pero si vemos que continúan húmedas no será necesario manipularlas hasta tanto se sequen"
+      ]
+    },
+    "productos": [
+      {
+        "name": "Flores Blancas",
+        "description": "Difusor de varillas aroma flores blancas en recipiente de vidrio. Fragancia que acalma y ilumina. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/flores-blancas.jpg",
+        "keywords": "difusor difusores varillas vidrio flores blancas color transparente",
+        "color": "transparente",
+        "stock": 10,
+        "id": "5",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680
+      },
+      {
+        "name": "Vainilla",
+        "description": " Difusor de varillas aroma vainilla en recipiente de vidrio. Fragancia que relaja. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/vainilla.jpg",
+        "keywords": "difusor difusores varillas vidrio vainilla color transparente",
+        "color": "transparente",
+        "stock": 12,
+        "id": "6",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680
+      },
+      {
+        "name": "Bamboo y Sandalo",
+        "description": " Difusor de varillas aroma bamboo con notas de sandalo, en recipiente de vidrio. Fragancia que energiza el ambiente. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/bamboo.jpg",
+        "keywords": "difusor difusores bamboo sandalo vidrio color transparente",
+        "color": "transparente",
+        "stock": 10,
+        "id": "7",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680
+      }
+    ]
+  },
+  "sales": {
+    "article": {
+      "img": "/assets/sales-2.jpg",
+      "alt_img_txt": "sales-de-baño",
+      "title": "Sales de Baño",
+      "sub_title": "Que beneficios traen los baños con sales?",
+      "content": [
+        "Las sales de baño son minerales pulverizados que se agregan al agua para producir un efecto detox, exfoliante, relajante o desinflamante. Pueden ser creadas con sal marina, sal de Epsom (un compuesto mineral de magnesio y sulfato), sal de roca o sales exóticas que provienen de ciertas partes del mundo como el Himalaya o el Mar Muerto, todas con propiedades similares para calmar al cuerpo y la mente.",
+        "Las sales de baño tienen muchas propiedades relajantes y beneficios en general para el cuerpo, dependiendo de los ingredientes con los que estén formuladas. Los más evidentes son los siguientes:",
+        "1 - Calman el cuerpo y la mente: Usar las sales de baño te ayuda a aliviar el estrés mientras que tu cuerpo se desintoxica, tu piel se suaviza y tu mente se va calmando poco a poco. Regularmente, su fórmula también incluye aceites esenciales, flores o plantas secas para completar la experiencia.",
+        "2 - Aumentan la energía: Además de sus poderes relajantes, las sales de baño también son muy buenas para eliminar la fatiga crónica, dejar la piel más fresca y la mente más tranquila. Las sales de baño que contienen magnesio son especialmente efectivas para energizar el cuerpo.",
+        "3 - Ayudan a dormir bien: Quién no ha comprobado el efecto reparador de un buen baño antes de dormir? Bueno, pues agregar sales a ese baño, conduce a un sueño todavía mejor. Se recomienda su uso regular para combatir el insomnio, sobre todo si tienen componentes botánicos calmantes como la lavanda o la manzanilla.",
+        "4 - Reducen los dolores musculares: Combina agua caliente con sales aromáticas para baño que contengan lavanda, eucalipto, menta, abeto o enebro y tendrás un poderoso remedio natural para desinflamar y aliviar dolores musculares."
+      ]
+    },
+    "productos": [
+      {
+        "name": "Jasmin",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Rejalante y controla la ansiedad. Desintoxica la piel",
+        "img": "../../assets/productos/sales/jasmin.jpg",
+        "keywords": "sal sales baño jasmin aroma marino color blanco",
+        "color": "blanco",
+        "stock": 15,
+        "id": "8",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      },
+      {
+        "name": "Petalas de Rosas",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Rejalante y  neutralizante. Desintoxica la piel",
+        "img": "../../assets/productos/sales/petalas-de-rosas.jpg",
+        "keywords": "sal sales baño petalas rosas aroma marino color rojo",
+        "color": "rojo",
+        "stock": 15,
+        "id": "9",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      },
+      {
+        "name": "Naranja",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Envasado en bolsa transparente. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Energizante. Desintoxica la piel",
+        "img": "../../assets/productos/sales/naranja.jpg",
+        "keywords": "sal sales baño jasmin aroma marino color amarillo",
+        "color": "amarillo",
+        "stock": 15,
+        "id": "10",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      }
+    ]
+  },
+  "bombas": {
+    "article": {
+      "img": "/assets/bomba-efervescente-3.jpeg",
+      "alt_img_txt": "bombas-efervecentes-para-baño",
+      "title": "Bombas Efervecentes para Baño",
+      "sub_title": "Bombas de baño para relajarse entre burbujas",
+      "content": [
+        "Una bomba de baño es una bola elaborada a partir de ingredientes secos que, al ser introducida en agua, se vuelve efervescente y se deshace confiriéndole al líquido sus ingredientes. Generalmente, se trata de perfumes, aceites esenciales y colorantes naturales.",
+        "Las bombas de baño son exactamente lo que necesitas para disfrutar de una buena dosis de relax durante tu aseo diario. Liberan burbujas, fragancias y aceites esenciales naturales de flores y plantas al sumergirse en el agua de la bañera y le proporcionan multitud de cualidades.",
+        "De hecho, son perfectas para combatir el estrés y la ansiedad y para tonificar, hidratar y revitalizar la piel y el cuero cabelludo. En resumen, elementos que te harán sentir como en un spa sin necesidad de salir de casa."
+      ]
+    },
+    "productos": [
+      {
+        "name": "Té Verde",
+        "description": "Bombas de baño son excelentes para un baño de inmersión, además de relajar, hidratan la piel por sus aceites esenciales. Fragancia floral que combina acordes verdes con sándalo y patchouli.No recomendados para menores de 8 años.",
+        "img": "../../assets/productos/bombas/te-verde.jpg",
+        "keywords": "bomba efervecente baño floral flor sandalo color verde",
+        "color": "verde",
+        "stock": 8,
+        "id": "11",
+        "promo": false,
+        "type": "bomba",
+        "content": "10 unidades de 20g cada",
+        "price": 920
+      },
+      {
+        "name": "Pétalas de Rosas",
+        "description": "Bombas de baño son excelentes para un baño de inmersión, además de relajar, hidratan la piel por sus aceites esenciales. Fragancia floral que combina acordes verdes con sándalo y patchouli.No recomendados para menores de 8 años.",
+        "img": "../../assets/productos/bombas/petalas-de-rosas.jpg",
+        "keywords": "bomba efervecente baño petalas rosas color rosa",
+        "color": "rosa",
+        "stock": 8,
+        "id": "12",
+        "promo": false,
+        "type": "bomba",
+        "content": "10 unidades de 20g cada",
+        "price": 920
+      }
+    ]
+  },
+  "todoslosproductos": {
+    "productos": [
+      {
+        "name": "Frutos del Bosque",
+        "description": "Vela de soja natural. Color rosa. Esencia de frutos rojos y del bosque. Recipiente en cuenco de madera de guayubira. Encender por primera vez por un periodo de al menos 1 hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 45-55 Hs",
+        "img": "../../assets/productos/velas/frutos-del-bosque.jpg",
+        "keywords": "vela soja aromatica frutos del bosque color rosa",
+        "color": "rosa",
+        "id": "1",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 850,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 1020,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Vainilla Primavera",
+        "description": "Vela de soja natural. Color blanco. Esencia de vainilla. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 55-60 Hs",
+        "img": "../../assets/productos/velas/vainilla.jpg",
+        "keywords": "vela soja aromatica vainilla color blanco",
+
+        "color": "blanco",
+        "id": "2",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 800,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 960,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Lavanda",
+        "description": "Vela de soja natural. Color violeta. Esencia de lavanda. Recipiente en papel reciclado. Encender por primera vez por un periodo de al menos 1 hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs",
+        "img": "../../assets/productos/velas/lavanda.jpg",
+        "keywords": "vela soja aromatica lavanda color violeta",
+        "color": "violeta",
+        "id": "3",
+        "promo": true,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 700,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 840,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Maracuya",
+        "description": "Vela de soja natural. Color amarillo. Esencia de lavanda. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs",
+        "img": "../../assets/productos/velas/maracuya.jpg",
+        "keywords": "vela soja aromatica maracuya color amarillo",
+        "color": "amarillo",
+        "id": "4",
+        "promo": false,
+        "type": "vela",
+        "content": {
+          "medium": {
+            "price": 800,
+            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "stock": 10
+          },
+          "big": {
+            "price": 960,
+            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "stock": 8
+          }
+        }
+      },
+      {
+        "name": "Flores Blancas",
+        "description": "Difusor de varillas aroma flores blancas en recipiente de vidrio. Fragancia que acalma y ilumina. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/flores-blancas.jpg",
+        "keywords": "difusor difusores varillas vidrio flores blancas color transparente",
+        "color": "transparente",
+        "id": "5",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680,
+        "stock": 10
+      },
+      {
+        "name": "Vainilla",
+        "description": " Difusor de varillas aroma vainilla en recipiente de vidrio. Fragancia que relaja. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/vainilla.jpg",
+        "keywords": "difusor difusores varillas vidrio vainilla color transparente",
+        "color": "transparente",
+        "id": "6",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680,
+        "stock": 10
+      },
+      {
+        "name": "Bamboo y Sandalo",
+        "description": " Difusor de varillas aroma bamboo con notas de sandalo, en recipiente de vidrio. Fragancia que energiza el ambiente. Las varillas pueden ser re-utilizadas  siempre y solo si se usa con la misma fragancia original del envase",
+        "img": "../../assets/productos/difusores/bamboo.jpg",
+        "keywords": "difusor difusores bamboo sandalo vidrio color transparente",
+        "color": "transparente",
+        "id": "7",
+        "promo": false,
+        "type": "difusor",
+        "content": "250ml",
+        "price": 680,
+        "stock": 10
+      },
+      {
+        "name": "Jasmin",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Rejalante y controla la ansiedad. Desintoxica la piel",
+        "img": "../../assets/productos/sales/jasmin.jpg",
+        "keywords": "sal sales baño jasmin aroma marino color blanco",
+        "color": "blanco",
+        "stock": 15,
+        "id": "8",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      },
+      {
+        "name": "Petalas de Rosas",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Rejalante y  neutralizante. Desintoxica la piel",
+        "img": "../../assets/productos/sales/petalas-de-rosas.jpg",
+        "keywords": "sal sales baño petalas rosas aroma marino color rojo",
+        "color": "rojo",
+        "stock": 15,
+        "id": "9",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      },
+      {
+        "name": "Naranja",
+        "description": "Sal de Baño composto por sal marina y sal Epsom. Envasado en bolsa transparente. Agrega las sales de baño mientras llenas la bañera para asegurar que se derriten completamente y aportan el máximo de sus cualidades. Energizante. Desintoxica la piel",
+        "img": "../../assets/productos/sales/naranja.jpg",
+        "keywords": "sal sales baño jasmin aroma marino color amarillo",
+        "color": "amarillo",
+        "stock": 15,
+        "id": "10",
+        "promo": false,
+        "type": "sal",
+        "content": "250g",
+        "price": 480
+      },
+      {
+        "name": "Té Verde",
+        "description": "Bombas de baño son excelentes para un baño de inmersión, además de relajar, hidratan la piel por sus aceites esenciales. Fragancia floral que combina acordes verdes con sándalo y patchouli.No recomendados para menores de 8 años.",
+        "img": "../../assets/productos/bombas/te-verde.jpg",
+        "keywords": "bomba efervecente baño floral flor sandalo color verde",
+        "color": "verde",
+        "stock": 8,
+        "id": "11",
+        "promo": false,
+        "type": "bomba",
+        "content": "10 unidades de 20g cada",
+        "price": 920
+      },
+      {
+        "name": "Pétalas de Rosas",
+        "description": "Bombas de baño son excelentes para un baño de inmersión, además de relajar, hidratan la piel por sus aceites esenciales. Fragancia floral que combina acordes verdes con sándalo y patchouli.No recomendados para menores de 8 años.",
+        "img": "../../assets/productos/bombas/petalas-de-rosas.jpg",
+        "keywords": "bomba efervecente baño petalas rosas color rosa",
+        "color": "rosa",
+        "stock": 8,
+        "id": "12",
+        "promo": false,
+        "type": "bomba",
+        "content": "10 unidades de 20g cada",
+        "price": 920
+      }
+    ]
+  }
+}

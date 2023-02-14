@@ -23,6 +23,7 @@ const ProductosMain = ({ productos }) => {
           <Producto producto={producto} key={producto.name + producto.id} />
         ))}
       </ProductsContain>
+      )
     </>
   );
 };

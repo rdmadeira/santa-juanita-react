@@ -5,7 +5,10 @@ const INITIAL_STATE = null;
 export const productosReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'GET_INIT_PRODUCTS':
-      return action.payload;
+      return { ...action.payload };
+
+    case 'UPDATE_PRODUCTS_STORE':
+      return { ...action.payload };
 
     default:
       return state;

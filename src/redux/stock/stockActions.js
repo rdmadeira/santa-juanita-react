@@ -2,6 +2,7 @@ import { getProductsData } from '../../utils/products_utils/getProductsData';
 
 export const DECREMENT_STOCK = 'DECREMENT_STOCK';
 export const GET_INIT_STOCK = 'GET_INIT_STOCK';
+export const UPDATE_STOCK_STORE = 'UPDATE_STOCK_STORE';
 
 export const getInitStock = () => {
   return async (dispatch) => {
@@ -28,6 +29,11 @@ export const getInitStock = () => {
       });
   };
 };
+
+export const sendStockToStore = (stock) => ({
+  type: UPDATE_STOCK_STORE,
+  payload: stock,
+});
 
 export const decrementStock = (cart, stocks) => {
   const updatedStocks = stocks.map((item) => {
