@@ -1,5 +1,13 @@
+import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
+
 /*  */
 const firebaseConfig = {
   apiKey: 'AIzaSyDTfJwVV27VRZBXXCqLlYKlZGPAiM7NSX8',
@@ -35,4 +43,44 @@ export const getStockFromDataBase = async () => {
   const stock = querySnapshot.docs.map((doc) => doc.data());
 
   return await stock;
+};
+
+export const decrementStock = (cart, stocks) => {
+  const updatedStocks = stocks.map((item) => {
+    cart.forEach((producto) => {
+      if (item.id === producto.id) {
+        if (producto.type === 'vela') {
+          item = {
+            ...item,
+            stock: {
+              ...item.stock,
+              [producto.size]:
+                item.stock[producto.size] > 0
+                  ? item.stock[producto.size] - producto.quantity
+                  : 0,
+            },
+          };
+        } else {
+          item = {
+            ...item,
+            stock: item.stock > 0 ? item.stock - producto.quantity : 0,
+          };
+        }
+      }
+    });
+    return item;
+  });
+
+  return updatedStocks;
+};
+
+export const updateStocktoDatabase = async (cart, stocks) => {
+  const updatedStocks = decrementStock(cart, stocks);
+  const collectionName = 'stock';
+  Object.keys(updatedStocks).forEach(async (docKey) => {
+    await setDoc(
+      doc(db, collectionName, updatedStocks[docKey].name),
+      updatedStocks[docKey]
+    );
+  });
 };
