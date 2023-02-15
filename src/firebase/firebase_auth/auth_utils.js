@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
 
 import {
   getAuth,
@@ -28,7 +28,7 @@ const actionCodeSettings = {
   handleCodeInApp: true,
 };
 
-const auth = getAuth();
+const auth = getAuth(app);
 
 export const signUpWithEmail = (infoemail) => {
   sendSignInLinkToEmail(auth, infoemail, actionCodeSettings)
