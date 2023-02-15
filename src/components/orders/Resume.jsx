@@ -51,7 +51,7 @@ const ItemLi = styled.li`
   border-radius: 5px;
 `;
 
-const ItemLiText = styled.text`
+const ItemLiText = styled.p`
   padding: 2px;
 `;
 
@@ -105,7 +105,7 @@ export const Resume = ({ order }) => {
         </StyledStatus>
         {order.items.map((item) => {
           return (
-            <ItemLi key={item.id + order.id}>
+            <ItemLi key={item.id + item.size}>
               <ItemLiText>
                 {item.type.charAt(0).toUpperCase() + item.type.slice(1)} -{' '}
                 {item.name}

@@ -13,7 +13,8 @@ import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContact
 import * as userActions from '../../redux/user/userActions';
 import * as ordersActions from '../../redux/orders/ordersActions';
 import * as cartActions from '../../redux/cart/cartActions';
-import { decrementStock } from '../../redux/stock/stockActions';
+import { decrementStocktoDatabase } from '../../firebase/firebase_utils';
+// import { decrementStock } from '../../redux/stock/stockActions';
 
 const MyCartContainer = styled.div`
   width: 100%;
@@ -114,7 +115,7 @@ const MyCartItems = ({ hidden }) => {
   const goToPayment = () => {
     dispatch(hiddenCartActions.toggleCart());
     dispatch(ordersActions.createOrderSuccess(user, cartItems));
-    dispatch(decrementStock(cartItems, stock));
+    decrementStocktoDatabase(cartItems, stock);
     dispatch(cartActions.cartReset());
     dispatch(userActions.setUserCart([]));
     navigate('orders');

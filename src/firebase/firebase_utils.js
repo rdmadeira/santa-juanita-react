@@ -1,4 +1,4 @@
-import { firestore } from 'firebase-admin';
+//import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -74,7 +74,7 @@ export const decrementStock = (cart, stocks) => {
   return updatedStocks;
 };
 
-export const updateStocktoDatabase = async (cart, stocks) => {
+export const decrementStocktoDatabase = async (cart, stocks) => {
   const updatedStocks = decrementStock(cart, stocks);
   const collectionName = 'stock';
   Object.keys(updatedStocks).forEach(async (docKey) => {

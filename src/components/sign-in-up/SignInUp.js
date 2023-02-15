@@ -16,6 +16,7 @@ import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
+import { signUpWithEmail } from '../../firebase/firebase_auth/auth_utils';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
 const SignInUpContainer = styled.section`
@@ -126,9 +127,14 @@ const SignInUp = ({ signInUpHidden }) => {
     dispatch(hiddenSignUpAction(null));
   }, []);
 
-  //const user = useSelector((store) => store.user);
+  const authWithEmailHandle = (e) => {
+    e.preventDefault();
+    const email = formState.inputs.email.value;
 
-  const submitCheckEmailHandler = (e) => {
+    signUpWithEmail(email);
+  };
+
+  /* const submitCheckEmailHandler = (e) => {
     e.preventDefault();
     let checkedUser = checkUser(formState.inputs.email.value, users);
 
@@ -175,46 +181,8 @@ const SignInUp = ({ signInUpHidden }) => {
       );
     }
     return;
-    /* formState.isValid &&
-      state.user &&
-      dispatch({
-        type: 'SUBMIT_CHECK_EMAIL',
-        isLogin: true,
-        inputs: {
-          ...state.inputs,
-          password: {
-            value: '',
-            isValid: null,
-          },
-        },
-      });
-    state.isValid &&
-      state.user === null &&
-      dispatch({
-        type: 'SUBMIT_CHECK_EMAIL',
-        isLogin: false,
-        inputs: {
-          ...state.inputs,
-          password: {
-            value: '',
-            isValid: null,
-            onBlur: false,
-          },
-          name: {
-            value: '',
-            isValid: null,
-            onBlur: false,
-          },
-          lastname: {
-            value: '',
-            isValid: null,
-            onBlur: false,
-          },
-        },
-      });
-  };
- */
-  };
+    
+  }; */
 
   const loginHandle = (e) => {
     e.preventDefault();
@@ -232,25 +200,6 @@ const SignInUp = ({ signInUpHidden }) => {
 
     setIsValidPassword(false);
   };
-  /* const inputHandle = useCallback(
-    (id, value, isValid, onBlur) => {
-      if (id === 'email') {
-        dispatch({ type: 'CHECK_USER', user: checkUser(value, users) });
-      }
-      dispatch({
-        type: 'INPUT_ON_CHANGE',
-        inputs: {
-          ...state.inputs,
-          [id]: {
-            value: value,
-            isValid: isValid,
-            onBlur: onBlur,
-          },
-        },
-      });
-    },
-    [state.inputs]
-  ); */
 
   const closeHandle = () => {
     dispatch(hiddenSignUpAction(false));
@@ -260,12 +209,7 @@ const SignInUp = ({ signInUpHidden }) => {
     }, 2000);
   };
 
-  /* const setIsLogin = (boolean) => {
-    dispatch({
-      type: 'SUBMIT_CHECK_EMAIL',
-      isLogin: boolean,
-    });
-  }; */
+  const signUpWithGoogleHandle = () => {};
 
   return (
     <SignInUpContainer
@@ -301,7 +245,7 @@ const SignInUp = ({ signInUpHidden }) => {
             setFormData={setFormData}
             isLogin={isLogin}
             formState={formState}
-            onSubmit={submitCheckEmailHandler}
+            onSubmit={authWithEmailHandle}
           />
         )}
         {isLogin === false && (
@@ -344,11 +288,9 @@ const SignInUp = ({ signInUpHidden }) => {
       </FormContainer>
 
       <GFADivStyled>
-        <RedesButtonsStyled>
-          <Link to="/">
-            <GoogleSvg />
-            Continue with Google
-          </Link>
+        <RedesButtonsStyled onClick={signUpWithGoogleHandle}>
+          <GoogleSvg />
+          Continue with Google
         </RedesButtonsStyled>
         <RedesButtonsStyled>
           <Link to="/">
