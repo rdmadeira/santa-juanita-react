@@ -46,6 +46,11 @@ export const signUpWithEmail = (email) => {
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
     });
+};
+
+export const checkIsSignInWithEmail = () => {
+  const auth = getAuth();
+
   if (isSignInWithEmailLink(auth, window.location.href)) {
     console.log(window.location.href, auth);
     // Additional state parameters can also be passed via URL.

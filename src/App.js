@@ -27,7 +27,10 @@ import {
   getProductsFromDataBase,
   getStockFromDataBase,
 } from './firebase/firebase_utils';
-import { onAuthStateChange } from './firebase/firebase_auth/auth_utils';
+import {
+  onAuthStateChange,
+  checkIsSignInWithEmail,
+} from './firebase/firebase_auth/auth_utils';
 
 export const router = createBrowserRouter([
   {
@@ -132,6 +135,7 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChange(dispatch, setUser);
+    checkIsSignInWithEmail();
     onAuthStateChange(dispatch, setUser);
     return () => {
       unsubscribe();
