@@ -4,6 +4,7 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
 import { sendProductsToStore } from './redux/productos/productosActions';
 import { sendStockToStore } from './redux/stock/stockActions';
+import { setUser } from './redux/user/userActions';
 /* import { getInitStock } from './redux/stock/stockActions';
  */
 // import { initOrders } from './redux/orders/ordersActions';
@@ -26,6 +27,7 @@ import {
   getProductsFromDataBase,
   getStockFromDataBase,
 } from './firebase/firebase_utils';
+import { onAuthStateChange } from './firebase/firebase_auth/auth_utils';
 
 export const router = createBrowserRouter([
   {
@@ -127,6 +129,15 @@ function App() {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
   }, [dispatch, productos]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange(dispatch, setUser);
+    onAuthStateChange(dispatch, setUser);
+    return () => {
+      unsubscribe();
+    };
+  }, [dispatch]);
+
   return (
     <>
       <GlobalStyle />

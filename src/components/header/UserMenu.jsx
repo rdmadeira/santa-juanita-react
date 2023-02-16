@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../redux/user/userActions';
+/* import { useDispatch } from 'react-redux';
+ */ import { useNavigate } from 'react-router-dom';
+/* import { logoutUser } from '../../redux/user/userActions';
+ */ /* import { auth } from 'firebase-admin'; */
+import { signOut, getAuth } from 'firebase/auth';
 
 const ShowDown = keyframes`
 0% {
@@ -50,12 +52,17 @@ const UserMenuLi = styled.li`
 `;
 
 export const UserMenu = ({ hidden }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandle = () => {
-    dispatch(logoutUser());
-    navigate('/');
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        navigate('/');
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
   return (
     <UserMenuContainer hidden={hidden}>

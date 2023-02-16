@@ -1,5 +1,14 @@
 import { initializeApp } from 'firebase/app';
-// import { getFirestore } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  getAuth,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDTfJwVV27VRZBXXCqLlYKlZGPAiM7NSX8',
   authDomain: 'santa-juanita-377619.firebaseapp.com',
@@ -11,13 +20,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
-import {
-  getAuth,
-  sendSignInLinkToEmail,
-  isSignInWithEmailLink,
-  signInWithEmailLink,
-} from 'firebase/auth';
+const db = getFirestore(app);
+const auth = getAuth(app);
 
 const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
@@ -26,8 +30,6 @@ const actionCodeSettings = {
   // This must be true.
   handleCodeInApp: true,
 };
-
-const auth = getAuth(app);
 
 export const signUpWithEmail = (infoemail) => {
   sendSignInLinkToEmail(auth, infoemail, actionCodeSettings)
@@ -61,7 +63,10 @@ export const signUpWithEmail = (infoemail) => {
       .then((result) => {
         // Clear email from storage.
         window.localStorage.removeItem('emailForSignIn');
-        console.log(result.user);
+        console.log(result.user, result.providerId);
+
+        return { data: result.user, id: result.providerId };
+
         // You can access the new user via result.user
         // Additional user info profile not available via:
         // result.additionalUserInfo.profile == null
@@ -74,4 +79,61 @@ export const signUpWithEmail = (infoemail) => {
         console.log(error);
       });
   }
+};
+
+const createUserDoc = async (userAuth, addicionalData) => {
+  if (!userAuth) return;
+  const createdAt = new Date();
+  const { displayName, email } = userAuth;
+  const userRef = doc(db, 'users', userAuth.uid);
+  const snapshot = await getDoc(userRef);
+  const newUser = {
+    createdAt,
+    displayName,
+    email,
+    ...addicionalData,
+  };
+
+  if (!snapshot.exists()) {
+    await setDoc(doc(db, 'users', userAuth.uid), newUser);
+  }
+
+  return userRef;
+};
+
+export function onAuthStateChange(callback, action) {
+  console.log(action);
+  auth.onAuthStateChanged(async (userAuth) => {
+    if (userAuth) {
+      const userRef = await createUserDoc(userAuth);
+      const snapshot = await getDoc(userRef);
+      console.log(userRef, snapshot);
+
+      callback(action({ id: snapshot.id, ...snapshot.data() }));
+    } else {
+      callback(action(null));
+    }
+  });
+}
+
+export const SignInWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  auth.useDeviceLanguage();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      return { data: result.user, id: result.providerId, token: token };
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      console.log(errorCode, errorMessage, email);
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      return credential;
+    });
 };

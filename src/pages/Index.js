@@ -44,7 +44,7 @@ const Index = () => {
         ]}
       />
       <StyledMain user={user}>
-        <SignInUp signInUpHidden={signInUpHidden} />
+        {!user && <SignInUp signInUpHidden={signInUpHidden} />}
         {!cartHidden && <MyCartItems />}
         <Outlet />
       </StyledMain>

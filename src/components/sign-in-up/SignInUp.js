@@ -16,7 +16,10 @@ import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
-import { signUpWithEmail } from '../../firebase/firebase_auth/auth_utils';
+import {
+  signUpWithEmail,
+  SignInWithGoogle,
+} from '../../firebase/firebase_auth/auth_utils';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
 const SignInUpContainer = styled.section`
@@ -209,7 +212,9 @@ const SignInUp = ({ signInUpHidden }) => {
     }, 2000);
   };
 
-  const signUpWithGoogleHandle = () => {};
+  const signUpWithGoogleHandle = () => {
+    SignInWithGoogle();
+  };
 
   return (
     <SignInUpContainer

@@ -132,7 +132,9 @@ const Header = ({ menu, setHiddenCart }) => {
           showMobileMenu={showMobileMenu}></HeaderMenu>
       </StyledNav>
       <StyledUserLogoDiv onClick={toggleHiddenSignInUpSection}>
-        <span>{user?.name ? 'Hola, ' + user.name : 'Login / SignUp'}</span>
+        <span>
+          {user?.displayName ? 'Hola, ' + user.displayName : 'Login / SignUp'}
+        </span>
         {user && (
           <UserLogo
             src={process.env.PUBLIC_URL + '/assets/user_logo.png'}></UserLogo>
