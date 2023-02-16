@@ -26,7 +26,7 @@ const auth = getAuth(app);
 const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
   // URL must be in the authorized domains list in the Firebase Console.
-  url: 'https://santajuanita.page.link/V9Hh',
+  url: 'https://santa-juanita-react.vercel.app/',
   // This must be true.
   handleCodeInApp: true,
 };
