@@ -69,15 +69,18 @@ export const checkIsSignInWithEmail = () => {
       .then((result) => {
         // Clear email from storage.
         window.localStorage.removeItem('emailForSignIn');
+        alert(`Entraste con éxito - ${result.user.email}`);
         // You can access the new user via result.user
-        console.log(result.user, result.providerId);
+
+        /*         console.log(result.user, result.providerId); */
+
         // Additional user info profile not available via:
         // result.additionalUserInfo.profile == null
         // You can check if the user is new or existing:
         // result.additionalUserInfo.isNewUser
       })
       .catch((error) => {
-        console.log(error.message, error.code);
+        alert(`${error.message} - ${error.code}`);
         // Some error occurred, you can inspect the code: error.code
         // Common errors could be invalid email and invalid or expired OTPs.
       });
@@ -106,11 +109,11 @@ const createUserDoc = async (userAuth, addicionalData) => {
 
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
-    console.log(userAuth);
+    /*     console.log(userAuth); */
     if (userAuth) {
       const userRef = await createUserDoc(userAuth);
       const snapshot = await getDoc(userRef);
-      console.log(userRef, snapshot);
+      /*       console.log(userRef, snapshot); */
 
       callback(action({ id: snapshot.id, ...snapshot.data() }));
     } else {
@@ -135,7 +138,7 @@ export const SignInWithGoogle = () => {
       // The email of the user's account used.
       const email = error.customData.email;
       // The AuthCredential type that was used.
-      console.log(errorCode, errorMessage, email);
+      alert(`${errorCode} - ${errorMessage} - email: ${email}`);
       const credential = GoogleAuthProvider.credentialFromError(error);
       return credential;
     });

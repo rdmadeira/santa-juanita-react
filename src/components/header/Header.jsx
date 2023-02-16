@@ -133,7 +133,11 @@ const Header = ({ menu, setHiddenCart }) => {
       </StyledNav>
       <StyledUserLogoDiv onClick={toggleHiddenSignInUpSection}>
         <span>
-          {user?.displayName ? 'Hola, ' + user.displayName : 'Login / SignUp'}
+          {user?.displayName
+            ? 'Hola, ' + user.displayName
+            : user?.email
+            ? user.email
+            : 'Login / SignUp'}
         </span>
         {user && (
           <UserLogo
