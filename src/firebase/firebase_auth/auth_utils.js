@@ -32,6 +32,7 @@ const actionCodeSettings = {
 };
 
 export const signUpWithEmail = (email) => {
+  const auth = getAuth();
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
     .then(() => {
       // The link was successfully sent. Inform the user.
@@ -46,6 +47,7 @@ export const signUpWithEmail = (email) => {
       console.log(errorCode, errorMessage);
     });
   if (isSignInWithEmailLink(auth, window.location.href)) {
+    console.log(window.location.href, auth);
     // Additional state parameters can also be passed via URL.
     // This can be used to continue the user's intended action before triggering
     // the sign-in operation.
@@ -98,8 +100,8 @@ const createUserDoc = async (userAuth, addicionalData) => {
 };
 
 export function onAuthStateChange(callback, action) {
-  console.log(action);
   auth.onAuthStateChanged(async (userAuth) => {
+    console.log(userAuth);
     if (userAuth) {
       const userRef = await createUserDoc(userAuth);
       const snapshot = await getDoc(userRef);
