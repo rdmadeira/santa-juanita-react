@@ -77,7 +77,7 @@ export const checkIsSignInWithEmail = () => {
         // result.additionalUserInfo.isNewUser
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message, error.code);
         // Some error occurred, you can inspect the code: error.code
         // Common errors could be invalid email and invalid or expired OTPs.
       });
