@@ -1,5 +1,5 @@
 import React, { useRef /* , useEffect */ } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+
 import SignInUpInput from './SignInUpInput.jsx';
 import SignInUpButton from './SignInUpButton.jsx';
 
@@ -28,6 +28,7 @@ export const CheckUserForm = ({
   formState,
   className,
   onSubmit,
+  authWithEmailHandle,
 }) => {
   const emailInput = useRef();
 
@@ -42,14 +43,22 @@ export const CheckUserForm = ({
         onInput={inputHandle}
         errorText="Ingrese un email válido"
       />
-      <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
+      <SignInUpButton
+        isLogin={isLogin}
+        disabled={!formState.isValid}
+        text="SIGUIENTE"
+      />
+      <SignInUpButton
+        onClick={authWithEmailHandle}
+        text="Entre con su email"
+        type="button"
+      />
     </Form>
   );
 };
 
 export const LoginForm = ({
   formState,
-  isLogin,
   emailInput,
   inputHandle,
   className,
@@ -98,7 +107,7 @@ export const LoginForm = ({
           } // Encontrar un estado para error de password
         />
 
-        <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
+        <SignInUpButton text="ENTRAR" disabled={!formState.isValid} />
       </Form>
     </>
   );
@@ -109,27 +118,11 @@ export const SignUpForm = ({
   emailInput,
   inputHandle,
   className,
-  isLogin,
-  setIsLogin,
+  onSubmit,
 }) => {
-  const users = useSelector((store) => store.users);
-  const dispatch = useDispatch();
-
-  const submitNewUser = (e) => {
-    e.preventDefault();
-    dispatch({
-      type: 'USER_IN_USERS',
-      payload: {
-        inputs: formState.inputs,
-        users: users,
-      },
-    });
-    setIsLogin(true);
-  };
-
   return (
     <>
-      <Form className={className} onSubmit={submitNewUser}>
+      <Form className={className} onSubmit={onSubmit}>
         <SignInUpInput
           name="name"
           type="text"
@@ -166,7 +159,7 @@ export const SignUpForm = ({
           errorText="Ingrese mínimo 8 caracteres"
         />
 
-        <SignInUpButton isLogin={isLogin} disabled={!formState.isValid} />
+        <SignInUpButton text="REGISTRESE" disabled={!formState.isValid} />
       </Form>
     </>
   );

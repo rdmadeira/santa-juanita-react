@@ -59,7 +59,7 @@ const StyledUserLogoDiv = styled.div`
   border: 1px solid var(--opera-mauve);
   border-radius: 10px;
   cursor: pointer;
-  padding: 3px;
+  padding: 5px 8px;
 
   &:hover {
     background-color: #ebd9e3;

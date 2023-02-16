@@ -10,7 +10,7 @@ const BannerTextContainer = styled.div`
   font-family: 'Barlow', sans-serif;
   color: var(--opera-mauve);
   row-gap: 1vw;
-  padding: 0 4vw 3vw 6vw;
+  /*   padding: 0 4vw 3vw 6vw; */
   background: linear-gradient(
     343deg,
     #d199b8 0%,

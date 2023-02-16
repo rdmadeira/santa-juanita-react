@@ -19,6 +19,7 @@ import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
 import {
   signUpWithEmail,
   SignInWithGoogle,
+  createNewUserWithEmailandPassword,
 } from '../../firebase/firebase_auth/auth_utils';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
@@ -102,6 +103,7 @@ const RedesButtonsStyled = styled.div`
   width: 70%;
   border: solid 2px var(--twilight-lavender);
   border-radius: 3px;
+  cursor: pointer;
 `;
 
 const SignInUp = ({ signInUpHidden }) => {
@@ -137,7 +139,7 @@ const SignInUp = ({ signInUpHidden }) => {
     signUpWithEmail(email);
   };
 
-  /* const submitCheckEmailHandler = (e) => {
+  const submitCheckEmailHandler = (e) => {
     e.preventDefault();
     let checkedUser = checkUser(formState.inputs.email.value, users);
 
@@ -184,8 +186,7 @@ const SignInUp = ({ signInUpHidden }) => {
       );
     }
     return;
-    
-  }; */
+  };
 
   const loginHandle = (e) => {
     e.preventDefault();
@@ -214,6 +215,12 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const signUpWithGoogleHandle = () => {
     SignInWithGoogle();
+  };
+
+  const submitNewUser = (e) => {
+    e.preventDefault();
+    createNewUserWithEmailandPassword(formState.inputs);
+    setIsLogin(true);
   };
 
   return (
@@ -250,7 +257,8 @@ const SignInUp = ({ signInUpHidden }) => {
             setFormData={setFormData}
             isLogin={isLogin}
             formState={formState}
-            onSubmit={authWithEmailHandle}
+            authWithEmailHandle={authWithEmailHandle}
+            onSubmit={submitCheckEmailHandler}
           />
         )}
         {isLogin === false && (
@@ -260,6 +268,7 @@ const SignInUp = ({ signInUpHidden }) => {
             isLogin={isLogin}
             setIsLogin={setIsLogin}
             formState={formState}
+            onSubmit={submitNewUser}
           />
         )}
         {isLogin === true && (

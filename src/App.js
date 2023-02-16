@@ -5,10 +5,8 @@ import { AnimationStyles } from './styles/AnimationStyles';
 import { sendProductsToStore } from './redux/productos/productosActions';
 import { sendStockToStore } from './redux/stock/stockActions';
 import { setUser } from './redux/user/userActions';
-/* import { getInitStock } from './redux/stock/stockActions';
- */
-// import { initOrders } from './redux/orders/ordersActions';
-// import Header from './components/header/Header.jsx';
+import { sendUsersToStore } from './redux/users/usersActions';
+
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Velas from './pages/Velas';
@@ -18,14 +16,13 @@ import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
 import Orders from './pages/Orders';
 
-/* import User from './pages/User';
-import Payment from './pages/Payment'; */
 import { createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
 import Index from './pages/Index';
 import Contact from './pages/Contact';
 import {
   getProductsFromDataBase,
   getStockFromDataBase,
+  getUsersFromDatabase,
 } from './firebase/firebase_utils';
 import {
   onAuthStateChange,
@@ -39,7 +36,8 @@ export const router = createBrowserRouter([
     loader: async () => {
       const productos = await getProductsFromDataBase();
       const stock = await getStockFromDataBase();
-      return { productos, stock };
+      const users = await getUsersFromDatabase();
+      return { productos, stock, users };
     },
     children: [
       {
@@ -125,12 +123,13 @@ export const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const { productos, stock } = useLoaderData();
+  const { productos, stock, users } = useLoaderData();
   /*   const stock = useSelector((store) => store.stock);
    */
   useEffect(() => {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
+    users && dispatch(sendUsersToStore(users));
   }, [dispatch, productos]);
 
   useEffect(() => {

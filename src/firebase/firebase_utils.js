@@ -45,6 +45,17 @@ export const getStockFromDataBase = async () => {
   return await stock;
 };
 
+export const getUsersFromDatabase = async () => {
+  const querySnapshot = await await getDocs(collection(db, 'users'));
+  console.log(querySnapshot);
+  const users = querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+
+  return users;
+};
+
 export const decrementStock = (cart, stocks) => {
   const updatedStocks = stocks.map((item) => {
     cart.forEach((producto) => {

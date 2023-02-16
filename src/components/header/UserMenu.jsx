@@ -33,7 +33,8 @@ const UserMenuContainer = styled.ul`
   color: var(--twilight-lavender);
   display: flex;
   flex-direction: column;
-  padding: 10px 5px 20px;
+  row-gap: 10px;
+  padding: 10px 0;
   transform-origin: top;
   animation: ${({ hidden }) =>
     !hidden
@@ -48,7 +49,11 @@ const UserMenuContainer = styled.ul`
 
 const UserMenuLi = styled.li`
   width: 100%;
-  padding: 5px 0;
+  padding: 10px 5px;
+  &:hover {
+    background-color: var(--mulberry);
+    color: var(--snow);
+  }
 `;
 
 export const UserMenu = ({ hidden }) => {

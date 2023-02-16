@@ -17,14 +17,10 @@ const Button = styled.button`
     `}
 `;
 
-const SignInUpButton = ({ isLogin, disabled }) => {
+const SignInUpButton = ({ disabled, onClick, text, type }) => {
   return (
-    <Button disabled={disabled}>
-      {isLogin === true
-        ? 'LOG IN'
-        : isLogin === false
-        ? 'SIGN UP'
-        : 'SIGUIENTE'}
+    <Button disabled={disabled} onClick={onClick} type={type}>
+      {text}
     </Button>
   );
 };

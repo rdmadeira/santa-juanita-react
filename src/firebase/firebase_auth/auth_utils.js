@@ -7,6 +7,8 @@ import {
   signInWithEmailLink,
   GoogleAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -90,7 +92,8 @@ export const checkIsSignInWithEmail = () => {
 const createUserDoc = async (userAuth, addicionalData) => {
   if (!userAuth) return;
   const createdAt = new Date();
-  const { displayName, email } = userAuth;
+  let { displayName, email } = userAuth;
+  if (!displayName) displayName = addicionalData?.displayName || email;
   const userRef = doc(db, 'users', userAuth.uid);
   const snapshot = await getDoc(userRef);
   const newUser = {
@@ -142,4 +145,27 @@ export const SignInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
       return credential;
     });
+};
+
+export const createNewUserWithEmailandPassword = async (formInputsValue) => {
+  const auth = getAuth();
+  const { name, lastname, email, password } = formInputsValue;
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      createUserDoc(userCredential, { displayName2: `${name} + ${lastname}` });
+      console.log(user, userCredential);
+    })
+    .catch((error) => console.log(`${error.code} - ${error.message}`));
+};
+
+export const LoginWithEmailAndPassword = async (formInputsValue) => {
+  const auth = getAuth();
+  const { email, password } = formInputsValue;
+
+  signInWithEmailAndPassword(auth, email.value, password.value).then(
+    (userCredential) => {
+      console.log(userCredential, userCredential.user);
+    }
+  );
 };
