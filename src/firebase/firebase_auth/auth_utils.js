@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -96,6 +97,7 @@ const createUserDoc = async (userAuth, addicionalData) => {
   if (!displayName) displayName = addicionalData?.displayName || email;
   const userRef = doc(db, 'users', userAuth.uid);
   const snapshot = await getDoc(userRef);
+  console.log(userAuth, snapshot);
   const newUser = {
     createdAt,
     displayName,
@@ -114,7 +116,9 @@ export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
     /*     console.log(userAuth); */
     if (userAuth) {
-      const userRef = await createUserDoc(userAuth);
+      const userRef = await createUserDoc(userAuth, {
+        method: await fetchSignInMethodsForEmail(auth, userAuth.email),
+      });
       const snapshot = await getDoc(userRef);
       /*       console.log(userRef, snapshot); */
 
@@ -153,8 +157,8 @@ export const createNewUserWithEmailandPassword = async (formInputsValue) => {
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       const user = userCredential.user;
-      createUserDoc(userCredential, { displayName2: `${name} + ${lastname}` });
       console.log(user, userCredential);
+      userCredential.user.displayName = `${name.value} ${lastname.value}`;
     })
     .catch((error) => console.log(`${error.code} - ${error.message}`));
 };

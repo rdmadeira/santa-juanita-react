@@ -138,7 +138,7 @@ export const ProductCard = ({ producto }) => {
   };
 
   const stockButtonHandle = () => {
-    return stock > 0 ? '' : 'true';
+    return stock > 0 ? '' : true;
   };
 
   /* const noStockProducts = () => {

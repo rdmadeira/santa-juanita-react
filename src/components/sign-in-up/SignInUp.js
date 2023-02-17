@@ -20,6 +20,7 @@ import {
   signUpWithEmail,
   SignInWithGoogle,
   createNewUserWithEmailandPassword,
+  LoginWithEmailAndPassword,
 } from '../../firebase/firebase_auth/auth_utils';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
@@ -190,19 +191,11 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const loginHandle = (e) => {
     e.preventDefault();
-    let passwordValue = formState.inputs.password.value;
-    let user = checkUser(formState.inputs.email.value, users);
-    if (passwordValue === user.password) {
-      setIsValidPassword(true);
-      dispatch({ type: 'SET_USER', user: user });
-      /*       setHidden(undefined);
-       */
-      dispatch(hiddenSignUpAction(null));
-      navigate(`/`);
-      return;
-    }
+    LoginWithEmailAndPassword(formState.inputs);
+    navigate(`/`);
+    /* dispatch(hiddenSignUpAction(null)); */
 
-    setIsValidPassword(false);
+    /* setIsValidPassword(false); */
   };
 
   const closeHandle = () => {
@@ -221,6 +214,7 @@ const SignInUp = ({ signInUpHidden }) => {
     e.preventDefault();
     createNewUserWithEmailandPassword(formState.inputs);
     setIsLogin(true);
+    navigate('/productos');
   };
 
   return (

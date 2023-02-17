@@ -9,7 +9,7 @@ const BannerImageContainer = styled.div`
     !isMobile
       ? css`
           width: 40%;
-          min-width: 410px;
+          min-width: 500px;
         `
       : css`
           width: 100%;

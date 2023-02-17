@@ -28,6 +28,7 @@ import {
   onAuthStateChange,
   checkIsSignInWithEmail,
 } from './firebase/firebase_auth/auth_utils';
+/* import { checkUser } from './utils/form_utils/formVerifyUser'; */
 
 export const router = createBrowserRouter([
   {
@@ -84,41 +85,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
-  /* {
-        path: 'users/:id',
-        element: <User />,
-        children: [
-          {
-            index: true,
-            element: <Home />,
-          },
-          {
-            path: 'productos',
-            element: <Products />,
-          },
-          {
-            element: <Velas />,
-            path: 'velas',
-          },
-          {
-            element: <Sales />,
-            path: 'sales',
-          },
-          {
-            element: <Difusores />,
-            path: 'difusores',
-          },
-          {
-            element: <Bombas />,
-            path: 'bombas',
-          },
-          {
-            element: <Payment />,
-            path: 'payment',
-          },
-        ],
-      }, */
 ]);
 
 function App() {
@@ -130,7 +96,7 @@ function App() {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
     users && dispatch(sendUsersToStore(users));
-  }, [dispatch, productos]);
+  }, [dispatch, productos, stock, users]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChange(dispatch, setUser);
@@ -138,7 +104,7 @@ function App() {
     return () => {
       unsubscribe();
     };
-  }, [dispatch]);
+  }, [dispatch, setUser]);
 
   return (
     <>

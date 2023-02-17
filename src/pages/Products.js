@@ -7,7 +7,7 @@ const Products = () => {
   let productos = useSelector(
     (store) => store.productos?.todoslosproductos.productos
   );
-  console.log(productos);
+
   return (
     <StyledMain>
       <ProductosMain productos={productos} />

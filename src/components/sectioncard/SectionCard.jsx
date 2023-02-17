@@ -24,6 +24,7 @@ const SectionImageContainer = styled.div`
   width: 100%;
   z-index: 0;
   position: relative;
+  border-bottom: 10px solid var(--lavender-blush);
 `;
 
 const SectionTextContainer = styled.div`
@@ -33,7 +34,7 @@ const SectionTextContainer = styled.div`
   justify-content: flex-end;
   padding: 2vw;
   row-gap: 2vw;
-  width: 20%;
+  width: 50%;
   position: absolute;
   z-index: 1;
   background-color: #88446a4d;
