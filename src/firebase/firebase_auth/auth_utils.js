@@ -107,6 +107,15 @@ const createUserDoc = async (userAuth, addicionalData) => {
 
   if (!snapshot.exists()) {
     await setDoc(doc(db, 'users', userAuth.uid), newUser);
+  } else {
+    await setDoc(
+      userRef /* VER PORQUE NAO ACTUALIZA METODOS DE LOGIN */,
+      {
+        method: [...snapshot.data().method, addicionalData.method],
+        displayName: displayName,
+      },
+      { merge: true }
+    );
   }
 
   return userRef;
