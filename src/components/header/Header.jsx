@@ -49,14 +49,13 @@ const StyledNav = styled.nav`
 const StyledUserLogoDiv = styled.div`
   position: absolute;
   z-index: 12;
-  top: 5px;
+  top: 0px;
   right: 5px;
   display: flex;
   align-items: center;
   column-gap: 10px;
   color: var(--twilight-lavender);
   font-size: var(--step--1);
-  border: 1px solid var(--opera-mauve);
   border-radius: 10px;
   cursor: pointer;
   padding: 5px 8px;

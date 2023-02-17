@@ -192,7 +192,7 @@ const SignInUp = ({ signInUpHidden }) => {
   const loginHandle = (e) => {
     e.preventDefault();
     LoginWithEmailAndPassword(formState.inputs);
-    navigate(`/`);
+    /* navigate(`/`); */
     /* dispatch(hiddenSignUpAction(null)); */
 
     /* setIsValidPassword(false); */

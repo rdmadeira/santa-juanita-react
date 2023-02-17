@@ -114,13 +114,13 @@ const createUserDoc = async (userAuth, addicionalData) => {
 
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
-    /*     console.log(userAuth); */
+    console.log(userAuth);
     if (userAuth) {
       const userRef = await createUserDoc(userAuth, {
         method: await fetchSignInMethodsForEmail(auth, userAuth.email),
       });
       const snapshot = await getDoc(userRef);
-      /*       console.log(userRef, snapshot); */
+      console.log(userRef, snapshot);
 
       callback(action({ id: snapshot.id, ...snapshot.data() }));
     } else {
