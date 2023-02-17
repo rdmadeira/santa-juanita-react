@@ -1,5 +1,13 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  getDocs,
+  /* onSnapshot, */
+  collection,
+} from 'firebase/firestore';
 import {
   getAuth,
   sendSignInLinkToEmail,
@@ -10,6 +18,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   fetchSignInMethodsForEmail,
+  EmailAuthProvider,
+  linkWithCredential,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -123,13 +133,11 @@ const createUserDoc = async (userAuth, addicionalData) => {
 
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
-    console.log(userAuth);
     if (userAuth) {
       const userRef = await createUserDoc(userAuth, {
         method: await fetchSignInMethodsForEmail(auth, userAuth.email),
       });
       const snapshot = await getDoc(userRef);
-      console.log(userRef, snapshot);
 
       callback(action({ id: snapshot.id, ...snapshot.data() }));
     } else {
@@ -163,13 +171,38 @@ export const SignInWithGoogle = () => {
 export const createNewUserWithEmailandPassword = async (formInputsValue) => {
   const auth = getAuth();
   const { name, lastname, email, password } = formInputsValue;
-  createUserWithEmailAndPassword(auth, email.value, password.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user, userCredential);
-      userCredential.user.displayName = `${name.value} ${lastname.value}`;
-    })
-    .catch((error) => console.log(`${error.code} - ${error.message}`));
+
+  const querySnapshot = await (await getDocs(collection(db, 'users'))).docs;
+  const users = querySnapshot.map((doc) => {
+    return doc.data();
+  });
+  const emailinuse = users.find((user) => user.email === email);
+  console.log(users, name, lastname, email, password);
+
+  if (emailinuse) {
+    signInWithEmailAndPassword(auth, email.value, password.value).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      }
+    );
+    const credential = EmailAuthProvider.credential(
+      email.value,
+      password.value
+    );
+    linkWithCredential(auth.currentUser, credential).then((userCred) => {
+      const user = userCred.user;
+      console.log(user);
+    });
+  } else {
+    createUserWithEmailAndPassword(auth, email.value, password.value)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user, userCredential);
+        userCredential.user.displayName = `${name.value} ${lastname.value}`;
+      })
+      .catch((error) => console.log(`${error.code} - ${error.message}`));
+  }
 };
 
 export const LoginWithEmailAndPassword = async (formInputsValue) => {
