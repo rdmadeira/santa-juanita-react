@@ -133,8 +133,10 @@ const SignInUp = ({ signInUpHidden }) => {
 
   useEffect(() => {
     dispatch(hiddenSignUpAction(null));
-    if (checkUser && isEmailLinkUser) {
-      setIsLogin(true);
+  }, []);
+
+  useEffect(() => {
+    if (isEmailLinkUser) {
       setFormData(
         {
           email: {
@@ -145,10 +147,8 @@ const SignInUp = ({ signInUpHidden }) => {
         },
         true
       );
-
-      console.log(formState);
     }
-  }, []);
+  }, [isEmailLinkUser]);
 
   const authWithEmailHandle = (e) => {
     e.preventDefault();
