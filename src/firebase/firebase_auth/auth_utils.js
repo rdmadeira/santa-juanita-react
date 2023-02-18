@@ -1,13 +1,7 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  getDocs,
-  /* onSnapshot, */
-  collection,
-} from 'firebase/firestore';
+// const { initializeApp } = require('firebase-admin/app');
+
+import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import {
   getAuth,
   sendSignInLinkToEmail,
@@ -19,7 +13,6 @@ import {
   signInWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   EmailAuthProvider,
-  linkWithCredential,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -51,6 +44,9 @@ export const signUpWithEmail = (email) => {
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
+      alert(
+        `${email}, link enviado al Email con sucesso!! Verifique su caja de Entradas o Spam y entre en el enlance.`
+      );
       window.localStorage.setItem('emailForSignIn', email);
       // ...
     })
@@ -58,6 +54,7 @@ export const signUpWithEmail = (email) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      alert(`Hubo ub error inesperado: ${error.code} - ${error.message}`);
     });
 };
 
@@ -107,7 +104,7 @@ const createUserDoc = async (userAuth, addicionalData) => {
   if (!displayName) displayName = addicionalData?.displayName || email;
   const userRef = doc(db, 'users', userAuth.uid);
   const snapshot = await getDoc(userRef);
-  console.log(userAuth, snapshot);
+
   const newUser = {
     createdAt,
     displayName,
@@ -117,15 +114,6 @@ const createUserDoc = async (userAuth, addicionalData) => {
 
   if (!snapshot.exists()) {
     await setDoc(doc(db, 'users', userAuth.uid), newUser);
-  } else {
-    await setDoc(
-      userRef /* VER PORQUE NAO ACTUALIZA METODOS DE LOGIN */,
-      {
-        method: [...snapshot.data().method, addicionalData.method],
-        displayName: displayName,
-      },
-      { merge: true }
-    );
   }
 
   return userRef;
@@ -134,6 +122,7 @@ const createUserDoc = async (userAuth, addicionalData) => {
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
     if (userAuth) {
+      console.log(userAuth);
       const userRef = await createUserDoc(userAuth, {
         method: await fetchSignInMethodsForEmail(auth, userAuth.email),
       });
@@ -169,49 +158,58 @@ export const SignInWithGoogle = () => {
 };
 
 export const createNewUserWithEmailandPassword = async (formInputsValue) => {
-  const auth = getAuth();
+  const auth = await getAuth();
   const { name, lastname, email, password } = formInputsValue;
 
-  const querySnapshot = await (await getDocs(collection(db, 'users'))).docs;
-  const users = querySnapshot.map((doc) => {
-    return doc.data();
-  });
-  const emailinuse = users.find((user) => user.email === email);
-  console.log(users, name, lastname, email, password);
-
-  if (emailinuse) {
-    signInWithEmailAndPassword(auth, email.value, password.value).then(
-      (userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      }
-    );
-    const credential = EmailAuthProvider.credential(
-      email.value,
-      password.value
-    );
-    linkWithCredential(auth.currentUser, credential).then((userCred) => {
-      const user = userCred.user;
-      console.log(user);
-    });
-  } else {
-    createUserWithEmailAndPassword(auth, email.value, password.value)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user, userCredential);
-        userCredential.user.displayName = `${name.value} ${lastname.value}`;
-      })
-      .catch((error) => console.log(`${error.code} - ${error.message}`));
-  }
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user, userCredential);
+      userCredential.user.displayName = `${name.value} ${lastname.value}`;
+    })
+    .catch((error) => console.log(`${error.code} - ${error.message}`));
 };
 
 export const LoginWithEmailAndPassword = async (formInputsValue) => {
   const auth = getAuth();
   const { email, password } = formInputsValue;
 
-  signInWithEmailAndPassword(auth, email.value, password.value).then(
-    (userCredential) => {
-      console.log(userCredential, userCredential.user);
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      return user;
+    })
+    .catch((error) => {
+      alert(`Hubo un error inesperado: ${error.data}: ${error.message}`);
+    });
+};
+
+export const checkUserEmailAccounts = (formInputsValue, callback) => {
+  const auth = getAuth();
+  const { email } = formInputsValue;
+  fetchSignInMethodsForEmail(auth, email.value).then((signInMethods) => {
+    // This returns the same array as fetchProvidersForEmail but for email
+    // provider identified by 'password' string, signInMethods would contain 2
+    // different strings:
+    // 'emailLink' if the user previously signed in with an email/link
+    // 'password' if the user has a password.
+    // A user could have both.
+    if (
+      signInMethods.indexOf(EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD) !=
+      -1
+    ) {
+      callback(false);
+      return;
     }
-  );
+    if (
+      signInMethods.indexOf(EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD) != -1
+    ) {
+      callback(true);
+      /*       signUpWithEmail(email.value);
+       */
+      /* alert(
+        `Link enviado al Email con sucesso!! Verifique su caja de Entradas o Spam y entre en el enlance.`
+      ); */
+    }
+  });
 };

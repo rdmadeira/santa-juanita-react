@@ -21,6 +21,7 @@ import {
   SignInWithGoogle,
   createNewUserWithEmailandPassword,
   LoginWithEmailAndPassword,
+  checkUserEmailAccounts,
 } from '../../firebase/firebase_auth/auth_utils';
 import { hiddenSignUpAction } from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 
@@ -115,6 +116,7 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const [isLogin, setIsLogin] = useState(null);
   const [isValidPassword, setIsValidPassword] = useState(null);
+  const [isEmailLinkUser, setIsEmailLinkUser] = useState(false);
 
   /* const initialState = {
     isLogin: null,
@@ -131,6 +133,21 @@ const SignInUp = ({ signInUpHidden }) => {
 
   useEffect(() => {
     dispatch(hiddenSignUpAction(null));
+    if (checkUser && isEmailLinkUser) {
+      setIsLogin(true);
+      setFormData(
+        {
+          email: {
+            value: formState.inputs.email.value,
+            isValid: true,
+            onBlur: true,
+          },
+        },
+        true
+      );
+
+      console.log(formState);
+    }
   }, []);
 
   const authWithEmailHandle = (e) => {
@@ -140,10 +157,10 @@ const SignInUp = ({ signInUpHidden }) => {
     signUpWithEmail(email);
   };
 
-  const submitCheckEmailHandler = (e) => {
+  const submitCheckEmailHandler = async (e) => {
     e.preventDefault();
     let checkedUser = checkUser(formState.inputs.email.value, users);
-
+    checkUserEmailAccounts(formState.inputs, setIsEmailLinkUser);
     // console.log(checkedUser);
 
     if (checkedUser === null) {
@@ -172,7 +189,7 @@ const SignInUp = ({ signInUpHidden }) => {
       );
       return;
     }
-    if (checkedUser) {
+    if (checkedUser && !isEmailLinkUser) {
       setIsLogin(true);
       setFormData(
         {
@@ -185,14 +202,16 @@ const SignInUp = ({ signInUpHidden }) => {
         },
         false
       );
+      return;
     }
-    return;
   };
 
   const loginHandle = (e) => {
     e.preventDefault();
-    LoginWithEmailAndPassword(formState.inputs);
-    /* navigate(`/`); */
+    !isEmailLinkUser
+      ? LoginWithEmailAndPassword(formState.inputs, setIsEmailLinkUser)
+      : signUpWithEmail(formState.inputs.email.value);
+    navigate(`/productos`);
     /* dispatch(hiddenSignUpAction(null)); */
 
     /* setIsValidPassword(false); */
@@ -272,6 +291,7 @@ const SignInUp = ({ signInUpHidden }) => {
             onSubmit={loginHandle}
             isValidPassword={isValidPassword}
             setIsValidPassword={setIsValidPassword}
+            isEmailLinkUser={isEmailLinkUser}
           />
         )}
       </FormContainer>

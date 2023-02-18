@@ -65,6 +65,7 @@ export const LoginForm = ({
   onSubmit,
   isValidPassword,
   setIsValidPassword,
+  isEmailLinkUser,
 }) => {
   // const user = useSelector((store) => store.user);
   /*  const dispatch = useDispatch();
@@ -92,22 +93,27 @@ export const LoginForm = ({
           isValid={true}
           readonly="readonly"
         />
-        <SignInUpInput
-          name="password"
-          type="password"
-          id="password"
-          validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
-          onInput={inputHandle}
-          isValidPassword={isValidPassword}
-          setIsValidPassword={setIsValidPassword}
-          errorText={
-            isValidPassword === false
-              ? 'Contraseña incorrecta'
-              : 'Ingrese mínimo 8 caracteres'
-          } // Encontrar un estado para error de password
-        />
+        {!isEmailLinkUser && (
+          <SignInUpInput
+            name="password"
+            type="password"
+            id="password"
+            validators={[VALIDATE_MIN_LENGTH(8), VALIDATOR_TYPE_REQUIRE()]}
+            onInput={inputHandle}
+            isValidPassword={isValidPassword}
+            setIsValidPassword={setIsValidPassword}
+            errorText={
+              isValidPassword === false
+                ? 'Contraseña incorrecta'
+                : 'Ingrese mínimo 8 caracteres'
+            } // Encontrar un estado para error de password
+          />
+        )}
 
-        <SignInUpButton text="ENTRAR" disabled={!formState.isValid} />
+        <SignInUpButton
+          text={isEmailLinkUser ? 'Acceder por Email' : 'ENTRAR'}
+          disabled={!formState.isValid}
+        />
       </Form>
     </>
   );

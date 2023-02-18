@@ -101,6 +101,7 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChange(dispatch, setUser);
     checkIsSignInWithEmail();
+    onAuthStateChange(dispatch, setUser);
     return () => {
       unsubscribe();
     };

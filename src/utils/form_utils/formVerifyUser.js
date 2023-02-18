@@ -1,6 +1,6 @@
 export const checkUser = (email, users) => {
   const userLogin = users.find(
-    (item) => item.email === email && item.method.includes('password')
+    (item) => item.email === email /* && item.method.includes('password') */
   );
   return userLogin ? userLogin : null;
 };
