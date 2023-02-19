@@ -3,7 +3,7 @@ import React, {
   useEffect /* , useReducer, useCallback, useEffect */,
 } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 // import SignInUpInput from '../signinup/SignInUpInput.jsx';
 import useForm from '../../hooks/useForm.js';
 import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
@@ -35,10 +35,13 @@ const SignInUpContainer = styled.section`
   align-items: center;
   justify-content: center;
   padding: 3vw;
-  row-gap: 2.5vw;
+  row-gap: 1vw;
   @media screen and (min-width: 1080px) {
     width: 80%;
   }
+  @media screen and (max-width: 720px) {
+    row-gap: 10vw;
+  } ;
 `;
 
 const FormContainer = styled.div`
@@ -48,7 +51,11 @@ const FormContainer = styled.div`
   row-gap: 1vw;
   width: 100%;
   color: var(--twilight-lavender);
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
+  font-size: var(--step--1);
+  @media screen and (max-width: 720px) {
+    row-gap: 5vw;
+  } ;
 `;
 
 const GFADivStyled = styled(FormContainer)`
@@ -106,6 +113,12 @@ const RedesButtonsStyled = styled.div`
   border: solid 2px var(--twilight-lavender);
   border-radius: 3px;
   cursor: pointer;
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.3;
+      cursor: not-allowed;
+    `}
 `;
 
 const SignInUp = ({ signInUpHidden }) => {
@@ -299,6 +312,24 @@ const SignInUp = ({ signInUpHidden }) => {
         <h4> __________ O __________ </h4>
       </FormContainer>
 
+      <GFADivStyled>
+        <RedesButtonsStyled
+          disabled={!formState.isValid}
+          onClick={authWithEmailHandle}>
+          <EmailSvg />
+          Ingrese con su Email
+        </RedesButtonsStyled>
+        <RedesButtonsStyled onClick={signUpWithGoogleHandle}>
+          <GoogleSvg />
+          Continue with Google
+        </RedesButtonsStyled>
+        <RedesButtonsStyled>
+          <Link to="/">
+            <FacebookSvg />
+            Continue con Facebook
+          </Link>
+        </RedesButtonsStyled>
+      </GFADivStyled>
       <FormContainer>
         <p>
           Al seguir, estás de acuerdo con nuestro{' '}
@@ -314,23 +345,6 @@ const SignInUp = ({ signInUpHidden }) => {
           .
         </p>
       </FormContainer>
-
-      <GFADivStyled>
-        <RedesButtonsStyled onClick={signUpWithGoogleHandle}>
-          <GoogleSvg />
-          Continue with Google
-        </RedesButtonsStyled>
-        <RedesButtonsStyled>
-          <Link to="/">
-            <FacebookSvg />
-            Continue con Facebook
-          </Link>
-        </RedesButtonsStyled>
-        <RedesButtonsStyled>
-          <EmailSvg onClick={authWithEmailHandle} />
-          Ingrese con su Email
-        </RedesButtonsStyled>
-      </GFADivStyled>
     </SignInUpContainer>
   );
 };
