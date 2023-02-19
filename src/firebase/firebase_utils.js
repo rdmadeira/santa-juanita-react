@@ -8,7 +8,8 @@ import {
   setDoc,
 } from 'firebase/firestore';
 
-/*  */
+/* import { convertTimestampToDate } from '../utils/orders_utils/ordersUtils'; */
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDTfJwVV27VRZBXXCqLlYKlZGPAiM7NSX8',
   authDomain: 'santa-juanita-377619.firebaseapp.com',
@@ -47,10 +48,16 @@ export const getStockFromDataBase = async () => {
 
 export const getUsersFromDatabase = async () => {
   const querySnapshot = await await getDocs(collection(db, 'users'));
-  console.log(querySnapshot);
-  const users = querySnapshot.docs.map((doc) => ({
-    ...doc.data(),
-    id: doc.id,
+
+  const users = querySnapshot.docs.map((user) => ({
+    ...user.data(),
+    id: user.id,
+    orders: user.orders
+      ? user.orders?.map((order) => ({
+          ...order,
+          createdAt: order.createdAt,
+        }))
+      : [],
   }));
 
   return users;

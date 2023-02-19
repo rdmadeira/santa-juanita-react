@@ -28,7 +28,7 @@ const OrdersTitleH2 = styled(TitleH2)`
 `;
 
 const OrdersSection = () => {
-  const orders = useSelector((store) => store.orders);
+  const orders = useSelector((store) => store.user?.orders || []);
 
   return (
     <OrdersMainContainer>

@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { SHIPPING_COST } from '../constants';
 
 export const createOrder = (user, cart) => {
-  console.log(uuidv4());
   const subTotal = cart.reduce((acc, item) => {
     return (acc = acc + item.price * item.quantity);
   }, 0);
@@ -19,6 +18,14 @@ export const createOrder = (user, cart) => {
   };
 };
 
+export const convertTimestampToDate = (timestampObject) => {
+  const timestamp = new Date(
+    timestampObject.seconds + timestampObject.nanoseconds / 1000000000
+  );
+  console.log(timestamp);
+  return timestamp;
+};
+
 export const dateFormat = (date) => {
   const fecha = new Date(date);
   const options = {
@@ -31,6 +38,6 @@ export const dateFormat = (date) => {
     hour12: false,
     timeZone: 'America/Los_Angeles',
   };
-  console.log(fecha);
+
   return new Intl.DateTimeFormat('es-AR', options).format(fecha);
 };

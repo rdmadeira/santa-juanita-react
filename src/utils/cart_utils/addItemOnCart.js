@@ -30,7 +30,6 @@ export const checkItemInMyCart = (itemToAdd, myCart) => {
       quantity: 1,
       price: itemToAdd.price,
       size: itemToAdd.size,
-      sub_description: itemToAdd.sub_description,
     },
   ];
 };

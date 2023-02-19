@@ -28,12 +28,12 @@
         "content": {
           "medium": {
             "price": 850,
-            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
             "stock": 10
           },
           "big": {
             "price": 1020,
-            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
             "stock": 8
           }
         }
@@ -51,12 +51,12 @@
         "content": {
           "medium": {
             "price": 800,
-            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
             "stock": 10
           },
           "big": {
             "price": 960,
-            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
             "stock": 8
           }
         }
@@ -73,12 +73,12 @@
         "content": {
           "medium": {
             "price": 700,
-            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
             "stock": 10
           },
           "big": {
             "price": 840,
-            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
             "stock": 8
           }
         }
@@ -95,12 +95,12 @@
         "content": {
           "medium": {
             "price": 800,
-            "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+            "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
             "stock": 10
           },
           "big": {
             "price": 960,
-            "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+            "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
             "stock": 8
           }
         }
@@ -286,12 +286,12 @@
       "content": {
         "medium": {
           "price": 850,
-          "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+          "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
           "stock": 10
         },
         "big": {
           "price": 1020,
-          "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+          "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
           "stock": 8
         }
       }
@@ -309,12 +309,12 @@
       "content": {
         "medium": {
           "price": 800,
-          "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+          "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
           "stock": 10
         },
         "big": {
           "price": 960,
-          "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+          "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
           "stock": 8
         }
       }
@@ -331,12 +331,12 @@
       "content": {
         "medium": {
           "price": 700,
-          "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+          "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
           "stock": 10
         },
         "big": {
           "price": 840,
-          "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+          "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
           "stock": 8
         }
       }
@@ -353,12 +353,12 @@
       "content": {
         "medium": {
           "price": 800,
-          "sub-description": "Recipiente circular de 5cm de alto y 7cm de diametro",
+          "sub_description": "Recipiente circular de 5cm de alto y 7cm de diametro",
           "stock": 10
         },
         "big": {
           "price": 960,
-          "sub-description": "Recipiente circular de 8cm de alto y 10cm de diametro",
+          "sub_description": "Recipiente circular de 8cm de alto y 10cm de diametro",
           "stock": 8
         }
       }

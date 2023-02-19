@@ -26,6 +26,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 const auth = getAuth(app);
 
@@ -109,6 +110,7 @@ const createUserDoc = async (userAuth, addicionalData) => {
     createdAt,
     displayName,
     email,
+    orders: [],
     ...addicionalData,
   };
 
@@ -119,16 +121,26 @@ const createUserDoc = async (userAuth, addicionalData) => {
   return userRef;
 };
 
+import { convertTimestampToDate } from '../../utils/orders_utils/ordersUtils';
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
     if (userAuth) {
-      console.log(userAuth);
       const userRef = await createUserDoc(userAuth, {
         method: await fetchSignInMethodsForEmail(auth, userAuth.email),
       });
       const snapshot = await getDoc(userRef);
 
-      callback(action({ id: snapshot.id, ...snapshot.data() }));
+      await callback(
+        // no tomaba el snapshot sin el await entes del callback:linea 133!!!!!!!!!!!!
+        action({
+          ...snapshot.data(),
+          id: snapshot.id,
+          orders: snapshot.data().orders.map((order) => ({
+            ...order,
+            createdAt: convertTimestampToDate(order.createdAt),
+          })),
+        })
+      );
     } else {
       callback(action(null));
     }
@@ -212,4 +224,32 @@ export const checkUserEmailAccounts = (formInputsValue, callback) => {
       ); */
     }
   });
+};
+
+import { createOrder } from '../../utils/orders_utils/ordersUtils';
+export const updateUserOrdersToStoreAndDatabase = async (
+  user,
+  cartItems,
+  callback,
+  action
+) => {
+  const newOrder = createOrder(user, cartItems);
+  callback(action(newOrder));
+  const db = getFirestore(app);
+
+  const docRef = doc(db, 'users', user.id);
+
+  const data = {
+    ...user,
+    orders: user.orders ? [...user.orders, newOrder] : [],
+  };
+
+  console.log(data);
+  setDoc(docRef, data, { merge: true })
+    .then(() => {
+      console.log(`Updated with sucess`);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };

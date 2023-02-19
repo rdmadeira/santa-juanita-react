@@ -8,7 +8,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['hiddenComponents'],
+  blacklist: ['hiddenComponents', 'users'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -27,6 +27,7 @@ import {
 import {
   onAuthStateChange,
   checkIsSignInWithEmail,
+  /* updateUserOrdersToDatabase, */
 } from './firebase/firebase_auth/auth_utils';
 /* import { checkUser } from './utils/form_utils/formVerifyUser'; */
 
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
       const productos = await getProductsFromDataBase();
       const stock = await getStockFromDataBase();
       const users = await getUsersFromDatabase();
+
       return { productos, stock, users };
     },
     children: [
@@ -90,8 +92,12 @@ export const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
   const { productos, stock, users } = useLoaderData();
-  /*   const stock = useSelector((store) => store.stock);
-   */
+  /* const user = useSelector((store) => store.user); */
+
+  /*  useEffect(() => {
+    updateUserOrdersToDatabase(user);
+  }, [user]); */
+
   useEffect(() => {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
@@ -99,12 +105,8 @@ function App() {
   }, [dispatch, productos, stock, users]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChange(dispatch, setUser);
     checkIsSignInWithEmail();
     onAuthStateChange(dispatch, setUser);
-    return () => {
-      unsubscribe();
-    };
   }, [dispatch, setUser]);
 
   return (

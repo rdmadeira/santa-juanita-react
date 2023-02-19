@@ -1,4 +1,9 @@
-import { SET_USER_CART, LOGOUT, SET_USER } from './userActions';
+import {
+  SET_USER_CART,
+  LOGOUT,
+  SET_USER,
+  ADD_ORDER_SUCCESS,
+} from './userActions';
 
 const INITIAL_STATE = null;
 
@@ -12,6 +17,13 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         myCart: action.payload,
+      };
+    case ADD_ORDER_SUCCESS:
+      return {
+        ...state,
+        orders: state.orders
+          ? [...state.orders, action.payload]
+          : [action.payload],
       };
     default:
       return state;

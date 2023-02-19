@@ -1,4 +1,5 @@
 export const addToCart = (producto, size) => {
+  console.log(producto);
   if (producto.type === 'vela') {
     return {
       type: 'ADD_ITEM_TO_CART',
@@ -6,7 +7,7 @@ export const addToCart = (producto, size) => {
         ...producto,
         size: size,
         price: producto.content[size].price,
-        sub_description: producto.content[size].description,
+        sub_description: producto.content[size]['sub-description'],
       },
     };
   } else {

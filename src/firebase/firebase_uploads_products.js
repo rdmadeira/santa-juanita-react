@@ -2,6 +2,7 @@
 
 const dataProd = require('./productos.json');
 var admin = require('firebase-admin');
+console.log(dataProd);
 
 var serviceAccount = require('./santa-juanita_key_firebase');
 

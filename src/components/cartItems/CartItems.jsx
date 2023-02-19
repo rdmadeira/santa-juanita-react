@@ -11,9 +11,10 @@ import {
 } from '../../redux/cart/cartActions';
 import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import * as userActions from '../../redux/user/userActions';
-import * as ordersActions from '../../redux/orders/ordersActions';
+/* import * as ordersActions from '../../redux/orders/ordersActions'; */
 import * as cartActions from '../../redux/cart/cartActions';
 import { decrementStocktoDatabase } from '../../firebase/firebase_utils';
+import { updateUserOrdersToStoreAndDatabase } from '../../firebase/firebase_auth/auth_utils';
 // import { decrementStock } from '../../redux/stock/stockActions';
 
 const MyCartContainer = styled.div`
@@ -114,11 +115,18 @@ const MyCartItems = ({ hidden }) => {
 
   const goToPayment = () => {
     dispatch(hiddenCartActions.toggleCart());
-    dispatch(ordersActions.createOrderSuccess(user, cartItems));
+    /* dispatch(ordersActions.createOrderSuccess(user, cartItems)); */
     decrementStocktoDatabase(cartItems, stock);
     dispatch(cartActions.cartReset());
     dispatch(userActions.setUserCart([]));
-    navigate('orders');
+    /* dispatch(userActions.createOrderSuccess(user, cartItems)); */
+    updateUserOrdersToStoreAndDatabase(
+      user,
+      cartItems,
+      dispatch,
+      userActions.createOrderSuccess
+    );
+    navigate('/orders');
   };
 
   return (
