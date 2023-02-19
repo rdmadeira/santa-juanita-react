@@ -24,7 +24,7 @@ const StyledButton = styled.button`
     isMobile &&
     css`
       font-size: var(--step-2);
-      padding: 10px;
+      padding: 15px;
     `}
 `;
 

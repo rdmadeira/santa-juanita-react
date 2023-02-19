@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import SectionButton from './SectionButton.jsx';
 
 const StyledSection = styled.section`
+  background-image: ${({ src }) => `url(${src})`};
+  background-size: cover;
   width: 50%;
   display: flex;
   height: 530px;
@@ -20,12 +22,12 @@ const StyledSection = styled.section`
     `}
 `;
 
-const SectionImageContainer = styled.div`
+/* const SectionImageContainer = styled.div`
   width: 100%;
   z-index: 0;
   position: relative;
   border-bottom: 10px solid var(--lavender-blush);
-`;
+`; */
 
 const SectionTextContainer = styled.div`
   color: var(--snow);
@@ -34,8 +36,8 @@ const SectionTextContainer = styled.div`
   justify-content: flex-end;
   padding: 2vw;
   row-gap: 2vw;
-  width: 50%;
-  position: absolute;
+  width: 100%;
+  position: relative;
   z-index: 1;
   background-color: #88446a4d;
   height: 530px;
@@ -43,12 +45,13 @@ const SectionTextContainer = styled.div`
     isMobile &&
     css`
       width: 100%;
-      row-gap: 10%;
+      row-gap: 10vw;
       height: 50%;
-      background-color: #f0f8ffab;
+      height: unset;
       align-self: center;
       padding: 30px 10px;
-      color: var(--twilight-lavender);
+
+      /* color: var(--twilight-lavender); */
     `}
 `;
 
@@ -66,15 +69,18 @@ const P = styled.p`
   ${({ isMobile }) =>
     isMobile &&
     css`
-      font-size: var(--step-2);
+      font-size: var(--step-3);
     `}
 `;
 
-const SectionCard = ({ imageUrl, altname, h2Text, pText, href }) => {
+const SectionCard = ({ imageUrl, h2Text, pText, href }) => {
   const isMobile = useSelector((store) => store.hiddenComponents.navMenuHidden);
 
   return (
-    <StyledSection isMobile={isMobile}>
+    <StyledSection
+      isMobile={isMobile}
+      src={imageUrl}
+      className="fade-in-blur-second">
       <SectionTextContainer className="fade-in-blur-third" isMobile={isMobile}>
         <H2 className="shake-2" isMobile={isMobile}>
           {h2Text}
@@ -82,7 +88,7 @@ const SectionCard = ({ imageUrl, altname, h2Text, pText, href }) => {
         <P isMobile={isMobile}>{pText}</P>
         <SectionButton href={href} isMobile={isMobile} />
       </SectionTextContainer>
-      <SectionImageContainer className="fade-in-blur-second">
+      {/* <SectionImageContainer className="fade-in-blur-second">
         <img
           src={imageUrl}
           alt={altname}
@@ -90,7 +96,7 @@ const SectionCard = ({ imageUrl, altname, h2Text, pText, href }) => {
           height="100%"
           style={{ objectFit: 'cover' }}
         />
-      </SectionImageContainer>
+      </SectionImageContainer> */}
     </StyledSection>
   );
 };

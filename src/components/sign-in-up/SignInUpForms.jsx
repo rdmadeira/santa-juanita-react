@@ -28,7 +28,7 @@ export const CheckUserForm = ({
   formState,
   className,
   onSubmit,
-  authWithEmailHandle,
+  /* authWithEmailHandle, */
 }) => {
   const emailInput = useRef();
 
@@ -48,11 +48,11 @@ export const CheckUserForm = ({
         disabled={!formState.isValid}
         text="SIGUIENTE"
       />
-      <SignInUpButton
+      {/* <SignInUpButton
         onClick={authWithEmailHandle}
         text="Entre con su email"
         type="button"
-      />
+      /> */}
     </Form>
   );
 };

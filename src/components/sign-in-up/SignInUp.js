@@ -12,7 +12,7 @@ import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
   VALIDATOR_TYPE_REQUIRE,
   VALIDATE_MIN_LENGTH,
 } from '../../utils/validateInputs'; */
-import { GoogleSvg, FacebookSvg, AppleSvg } from '../redes_logos/LogosSvg';
+import { GoogleSvg, FacebookSvg, EmailSvg } from '../redes_logos/LogosSvg';
 import { useSelector, useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
@@ -323,14 +323,12 @@ const SignInUp = ({ signInUpHidden }) => {
         <RedesButtonsStyled>
           <Link to="/">
             <FacebookSvg />
-            Continue with Facebook
+            Continue con Facebook
           </Link>
         </RedesButtonsStyled>
         <RedesButtonsStyled>
-          <Link href="/">
-            <AppleSvg />
-            Continue with Apple
-          </Link>
+          <EmailSvg onClick={authWithEmailHandle} />
+          Ingrese con su Email
         </RedesButtonsStyled>
       </GFADivStyled>
     </SignInUpContainer>
