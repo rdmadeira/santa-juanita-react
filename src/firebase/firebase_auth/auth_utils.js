@@ -135,10 +135,12 @@ export function onAuthStateChange(callback, action) {
         action({
           ...snapshot.data(),
           id: snapshot.id,
-          orders: snapshot.data().orders.map((order) => ({
-            ...order,
-            createdAt: convertTimestampToDate(order.createdAt),
-          })),
+          orders: snapshot.data().orders
+            ? snapshot.data().orders.map((order) => ({
+                ...order,
+                createdAt: convertTimestampToDate(order.createdAt),
+              }))
+            : [],
         })
       );
     } else {
