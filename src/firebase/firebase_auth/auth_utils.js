@@ -246,7 +246,6 @@ export const updateUserOrdersToStoreAndDatabase = async (
     orders: user.orders ? [...user.orders, newOrder] : [],
   };
 
-  console.log(data);
   setDoc(docRef, data, { merge: true })
     .then(() => {
       console.log(`Updated with sucess`);

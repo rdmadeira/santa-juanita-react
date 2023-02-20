@@ -28,7 +28,7 @@ const StyledItemsP = styled.p`
 
 export const Order = ({ order, index }) => {
   const [resumeShow, setResumeShow] = useState(false);
-  console.log(order.createdAt);
+
   return (
     <OrderContainer
       onMouseOver={() => setResumeShow(true)}

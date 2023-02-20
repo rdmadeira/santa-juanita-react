@@ -22,7 +22,7 @@ export const convertTimestampToDate = (timestampObject) => {
   const timestamp = new Date(
     timestampObject.seconds + timestampObject.nanoseconds / 1000000000
   );
-  console.log(timestamp);
+
   return timestamp;
 };
 
