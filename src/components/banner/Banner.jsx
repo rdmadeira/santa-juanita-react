@@ -1,25 +1,26 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import BannerImage from './BannerImage.jsx';
 import BannerText from './BannerText.jsx';
+import { maxDeviceWidth } from '../../styles/media_queries/mediaQueries';
 
 const BannerContainer = styled.section`
+  position: relative;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   width: 100%;
   max-height: 410px;
   border-bottom: var(--mulberry);
   border-bottom-style: solid;
-  border-bottom-width: 12vh;
+  /* border-bottom-width: 12vh; */
   box-shadow: 0px 3px 25px #88446aa6;
   z-index: 1;
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      flex-flow: column nowrap !important;
-      max-height: unset;
-    `}
+  overflow: hidden;
+  @media ${maxDeviceWidth.tablet} {
+    flex-flow: column nowrap;
+    align-items: center;
+  } ;
 `;
 
 const Banner = () => {

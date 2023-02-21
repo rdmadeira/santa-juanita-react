@@ -1,75 +1,50 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+// import styled, { css } from 'styled-components';
+import { Box, Text, Container } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 
-const BannerTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  justify-content: flex-end;
-  text-align: end;
-  font-family: 'Barlow', sans-serif;
-  color: var(--opera-mauve);
-  row-gap: 1vw;
-  /*   padding: 0 4vw 3vw 6vw; */
-  background: linear-gradient(
-    343deg,
-    #d199b8 0%,
-    #cb9bb6 34%,
-    #d3b3c3 57%,
-    #e7cada 100%
-  );
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      width: 100%;
-    `}
-`;
+const BannerTextWrapper = styled(Container)((props) => ({
+  width: props.ismobile ? '100%' : '50%',
+  minWidth: '300px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  textAlign: 'end',
+  position: 'absolute',
+  bottom: '0',
+  right: '0',
+  backgroundColor: '#ebd9e378',
+  paddingLeft: '2em',
+}));
 
-const TextContainer = styled.div`
-  background: #f3e8ee54;
-  position: absolute;
-  width: 50vw;
-  right: 0px;
-  padding: 0 2vw 0 30px;
-  color: var(--twilight-lavender);
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      width: 100%;
-      position: relative;
-    `}
-`;
-
-const H2 = styled.h2`
-  font-size: var(--step-1);
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      font-size: var(--step-3);
-    `}
-`;
-
-const P = styled.p`
-  font-size: var(--step-0);
-  ${({ isMobile }) =>
-    isMobile &&
-    css`
-      font-size: var(--step-1);
-    `}
-`;
+const TextBox = styled(Box)((props) => {
+  props.ismobile && {
+    width: '100%',
+  };
+});
 
 const BannerText = ({ isMobile }) => {
   return (
-    <BannerTextContainer className="fade-in-blur-third" isMobile={isMobile}>
-      <TextContainer isMobile={isMobile}>
-        <H2 isMobile={isMobile}>
+    <BannerTextWrapper
+      className="fade-in-blur-third"
+      ismobile={isMobile ? 1 : 0}>
+      <TextBox ismobile={isMobile ? 1 : 0}>
+        <Text
+          as="h2"
+          /* isMobile={isMobile} */
+          fontSize={isMobile ? 'var(--step-3)' : 'var(--step-1)'}
+          fontWeight="bold">
           Productos Artesanales Aromáticos y Energéticos
-        </H2>
-        <P isMobile={isMobile}>
+        </Text>
+        <Text
+          as="p"
+          /* isMobile={isMobile} */ fontSize={
+            isMobile ? 'var(--step-1)' : 'var(--step-0)'
+          }>
           Elaborados pensando en su bien estar mental y espiritual.
-        </P>
-      </TextContainer>
-    </BannerTextContainer>
+        </Text>
+      </TextBox>
+    </BannerTextWrapper>
   );
 };
 

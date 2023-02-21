@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+/* import styled, { css } from 'styled-components'; */
+import { Button } from '@chakra-ui/react';
 
-const StyledButton = styled.button`
+/* const StyledButton = styled.button`
   padding: 1.5vw;
   background: var(--thistle);
   font-family: system-ui, serif;
@@ -20,18 +21,24 @@ const StyledButton = styled.button`
       inset 0px -1px 25px var(--pink-lavender);
     transition: all 0.2s ease-in;
   }
-  ${({ isMobile }) =>
-    isMobile &&
+  ${({ ismobile }) =>
+    ismobile &&
     css`
-      font-size: var(--step-2);
-      padding: 15px;
+      font-size: var(--step-1);
+      padding: 10px;
     `}
-`;
+`; */
 
 const SectionButton = ({ href, isMobile }) => {
   return (
     <Link to={href} style={{ width: 'max-content' }}>
-      <StyledButton isMobile={isMobile}>Sepa Más</StyledButton>
+      <Button
+        ismMobile={isMobile ? 1 : 0}
+        variant="outline"
+        borderColor="#d2a8beab"
+        size="lg">
+        Sepa Más
+      </Button>
     </Link>
   );
 };

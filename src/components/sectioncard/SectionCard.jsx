@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Text } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-
 import SectionButton from './SectionButton.jsx';
 
 const StyledSection = styled.section`
@@ -9,7 +9,7 @@ const StyledSection = styled.section`
   background-size: cover;
   width: 50%;
   display: flex;
-  height: 530px;
+  height: 500px;
   border: 1px solid var(--mulberry);
   box-shadow: 0px 3px 25px #88446aa6;
   @media screen and (min-width: 521px) and (max-width: 1080px) and (orientation: portrait) {
@@ -22,13 +22,6 @@ const StyledSection = styled.section`
     `}
 `;
 
-/* const SectionImageContainer = styled.div`
-  width: 100%;
-  z-index: 0;
-  position: relative;
-  border-bottom: 10px solid var(--lavender-blush);
-`; */
-
 const SectionTextContainer = styled.div`
   color: var(--snow);
   display: flex;
@@ -40,7 +33,7 @@ const SectionTextContainer = styled.div`
   position: relative;
   z-index: 1;
   background-color: #88446a4d;
-  height: 530px;
+  height: 500px;
   ${({ isMobile }) =>
     isMobile &&
     css`
@@ -55,23 +48,23 @@ const SectionTextContainer = styled.div`
     `}
 `;
 
-const H2 = styled.h2`
+/* const H2 = styled.h2`
   font-size: var(--step-1);
   ${({ isMobile }) =>
     isMobile &&
     css`
       font-size: var(--step-3);
     `}
-`;
+`; */
 
-const P = styled.p`
+/* const P = styled.p`
   font-size: var(--step-0);
   ${({ isMobile }) =>
     isMobile &&
     css`
       font-size: var(--step-3);
     `}
-`;
+`; */
 
 const SectionCard = ({ imageUrl, h2Text, pText, href }) => {
   const isMobile = useSelector((store) => store.hiddenComponents.navMenuHidden);
@@ -82,21 +75,17 @@ const SectionCard = ({ imageUrl, h2Text, pText, href }) => {
       src={imageUrl}
       className="fade-in-blur-second">
       <SectionTextContainer className="fade-in-blur-third" isMobile={isMobile}>
-        <H2 className="shake-2" isMobile={isMobile}>
+        <Text
+          as="h2"
+          className="shake-2"
+          fontSize={isMobile ? 'var(--step-3)' : 'var(--step-0)'}>
           {h2Text}
-        </H2>
-        <P isMobile={isMobile}>{pText}</P>
+        </Text>
+        <Text as="p" fontSize={isMobile ? 'var(--step-2)' : 'var(--step-0'}>
+          {pText}
+        </Text>
         <SectionButton href={href} isMobile={isMobile} />
       </SectionTextContainer>
-      {/* <SectionImageContainer className="fade-in-blur-second">
-        <img
-          src={imageUrl}
-          alt={altname}
-          width="100%"
-          height="100%"
-          style={{ objectFit: 'cover' }}
-        />
-      </SectionImageContainer> */}
     </StyledSection>
   );
 };

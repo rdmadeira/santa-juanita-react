@@ -17,7 +17,10 @@ const theme = extendTheme({
         outline: {
           ...chakraTheme.components.Button.variants.outline,
           borderColor: '#c082a442',
-          /* #c082a442 */
+          backgroundColor: '#b6b6b65e',
+          _hover: {
+            backgroundColor: '#c082a442',
+          },
         },
       },
     },
@@ -49,6 +52,9 @@ const theme = extendTheme({
       'a, a:visited': {
         textDecoration: 'none',
         color: 'unset',
+      },
+      'h1, h2': {
+        fontWeight: 'bold',
       },
     },
   },

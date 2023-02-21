@@ -14,6 +14,7 @@ const BannerImageContainer = styled.div`
       : css`
           width: 100%;
           min-width: unset;
+          height: 70vh;
         `}
 `;
 
@@ -25,6 +26,7 @@ const BannerImage = ({ isMobile }) => {
         alt="banner-hero"
         width="100%"
         height="100%"
+        style={{ height: '100%' }}
       />
     </BannerImageContainer>
   );
