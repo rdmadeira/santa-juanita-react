@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import Logo from '../logo/Logo.jsx';
 import { HeaderMenu } from './HeaderMenu.jsx';
 import { CartLogo as Cart } from '../cartItems/CartLogo.jsx';
-import MenuLogo from './MenuLogo.jsx';
+/* import MenuLogo from './MenuLogo.jsx'; */
 import {
   hiddenSignUpAction,
   toggleUserMenu,
@@ -17,6 +17,8 @@ import {
   device,
   maxDeviceWidth,
 } from '../../styles/media_queries/mediaQueries';
+import { Heading, Flex } from '@chakra-ui/react';
+import ChakraMenu from './ChakraMenu.jsx';
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -27,13 +29,14 @@ const StyledHeader = styled.header`
   z-index: 12;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   color: var(--opera-mauve);
-  ${({ navMenuHidden, hidden }) =>
+  ${({ navMenuHidden }) =>
     navMenuHidden &&
-    !hidden &&
     css`
       justify-content: center;
+      align-items: center;
+      flex-direction: column;
     `}
 `;
 
@@ -47,22 +50,27 @@ const StyledNav = styled.nav`
 `;
 
 const StyledUserLogoDiv = styled.div`
-  position: absolute;
+  position: relative;
   z-index: 12;
-  top: 0px;
+  top: 10px;
   right: 5px;
   display: flex;
   align-items: center;
+  align-self: end;
   column-gap: 10px;
   color: var(--twilight-lavender);
   font-size: var(--step--1);
   border-radius: 10px;
   cursor: pointer;
   padding: 5px 8px;
-
   &:hover {
     background-color: #ebd9e3;
   }
+  ${({ navMenuHidden }) =>
+    navMenuHidden &&
+    css`
+      position: absolute;
+    `}
 `;
 
 const UserLogo = styled.img`
@@ -77,7 +85,7 @@ const CartLogo = styled(Cart)`
 const Header = ({ menu, setHiddenCart }) => {
   const user = useSelector((store) => store.user);
 
-  const [showMobileMenu, setshowMobileMenu] = useState(false);
+  /* const [showMobileMenu, setshowMobileMenu] = useState(false); */
 
   const [inOut, setInOut] = useState(false);
 
@@ -93,6 +101,10 @@ const Header = ({ menu, setHiddenCart }) => {
       window.matchMedia(device.mobileL).matches &&
         dispatch(navMenuHiddenAction(device.mobileL));
     });
+    window.matchMedia(device.mobileL).matches &&
+      dispatch(navMenuHiddenAction(device.mobileL));
+    window.matchMedia(maxDeviceWidth.mobileL).matches &&
+      dispatch(navMenuHiddenAction(maxDeviceWidth.mobileL));
   }, [
     cartEffect,
     matchMedia(maxDeviceWidth.mobileL).matches,
@@ -115,38 +127,51 @@ const Header = ({ menu, setHiddenCart }) => {
   return (
     <StyledHeader navMenuHidden={navMenuHidden}>
       <NavLink to="/">
-        <Logo></Logo>
+        <Logo />
       </NavLink>
-      {navMenuHidden && (
-        <MenuLogo
-          showMobileMenu={showMobileMenu}
-          setshowMobileMenu={setshowMobileMenu}
-        />
-      )}
-      <StyledNav>
-        <h1>Santa Juanita - Mimos al Alma</h1>
-        <HeaderMenu
-          menu={menu}
-          hidden={navMenuHidden}
-          showMobileMenu={showMobileMenu}></HeaderMenu>
-      </StyledNav>
-      <StyledUserLogoDiv onClick={toggleHiddenSignInUpSection}>
-        <span>
-          {user?.displayName
-            ? 'Hola, ' + user.displayName
-            : user?.email
-            ? user.email
-            : 'Login / SignUp'}
-        </span>
-        {user && (
+      <Flex flexDir="column">
+        <StyledUserLogoDiv
+          onClick={toggleHiddenSignInUpSection}
+          navMenuHidden={navMenuHidden}>
+          {!navMenuHidden && (
+            <span>
+              {user?.displayName
+                ? 'Hola, ' + user.displayName
+                : user?.email
+                ? user.email
+                : 'Login / SignUp'}
+            </span>
+          )}
+
           <UserLogo
             src={process.env.PUBLIC_URL + '/assets/user_logo.png'}></UserLogo>
+
+          {!userMenuHidden && <UserMenu hiddenMenu={inOut} />}
+        </StyledUserLogoDiv>
+        {navMenuHidden ? (
+          <>
+            {/* <MenuLogo
+            showMobileMenu={showMobileMenu}
+            setshowMobileMenu={setshowMobileMenu}
+          /> */}
+            <Heading as="h1" size={'lg'} textAlign="center">
+              Santa Juanita - Mimos al Alma
+            </Heading>
+            <ChakraMenu menu={menu} />
+          </>
+        ) : (
+          <StyledNav>
+            <Heading as="h1" size={'lg'} textAlign="center">
+              Santa Juanita - Mimos al Alma
+            </Heading>
+            <HeaderMenu menu={menu} hiddenMenu={navMenuHidden}></HeaderMenu>
+          </StyledNav>
         )}
-        {!userMenuHidden && <UserMenu hidden={inOut} />}
-      </StyledUserLogoDiv>
-      {user && (
-        <CartLogo setHiddenCart={setHiddenCart} cartEffect={cartEffect} />
-      )}
+
+        {user && (
+          <CartLogo setHiddenCart={setHiddenCart} cartEffect={cartEffect} />
+        )}
+      </Flex>
     </StyledHeader>
   );
 };

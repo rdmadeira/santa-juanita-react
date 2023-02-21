@@ -11,29 +11,22 @@ const StyledMenu = styled.ul`
   align-items: flex-end;
   column-gap: 10px;
   margin-top: 10px;
-  ${({ showMobileMenu, hidden }) => {
-    if (!hidden) {
+  ${({ hiddenMenu }) => {
+    if (!hiddenMenu) {
       return css`
         visibility: visible;
         opacity: 1;
       `;
     } else {
-      if (showMobileMenu) {
-        return css`
-          visibility: visible;
-          opacity: 1;
-        `;
-      } else {
-        return css`
-          visibility: hidden;
-          opacity: 0;
-        `;
-      }
+      return css`
+        visibility: hidden;
+        opacity: 0;
+      `;
     }
-  }}
+  }}}
 
-  ${({ hidden }) =>
-    hidden &&
+  ${({ hiddenMenu }) =>
+    hiddenMenu &&
     css`
       position: absolute;
       top: 60px;
@@ -50,14 +43,14 @@ const StyledMenu = styled.ul`
     `}
 `;
 
-export const HeaderMenu = ({ menu, hidden, showMobileMenu }) => {
+export const HeaderMenu = ({ menu, hidden }) => {
   const [showProductos, setshowProductos] = useState(false);
 
   const disappearSubmenu = () => {
     setTimeout(() => setshowProductos(false), 300);
   };
   return (
-    <StyledMenu hidden={hidden} showMobileMenu={showMobileMenu}>
+    <StyledMenu hiddenMenu={hidden}>
       {menu.map((li) => {
         if (li.children) {
           return (
@@ -65,15 +58,12 @@ export const HeaderMenu = ({ menu, hidden, showMobileMenu }) => {
               key={Math.random().toString()}
               style={{ position: 'relative' }}
               onMouseOver={() => setshowProductos(true)}
-              onMouseLeave={disappearSubmenu}
-              showMobileMenu={showMobileMenu}>
+              onMouseLeave={disappearSubmenu}>
               <NavLink relative="route" to={li.linkTo}>
                 {li.name}
               </NavLink>
               {showProductos === true ? (
-                <SubmenuProductos
-                  submenu={li.children}
-                  showMobileMenu={showMobileMenu}></SubmenuProductos>
+                <SubmenuProductos submenu={li.children}></SubmenuProductos>
               ) : (
                 ''
               )}
@@ -81,7 +71,7 @@ export const HeaderMenu = ({ menu, hidden, showMobileMenu }) => {
           );
         } else {
           return (
-            <LinkContainer key={li.name} showMobileMenu={showMobileMenu}>
+            <LinkContainer key={li.name}>
               <NavLink to={li.linkTo}>{li.name}</NavLink>
             </LinkContainer>
           );

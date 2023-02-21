@@ -29,7 +29,8 @@ import {
   checkIsSignInWithEmail,
   /* updateUserOrdersToDatabase, */
 } from './firebase/firebase_auth/auth_utils';
-/* import { checkUser } from './utils/form_utils/formVerifyUser'; */
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from './styles/chakra-ui/theme';
 
 export const router = createBrowserRouter([
   {
@@ -110,11 +111,11 @@ function App() {
   }, [dispatch, setUser]);
 
   return (
-    <>
+    <ChakraProvider theme={theme}>
       <GlobalStyle />
       <AnimationStyles />
       <Outlet />
-    </>
+    </ChakraProvider>
   );
 }
 

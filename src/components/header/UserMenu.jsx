@@ -6,6 +6,15 @@ import styled, { css, keyframes } from 'styled-components';
  */ /* import { auth } from 'firebase-admin'; */
 import { signOut, getAuth } from 'firebase/auth';
 
+const Shadow = styled.div`
+  width: 110vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  right: -5px;
+  background-color: #f0f8ff80;
+`;
+
 const ShowDown = keyframes`
 0% {
   transform: scaleY(0) translateY(-10px);
@@ -34,29 +43,30 @@ const UserMenuContainer = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  padding: 10px 0;
+  padding: 10px 0px;
   transform-origin: top;
-  animation: ${({ hidden }) =>
-    !hidden
+  animation: ${({ hiddenMenu }) =>
+    !hiddenMenu
       ? css`
           ${ByeUp} 0.5s ease-out forwards
         `
       : css`
           ${ShowDown} 0.3s ease-out forwards
         `};
-  width: 100%;
+  width: max-content;
+  right: 10px;
 `;
 
 const UserMenuLi = styled.li`
   width: 100%;
-  padding: 10px 5px;
+  padding: 10px 25px;
   &:hover {
     background-color: var(--mulberry);
     color: var(--snow);
   }
 `;
 
-export const UserMenu = ({ hidden }) => {
+export const UserMenu = ({ hiddenMenu }) => {
   const navigate = useNavigate();
 
   const logoutHandle = () => {
@@ -70,9 +80,12 @@ export const UserMenu = ({ hidden }) => {
       });
   };
   return (
-    <UserMenuContainer hidden={hidden}>
-      <UserMenuLi onClick={() => navigate('orders')}>Mis Ordenes</UserMenuLi>
-      <UserMenuLi onClick={logoutHandle}>Cerrar sesion</UserMenuLi>
-    </UserMenuContainer>
+    <>
+      <Shadow />
+      <UserMenuContainer hiddenMenu={hiddenMenu}>
+        <UserMenuLi onClick={() => navigate('orders')}>Mis Ordenes</UserMenuLi>
+        <UserMenuLi onClick={logoutHandle}>Cerrar sesion</UserMenuLi>
+      </UserMenuContainer>
+    </>
   );
 };

@@ -24,7 +24,7 @@ export const LinkContainer = styled.li`
   font-weight: 300;
   display: flex;
   color: var(--opera-mauve);
-  font-size: var(--step-0);
+  font-size: var(--step--1);
   border-bottom: 0.5px solid rgba(183, 183, 183, 0.507);
   padding: 2px 3px;
   &:hover {

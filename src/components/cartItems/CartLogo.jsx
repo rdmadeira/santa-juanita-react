@@ -16,6 +16,7 @@ const CartContainer = styled.div`
   bottom: 20px;
   right: 20px;
   z-index: 3;
+  min-width: 60px;
   cursor: pointer;
   &:hover {
     opacity: 1;

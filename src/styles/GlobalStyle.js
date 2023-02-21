@@ -89,31 +89,30 @@ export const GlobalStyle = createGlobalStyle`
     );
 }
 
-* {
+/* * {
     box-sizing: border-box;
     padding: 0 0;
     margin: 0 0;
-    font-family: 'Barlow', sans-serif;
-}
-body {
-    /* overflow-x: hidden; */
+} */
+/* body {
+    
     font-size: var(--step-0);
     width: 100%;
-}
-ul {
+} */
+/* ul {
     list-style: none;
-}
-a, a:visited {
+} */
+/* a, a:visited {
     text-decoration: none;
     color: unset;
-}
-h1 {
+} */
+/* h1 {
     padding: 0 0 0 20px;
-    /* font-size: max(2.2vw,28px); */
+    
     font-size: var(--step-2);
     text-align: center;
     margin-top: 3vw;
     font-weight: 600;
     letter-spacing: -1px;
-}
+} */
 `;

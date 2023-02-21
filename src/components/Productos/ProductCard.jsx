@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { addToCart } from '../../redux/cart/cartActions';
-import { device } from '../../styles/media_queries/mediaQueries';
+import {
+  device,
+  maxDeviceWidth,
+} from '../../styles/media_queries/mediaQueries';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
 import {
   hiddenSignUpAction,
@@ -25,7 +28,10 @@ const ProductCtn = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 48%;
-  } ;
+  }
+  @media ${maxDeviceWidth.mobileL} {
+    width: 95%;
+  }
 `;
 
 const NoStockShadow = styled.div`
