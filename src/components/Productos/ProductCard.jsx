@@ -24,12 +24,19 @@ const ProductCtn = styled.div`
   color: var(--opera-mauve);
   transition: 0.4s transform ease-out;
   position: relative;
+
   @media ${device.laptop} {
     flex-direction: row;
     flex-wrap: wrap;
     width: 48%;
   }
-  @media ${maxDeviceWidth.mobileL} {
+
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 75%;
+  }
+  @media ${maxDeviceWidth.mobileL}, (orientation: portrait) {
     width: 95%;
   }
 `;
@@ -57,11 +64,18 @@ const BtnAgregar = styled(StyledButton)`
           background-color: #c082a429;
         `
       : ''}
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape), ${device.laptop} {
+    display: flex;
+    width: unset;
+    order: 3;
+    margin-left: 10px;
+  }
 `;
 
 const ProductImage = styled.img`
   aspect-ratio: 1.85;
-  @media ${device.laptop} {
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape),
+    ${device.laptop} {
     width: 50%;
     height: 213px;
     border-radius: 0 0 15px 0;
@@ -70,8 +84,10 @@ const ProductImage = styled.img`
 
 const ProductTitle = styled.h3`
   padding: 0 7px;
-  @media ${device.laptop} {
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape),
+    ${device.laptop} {
     width: 50%;
+    display: flex;
     order: 1;
   }
 `;
@@ -80,7 +96,8 @@ const ProductDescription = styled.p`
   line-height: 1.5;
   flex: auto;
   padding: 0px 7px;
-  @media ${device.laptop} {
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape),
+    ${device.laptop} {
     order: 0;
     width: 50%;
     padding: 5px 10px;
@@ -97,8 +114,9 @@ const ProductPrice = styled.p`
   width: 100%;
   text-align: end;
   border-radius: 0 0 15px 0;
-  @media ${device.laptop} {
-    order: 3;
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape),
+    ${device.laptop} {
+    order: 4;
   }
 `;
 
@@ -109,9 +127,11 @@ const SizeSelect = styled.select`
   padding: 5px 5px;
   margin-left: 7px;
   z-index: 3;
-  @media ${device.laptop} {
+  @media ${maxDeviceWidth.tablet} and (orientation: landscape),
+    ${device.laptop} {
     order: 2;
     width: unset;
+    display: flex;
   }
 `;
 

@@ -78,10 +78,10 @@ const SectionCard = ({ imageUrl, h2Text, pText, href }) => {
         <Text
           as="h2"
           className="shake-2"
-          fontSize={isMobile ? 'var(--step-3)' : 'var(--step-0)'}>
+          fontSize={isMobile ? 'var(--step-3)' : 'var(--step-2)'}>
           {h2Text}
         </Text>
-        <Text as="p" fontSize={isMobile ? 'var(--step-2)' : 'var(--step-0'}>
+        <Text as="p" fontSize={isMobile ? 'var(--step-2)' : 'var(--step-1'}>
           {pText}
         </Text>
         <SectionButton href={href} isMobile={isMobile} />
