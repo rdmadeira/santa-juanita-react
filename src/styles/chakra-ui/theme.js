@@ -53,7 +53,7 @@ const theme = extendTheme({
         textDecoration: 'none',
         color: 'unset',
       },
-      'h1, h2': {
+      'h1, h2, h3': {
         fontWeight: 'bold',
       },
     },

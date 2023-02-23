@@ -4,7 +4,12 @@ import React, {
 } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-// import SignInUpInput from '../signinup/SignInUpInput.jsx';
+import {
+  Center,
+  CircularProgress,
+  CircularProgressLabel,
+} from '@chakra-ui/react';
+
 import useForm from '../../hooks/useForm.js';
 import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
 /* import {
@@ -130,6 +135,7 @@ const SignInUp = ({ signInUpHidden }) => {
   const [isLogin, setIsLogin] = useState(null);
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [isEmailLinkUser, setIsEmailLinkUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* const initialState = {
     isLogin: null,
@@ -146,6 +152,10 @@ const SignInUp = ({ signInUpHidden }) => {
 
   useEffect(() => {
     dispatch(hiddenSignUpAction(null));
+
+    return () => {
+      setIsLoading(false);
+    };
   }, []);
 
   useEffect(() => {
@@ -221,13 +231,11 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const loginHandle = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     !isEmailLinkUser
       ? LoginWithEmailAndPassword(formState.inputs, setIsEmailLinkUser)
       : signUpWithEmail(formState.inputs.email.value);
     navigate(`/productos`);
-    /* dispatch(hiddenSignUpAction(null)); */
-
-    /* setIsValidPassword(false); */
   };
 
   const closeHandle = () => {
@@ -307,7 +315,19 @@ const SignInUp = ({ signInUpHidden }) => {
             isEmailLinkUser={isEmailLinkUser}
           />
         )}
+        <Center>
+          {isLoading && (
+            <CircularProgress
+              isIndeterminate
+              thickness="4px"
+              size="70px"
+              color="pink">
+              <CircularProgressLabel>Loading</CircularProgressLabel>
+            </CircularProgress>
+          )}
+        </Center>
       </FormContainer>
+
       <FormContainer>
         <h4> __________ O __________ </h4>
       </FormContainer>

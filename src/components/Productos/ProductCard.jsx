@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+// import styled, { css } from 'styled-components';
+import styled from '@emotion/styled';
+import { css } from '@emotion/react';
+import { Text } from '@chakra-ui/react';
 import { addToCart } from '../../redux/cart/cartActions';
 import {
   device,
@@ -82,7 +85,7 @@ const ProductImage = styled.img`
   }
 `;
 
-const ProductTitle = styled.h3`
+const ProductTitle = styled(Text)`
   padding: 0 7px;
   @media ${maxDeviceWidth.tablet} and (orientation: landscape),
     ${device.laptop} {
@@ -190,7 +193,7 @@ export const ProductCard = ({ producto }) => {
           </NoStockShadow>
         )}
         <ProductImage src={producto.img} alt={producto.name} />
-        <ProductTitle style={{ padding: '0 7px' }}>
+        <ProductTitle as="h3" fontSize="2xl">
           {producto.name}
         </ProductTitle>
         <ProductDescription>{producto.description}</ProductDescription>

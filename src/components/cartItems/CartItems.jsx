@@ -1,10 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
 import { device } from '../../styles/media_queries/mediaQueries';
-import { StyledButton } from '../ui/Button.jsx';
+import {
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  CircularProgress,
+  CircularProgressLabel,
+} from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';
+
 import {
   changeQuantityItem,
   deleteItemAction,
@@ -93,16 +103,27 @@ const ChangeQtyButton = styled.div`
   ${({ disabled }) => disabled && 'opacity: 0.2'}
 `;
 
+/* const ButtonSpinner = () => {
+  return <CircularProgress isIndeterminate size="15px" />;
+}; */
+
 const MyCartItems = ({ hidden }) => {
   const cartItems = useSelector((store) => store.cart);
   const stock = useSelector((store) => store.stock);
   const user = useSelector((store) => store.user);
+
+  const [isLoading, setisLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(userActions.setUserCart(cartItems));
+
+    return () => {
+      setisLoading(false);
+    };
   }, [cartItems, dispatch]);
 
   const changeQuantity = (string, cartItem) => {
@@ -114,19 +135,26 @@ const MyCartItems = ({ hidden }) => {
   };
 
   const goToPayment = () => {
-    dispatch(hiddenCartActions.toggleCart());
-    /* dispatch(ordersActions.createOrderSuccess(user, cartItems)); */
+    setisLoading(true);
+
     decrementStocktoDatabase(cartItems, stock);
+    /* dispatch(hiddenCartActions.toggleCart());
     dispatch(cartActions.cartReset());
-    dispatch(userActions.setUserCart([]));
-    /* dispatch(userActions.createOrderSuccess(user, cartItems)); */
+    dispatch(userActions.setUserCart([])); */
+
     updateUserOrdersToStoreAndDatabase(
       user,
       cartItems,
       dispatch,
-      userActions.createOrderSuccess
+      {
+        createOrder: userActions.createOrderSuccess,
+        toggleCart: hiddenCartActions.toggleCart,
+        cartReset: cartActions.cartReset,
+        setUserCart: userActions.setUserCart,
+      },
+      setIsSubmitted,
+      navigate
     );
-    navigate('/orders');
   };
 
   return (
@@ -205,7 +233,35 @@ const MyCartItems = ({ hidden }) => {
                   )}
                 </CartItem>
               </CartItems>
-              <StyledButton onClick={goToPayment}>Pagar</StyledButton>
+              <Button
+                onClick={goToPayment}
+                isLoading={isLoading && !isSubmitted}
+                loadingText="Wait..."
+                rightIcon={isSubmitted ? <CheckIcon /> : null}>
+                {isSubmitted ? '' : 'Pagar'}
+              </Button>
+              {!(isSubmitted === null) && (
+                <Alert status={isSubmitted ? 'success' : 'error'}>
+                  <AlertIcon />
+                  <AlertTitle>
+                    {isSubmitted ? 'Gracias por su pedido' : 'Error'}
+                  </AlertTitle>
+                  <AlertDescription>
+                    {isSubmitted ? 'Enviado con sucesso!' : 'Pedido no enviado'}
+                  </AlertDescription>
+                </Alert>
+              )}
+              {isSubmitted && (
+                <CircularProgress
+                  isIndeterminate
+                  thickness="6px"
+                  size="70px"
+                  color="pink">
+                  <CircularProgressLabel>
+                    Redireccionando a Ordenes
+                  </CircularProgressLabel>
+                </CircularProgress>
+              )}
             </>
           )}
         </MyCartContent>

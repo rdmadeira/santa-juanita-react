@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 
 const BannerTextWrapper = styled(Container)((props) => ({
   width: props.ismobile ? '100%' : '50%',
+  color: '#66334f',
   minWidth: '300px',
   display: 'flex',
   flexDirection: 'column',
