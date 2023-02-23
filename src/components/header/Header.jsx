@@ -52,7 +52,7 @@ const StyledNav = styled.nav`
 const StyledUserLogoDiv = styled.div`
   position: relative;
   z-index: 12;
-  top: 10px;
+  top: 0;
   right: 5px;
   display: flex;
   align-items: center;

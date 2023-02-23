@@ -234,6 +234,7 @@ const MyCartItems = ({ hidden }) => {
                 </CartItem>
               </CartItems>
               <Button
+                variant="santaJuanita"
                 onClick={goToPayment}
                 isLoading={isLoading && !isSubmitted}
                 loadingText="Wait..."

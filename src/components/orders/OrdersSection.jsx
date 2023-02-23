@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Order } from './Order.jsx';
-import { TitleH2 } from '../ui/TitleH2.jsx';
+import { Heading } from '@chakra-ui/react';
 
 const OrdersMainContainer = styled.section`
   background: white;
@@ -23,16 +23,16 @@ const OrdersContainer = styled.div`
   gap: 10px 20px;
 `;
 
-const OrdersTitleH2 = styled(TitleH2)`
+/* const OrdersTitleH2 = styled(TitleH2)`
   color: var(--pink-lavender);
-`;
+`; */
 
 const OrdersSection = () => {
   const orders = useSelector((store) => store.user?.orders || []);
 
   return (
     <OrdersMainContainer>
-      <OrdersTitleH2>Tus Ordenes son:</OrdersTitleH2>
+      <Heading size="lg">Tus Ordenes son:</Heading>
       <OrdersContainer>
         {orders ? (
           orders.map((order, index) => {

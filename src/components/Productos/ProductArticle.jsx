@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { maxDeviceWidth } from '../../styles/media_queries/mediaQueries';
 
 const ProductArticleShadow = styled.div`
   width: 100%;
@@ -28,6 +29,9 @@ const ProductArticleContainer = styled.div`
   position: absolute;
   top: 30px;
   z-index: 5;
+  @media ${maxDeviceWidth.mobileL} {
+    width: 95%;
+  } ;
 `;
 
 const ArticleImage = styled.img`

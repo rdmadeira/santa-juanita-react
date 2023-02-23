@@ -1,16 +1,22 @@
 import {
   theme as chakraTheme,
   extendTheme,
+  /* defineStyleConfig, */
   defineStyle,
 } from '@chakra-ui/react';
 
+const headingtheme = defineStyle({
+  baseStyle: {
+    ...chakraTheme.components.Heading.baseStyle,
+    color: 'var(--twilight-lavender)',
+    fontFamily: 'Barlow, sans-serif',
+  },
+});
+
 const theme = extendTheme({
   components: {
-    Heading: {
-      baseStyle: defineStyle({
-        fontFamily: 'Barlow, sans-serif',
-      }),
-    },
+    Heading: headingtheme,
+
     Button: {
       variants: {
         ...chakraTheme.components.Button.variants,
@@ -20,6 +26,19 @@ const theme = extendTheme({
           backgroundColor: '#b6b6b65e',
           _hover: {
             backgroundColor: '#c082a442',
+          },
+        },
+        santaJuanita: {
+          padding: '6px',
+          width: '50%',
+          maxWidth: '290px',
+          alignSelf: 'center',
+          color: 'var(--snow)',
+          backgroundColor: 'var(--mulberry)',
+          border: 'none',
+          cursor: 'pointer',
+          '&:hover': {
+            backgroundColor: 'var(--pink-lavender)',
           },
         },
       },

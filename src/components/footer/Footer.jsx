@@ -23,7 +23,8 @@ const SocialLogosContainer = styled.div`
   display: flex;
   column-gap: 8vw;
   width: 40%;
-  min-width: 400px;
+  min-width: 280px;
+  margin-top: 20px;
   justify-content: center;
 `;
 
