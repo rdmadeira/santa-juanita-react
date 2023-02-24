@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 const StyledSubmenuProductos = styled.ul`
   position: absolute;
   background-color: var(--lavender-blush);
-  top: 42px;
+  top: 38px;
   left: -30;
   z-index: 5;
   padding: 5px 0 5px 0;

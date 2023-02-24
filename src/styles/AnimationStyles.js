@@ -176,25 +176,25 @@ export const AnimationStyles = createGlobalStyle`
 	        animation: fade-out-right 0.7s 0s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 .fade-in-blur-first {
-    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
-    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
-    -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.8s backwards;
-    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
-    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
+    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 0.8s backwards;
+    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 0.8s backwards;
+    -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 0.8s backwards;
+    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 0.8s backwards;
+    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 0.8s backwards;
   }
   .fade-in-blur-second {
-    animation: fadeIn linear 1.2s 1.2s backwards;
-    -webkit-animation: fadeIn linear 1.2s 1.2s backwards;
-    -moz-animation: fadeIn linear 1.2s 1.2s backwards;
-    -o-animation: fadeIn linear 1.2s 1.2s backwards;
-    -ms-animation: fadeIn linear 1.2s 1.2s backwards;
+    animation: fadeIn linear 1.5s 0s backwards;
+    -webkit-animation: fadeIn linear 1.5s 0s backwards;
+    -moz-animation: fadeIn linear 1.5s 0s backwards;
+    -o-animation: fadeIn linear 1.5s 0s backwards;
+    -ms-animation: fadeIn linear 1.5s 0s backwards;
   }
   .fade-in-blur-third {
-    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s  2.4s both;
-    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s 2.5s both;
-    -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s   2.4s both;
-    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s   2.4s both;
-    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s  2.4s both;
+    animation: fadeIn linear 1.8s  0.3s both;
+    -webkit-animation: fadeIn linear 1.8s 0.3s both;
+    -moz-animation: fadeIn linear 1.8s  0.3s both;
+    -o-animation: fadeIn linear 1.8s  0.3s both;
+    -ms-animation: fadeIn linear 1.8s  0.3s both;
   }
   .shake {
       animation: shake infinite 17s 9s ease-in-out alternate ;

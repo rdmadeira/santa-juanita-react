@@ -113,6 +113,7 @@ const RedesButtonsStyled = styled.div`
   display: flex;
   column-gap: 0.5vw;
   justify-content: center;
+  align-items: center;
   padding: 1.2vw;
   width: 70%;
   border: solid 2px var(--twilight-lavender);
@@ -344,10 +345,8 @@ const SignInUp = ({ signInUpHidden }) => {
           Continue with Google
         </RedesButtonsStyled>
         <RedesButtonsStyled>
-          <Link to="/">
-            <FacebookSvg />
-            Continue con Facebook
-          </Link>
+          <FacebookSvg />
+          Continue con Facebook
         </RedesButtonsStyled>
       </GFADivStyled>
       <FormContainer>

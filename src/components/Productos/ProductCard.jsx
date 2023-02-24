@@ -189,7 +189,9 @@ export const ProductCard = ({ producto }) => {
       <ProductCtn>
         {stock < 1 && (
           <NoStockShadow>
-            Sin stock {size === 'medium' ? 'mediano' : 'grande'}
+            Sin stock{' '}
+            {producto.type === 'vela' &&
+              (size === 'medium' ? 'mediano' : size === 'big')}
           </NoStockShadow>
         )}
         <ProductImage src={producto.img} alt={producto.name} />
