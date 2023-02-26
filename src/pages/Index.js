@@ -40,9 +40,10 @@ const Index = () => {
             ],
           },
           { name: 'Galeria', linkTo: '/galeria' },
-          { name: 'Contacto', linkTo: '/contacto' },
+          /* { name: 'Contacto', linkTo: '/contacto' }, */
         ]}
       />
+
       <StyledMain user={user}>
         {!user && <SignInUp signInUpHidden={signInUpHidden} />}
         {!cartHidden && <MyCartItems />}

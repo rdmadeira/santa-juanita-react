@@ -11,13 +11,17 @@ import {
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import HamburgerIconString from '../../assets/menu-vertical.png';
+import { useDisclosure } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+import ContactDrawner from '../contact/ContactDrawner.jsx';
 
 const HamburgerIcon = styled.img`
   width: 30px;
 `;
 
 const ChakraMenu = ({ menu }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   /* const [showProductos, setshowProductos] = useState(false);
 
   const disappearSubmenu = () => {
@@ -59,6 +63,10 @@ const ChakraMenu = ({ menu }) => {
             </NavLink>
           );
         })}
+        <MenuItem fontSize="x-large" onClick={onOpen}>
+          Contacto
+          <ContactDrawner isOpen={isOpen} onClose={onClose} />
+        </MenuItem>
       </MenuList>
     </Menu>
   );

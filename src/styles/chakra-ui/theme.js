@@ -1,58 +1,61 @@
 import {
   theme as chakraTheme,
   extendTheme,
-  /* defineStyleConfig, */
-  defineStyle,
+  defineStyleConfig,
 } from '@chakra-ui/react';
+import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
 
-const headingtheme = defineStyle({
-  baseStyle: {
-    ...chakraTheme.components.Heading.baseStyle,
-    color: 'var(--twilight-lavender)',
-    fontFamily: 'Barlow, sans-serif',
+const Input = defineStyleConfig({
+  variants: {
+    filled: {
+      field: {
+        borderColor: 'var(--opera-mauve)',
+        border: 'solid 1px',
+
+        _focusVisible: {
+          bg: 'transparent',
+          borderColor: 'var(--opera-mauve)',
+          outline: '1px solid var(--opera-mauve)',
+          outlineOffset: '3px',
+        },
+      },
+    },
   },
+});
+
+const FormLabel = defineStyleConfig({
+  baseStyle: {
+    color: 'var(--twilight-lavender)',
+  },
+});
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers([
+    'container',
+    'requiredIndicator',
+    'helperText',
+  ]);
+
+const Form = defineMultiStyleConfig({
+  baseStyle: definePartsStyle({
+    container: {
+      width: '70%',
+      position: 'relative',
+    },
+    /* requiredIndicator: {
+      ...chakraTheme.components.Form.baseStyle.requiredIndicator,
+    },
+    helperText: {
+      ...chakraTheme.components.Form.baseStyle.helperText,
+    }, */
+  }),
 });
 
 const theme = extendTheme({
   components: {
-    Heading: headingtheme,
-
-    Button: {
-      variants: {
-        ...chakraTheme.components.Button.variants,
-        outline: {
-          ...chakraTheme.components.Button.variants.outline,
-          borderColor: '#c082a442',
-          backgroundColor: '#b6b6b65e',
-          _hover: {
-            backgroundColor: '#c082a442',
-          },
-        },
-        santaJuanita: {
-          padding: '6px',
-          width: '50%',
-          maxWidth: '290px',
-          alignSelf: 'center',
-          color: 'var(--snow)',
-          backgroundColor: 'var(--mulberry)',
-          border: 'none',
-          cursor: 'pointer',
-          '&:hover': {
-            backgroundColor: 'var(--pink-lavender)',
-          },
-        },
-      },
-    },
-    Menu: {
-      ...chakraTheme.components.Menu,
-      baseStyle: {
-        ...chakraTheme.components.Menu.baseStyle,
-        divider: {
-          ...chakraTheme.components.Menu.baseStyle.divider,
-          borderColor: '#c082a470',
-        },
-      },
-    },
+    Input,
+    Form,
+    FormLabel,
   },
   styles: {
     global: {
@@ -72,19 +75,14 @@ const theme = extendTheme({
         textDecoration: 'none',
         color: 'unset',
       },
-      'h1, h2, h3': {
-        fontWeight: 'bold',
-      },
     },
   },
   fonts: {
     ...chakraTheme.fonts,
+    heading: 'Barlow, sans-serif',
     body: 'Barlow, sans-serif',
   },
-  fontSizes: {
-    h1: 'var(--step-1)',
-    h2: 'var(--step-0)',
-  },
+
   fontWeights: {
     thin: '300',
     medium: '500',

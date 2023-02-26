@@ -154,7 +154,7 @@ const Header = ({ menu, setHiddenCart }) => {
             showMobileMenu={showMobileMenu}
             setshowMobileMenu={setshowMobileMenu}
           /> */}
-            <Heading as="h1" size={'lg'} textAlign="center">
+            <Heading as="h1" /* size={'lg'} */ textAlign="center" fontSize="h1">
               Santa Juanita - Mimos al Alma
             </Heading>
             <ChakraMenu menu={menu} />

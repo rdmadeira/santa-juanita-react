@@ -3,6 +3,8 @@ import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { LinkContainer, SubmenuProductos } from './SubmenuProductos.jsx';
 import './HeaderMenu.css';
+import { useDisclosure } from '@chakra-ui/react';
+import ContactDrawner from '../contact/ContactDrawner.jsx';
 
 const StyledMenu = styled.ul`
   visibility: visible;
@@ -23,7 +25,7 @@ const StyledMenu = styled.ul`
         opacity: 0;
       `;
     }
-  }}}
+  }};
 
   ${({ hiddenMenu }) =>
     hiddenMenu &&
@@ -45,7 +47,7 @@ const StyledMenu = styled.ul`
 
 export const HeaderMenu = ({ menu, hidden }) => {
   const [showProductos, setshowProductos] = useState(false);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const disappearSubmenu = () => {
     setTimeout(() => setshowProductos(false), 300);
   };
@@ -77,7 +79,10 @@ export const HeaderMenu = ({ menu, hidden }) => {
           );
         }
       })}
-
+      <LinkContainer onClick={onOpen}>
+        <button>Contacto</button>
+      </LinkContainer>
+      <ContactDrawner isOpen={isOpen} onClose={onClose} />
       {/* <LinkContainer>
         <NavLink to="/">Home</NavLink>
       </LinkContainer>

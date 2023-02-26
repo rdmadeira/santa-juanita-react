@@ -36,7 +36,8 @@ const SectionButton = ({ href, isMobile }) => {
         ismMobile={isMobile ? 1 : 0}
         variant="outline"
         borderColor="#d2a8beab"
-        size="lg">
+        /* size="lg" */
+      >
         Sepa Más
       </Button>
     </Link>
