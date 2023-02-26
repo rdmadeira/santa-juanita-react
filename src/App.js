@@ -22,7 +22,6 @@ import Contact from './pages/Contact';
 import {
   getProductsFromDataBase,
   getStockFromDataBase,
-  getUsersFromDatabase,
 } from './firebase/firebase_utils';
 import {
   onAuthStateChange,
@@ -39,9 +38,8 @@ export const router = createBrowserRouter([
     loader: async () => {
       const productos = await getProductsFromDataBase();
       const stock = await getStockFromDataBase();
-      const users = await getUsersFromDatabase();
 
-      return { productos, stock, users };
+      return { productos, stock };
     },
     children: [
       {

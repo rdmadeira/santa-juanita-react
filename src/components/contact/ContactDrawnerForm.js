@@ -8,9 +8,11 @@ import {
   InputLeftAddon,
   Textarea,
   FormErrorIcon,
+  InputRightElement,
 } from '@chakra-ui/react';
 import { email, name, tel } from '../../utils/patterns/patterns';
 import styled from '@emotion/styled';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 const FormBox = styled.div`
   display: flex;
@@ -20,7 +22,12 @@ const FormBox = styled.div`
   width: 100;
 `;
 
-const ContactDrawnerForm = ({ register, errors /* , isSubmitting  */ }) => {
+const ContactDrawnerForm = ({
+  register,
+  errors,
+  dirtyFields,
+  /* , isSubmitting  */
+}) => {
   return (
     <FormBox>
       <FormControl isInvalid={errors.firstName}>
@@ -54,6 +61,7 @@ const ContactDrawnerForm = ({ register, errors /* , isSubmitting  */ }) => {
           })}
           variant="filled"
         />
+
         <FormErrorMessage>
           {errors.lastName && (
             <>
@@ -65,17 +73,27 @@ const ContactDrawnerForm = ({ register, errors /* , isSubmitting  */ }) => {
       </FormControl>
       <FormControl isInvalid={errors.email}>
         <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          {...register('email', {
-            required: 'Campo Obligatório',
-            pattern: {
-              value: email,
-              message: 'Ingrese un email válido',
-            },
-          })}
-          variant="filled"
-        />
+        <InputGroup>
+          <Input
+            type="email"
+            {...register('email', {
+              required: 'Campo Obligatório',
+              pattern: {
+                value: email,
+                message: 'Ingrese un email válido',
+              },
+            })}
+            variant="filled"
+          />
+          <InputRightElement opacity="0.7">
+            {dirtyFields.email && !errors.email ? (
+              <CheckIcon color="green" />
+            ) : dirtyFields.email && errors.email ? (
+              <CloseIcon />
+            ) : null}
+          </InputRightElement>
+        </InputGroup>
+
         <FormErrorMessage>
           {errors.email && (
             <>

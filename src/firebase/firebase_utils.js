@@ -1,5 +1,6 @@
 //import { firestore } from 'firebase-admin';
 import { initializeApp } from 'firebase/app';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getFirestore,
   collection,
@@ -101,4 +102,21 @@ export const decrementStocktoDatabase = async (cart, stocks) => {
       updatedStocks[docKey]
     );
   });
+};
+
+export const setContactDocument = async (data) => {
+  const createdAt = new Date();
+  const dataDoc = {
+    ...data,
+    id: uuidv4(),
+    createdAt,
+  };
+  const docRef = doc(db, 'contacts', dataDoc.id);
+
+  return setDoc(docRef, dataDoc)
+    .then(() => {
+      console.log('Mensaje enviada con sucesso!');
+      return true;
+    })
+    .catch((error) => alert(`Hubo un error inesperado: ${error}`) && false);
 };

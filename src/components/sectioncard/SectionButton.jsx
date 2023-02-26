@@ -29,11 +29,10 @@ import { Button } from '@chakra-ui/react';
     `}
 `; */
 
-const SectionButton = ({ href, isMobile }) => {
+const SectionButton = ({ href }) => {
   return (
     <Link to={href} style={{ width: 'max-content' }}>
       <Button
-        ismMobile={isMobile ? 1 : 0}
         variant="outline"
         borderColor="#d2a8beab"
         /* size="lg" */

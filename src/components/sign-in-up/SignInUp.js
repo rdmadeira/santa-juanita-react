@@ -18,9 +18,10 @@ import { SignUpForm, LoginForm, CheckUserForm } from './SignInUpForms.jsx';
   VALIDATE_MIN_LENGTH,
 } from '../../utils/validateInputs'; */
 import { GoogleSvg, FacebookSvg, EmailSvg } from '../redes_logos/LogosSvg';
-import { useSelector, useDispatch } from 'react-redux';
+import { /* useSelector,  */ useDispatch } from 'react-redux';
 // import { signinupFormReducer } from '../../reducers/signinupFormReducer';
 import { checkUser } from '../../utils/form_utils/formVerifyUser.js';
+import { getUsersFromDatabase } from '../../firebase/firebase_utils';
 import {
   signUpWithEmail,
   SignInWithGoogle,
@@ -128,7 +129,7 @@ const RedesButtonsStyled = styled.div`
 `;
 
 const SignInUp = ({ signInUpHidden }) => {
-  const users = useSelector((store) => store.users);
+  /* const users = useSelector((store) => store.users); */
   // const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -183,12 +184,16 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const submitCheckEmailHandler = async (e) => {
     e.preventDefault();
-    let checkedUser = checkUser(formState.inputs.email.value, users);
+    setIsLoading(true);
+    const users = await getUsersFromDatabase();
+    let checkedUser = await checkUser(formState.inputs.email.value, users);
     checkUserEmailAccounts(formState.inputs, setIsEmailLinkUser);
     // console.log(checkedUser);
 
     if (checkedUser === null) {
       setIsLogin(false);
+      setIsLoading(false);
+
       setFormData(
         {
           ...formState.inputs,
@@ -215,6 +220,8 @@ const SignInUp = ({ signInUpHidden }) => {
     }
     if (checkedUser && !isEmailLinkUser) {
       setIsLogin(true);
+      setIsLoading(false);
+
       setFormData(
         {
           ...formState.inputs,
@@ -253,8 +260,8 @@ const SignInUp = ({ signInUpHidden }) => {
 
   const submitNewUser = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     createNewUserWithEmailandPassword(formState.inputs);
-    setIsLogin(true);
     navigate('/productos');
   };
 
