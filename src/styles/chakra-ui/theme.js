@@ -5,13 +5,30 @@ import {
 } from '@chakra-ui/react';
 import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
 
+const Textarea = defineStyleConfig({
+  baseStyle: {
+    ...chakraTheme.components.Textarea.baseStyle,
+    _invalid: {
+      border: 'solid 3px red',
+    },
+    _focusVisible: {
+      bg: 'transparent',
+      border: 'solid 1px var(--opera-mauve)',
+      outline: '1px solid var(--opera-mauve)',
+      outlineOffset: '3px',
+    },
+  },
+});
+
 const Input = defineStyleConfig({
   variants: {
     filled: {
       field: {
         borderColor: 'var(--opera-mauve)',
         border: 'solid 1px',
-
+        _invalid: {
+          border: 'solid 3px red',
+        },
         _focusVisible: {
           bg: 'transparent',
           borderColor: 'var(--opera-mauve)',
@@ -54,6 +71,7 @@ const Form = defineMultiStyleConfig({
 const theme = extendTheme({
   components: {
     Input,
+    Textarea,
     Form,
     FormLabel,
   },

@@ -20,7 +20,7 @@ const FormBox = styled.div`
   width: 100;
 `;
 
-const ContactDrawnerForm = ({ register, errors, isSubmitting }) => {
+const ContactDrawnerForm = ({ register, errors /* , isSubmitting  */ }) => {
   return (
     <FormBox>
       <FormControl isInvalid={errors.firstName}>
