@@ -237,13 +237,14 @@ const SignInUp = ({ signInUpHidden }) => {
     }
   };
 
-  const loginHandle = (e) => {
+  const loginHandle = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     !isEmailLinkUser
-      ? LoginWithEmailAndPassword(formState.inputs, setIsEmailLinkUser)
+      ? LoginWithEmailAndPassword(formState.inputs, setIsValidPassword)
       : signUpWithEmail(formState.inputs.email.value);
-    navigate(`/productos`);
+    (await isValidPassword) && setIsLoading(false) && navigate(`/productos`);
+    (await !isValidPassword) && setIsLoading(false);
   };
 
   const closeHandle = () => {

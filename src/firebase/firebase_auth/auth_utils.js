@@ -13,6 +13,7 @@ import {
   signInWithEmailAndPassword,
   fetchSignInMethodsForEmail,
   EmailAuthProvider,
+  AuthErrorCodes,
 } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -184,17 +185,33 @@ export const createNewUserWithEmailandPassword = async (formInputsValue) => {
     .catch((error) => console.log(`${error.code} - ${error.message}`));
 };
 
-export const LoginWithEmailAndPassword = async (formInputsValue) => {
+export const LoginWithEmailAndPassword = async (
+  formInputsValue,
+  setIsValidPassword
+) => {
   const auth = getAuth();
   const { email, password } = formInputsValue;
 
   signInWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       const user = userCredential.user;
+      setIsValidPassword(true);
       return user;
     })
+    .then((res) => console.log(res))
     .catch((error) => {
-      alert(`Hubo un error inesperado: ${error.data}: ${error.message}`);
+      if (
+        error.code === AuthErrorCodes.INVALID_PASSWORD ||
+        error.code === AuthErrorCodes.USER_DELETED
+      ) {
+        setIsValidPassword(false);
+      }
+      error.code === AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER &&
+        alert('error.message');
+      error.code === AuthErrorCodes.INTERNAL_ERROR &&
+        alert('Hubo un error En el servidor');
+
+      return false;
     });
 };
 

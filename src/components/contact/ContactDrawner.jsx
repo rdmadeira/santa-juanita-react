@@ -67,6 +67,11 @@ const ContactDrawner = ({ isOpen, onClose }) => {
   const onSubmit = async (data) => {
     await setContactDocument(data);
   };
+
+  const onCloseHandle = () => {
+    reset();
+    onClose();
+  };
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="lg">
       <DrawerOverlay />
@@ -108,7 +113,11 @@ const ContactDrawner = ({ isOpen, onClose }) => {
             )}
           </DrawerBody>
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose} type="button">
+            <Button
+              variant="outline"
+              mr={3}
+              onClick={onCloseHandle}
+              type="button">
               Cancel
             </Button>
             <Button colorScheme="blue" type="submit">

@@ -5,7 +5,6 @@ import { AnimationStyles } from './styles/AnimationStyles';
 import { sendProductsToStore } from './redux/productos/productosActions';
 import { sendStockToStore } from './redux/stock/stockActions';
 import { setUser } from './redux/user/userActions';
-import { sendUsersToStore } from './redux/users/usersActions';
 
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -18,7 +17,6 @@ import Orders from './pages/Orders';
 
 import { createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
 import Index from './pages/Index';
-import Contact from './pages/Contact';
 import {
   getProductsFromDataBase,
   getStockFromDataBase,
@@ -75,10 +73,6 @@ export const router = createBrowserRouter([
             path: '/galeria',
           },
           {
-            element: <Contact />,
-            path: '/contacto',
-          },
-          {
             path: '/orders',
             element: <Orders />,
           },
@@ -90,18 +84,12 @@ export const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch();
-  const { productos, stock, users } = useLoaderData();
-  /* const user = useSelector((store) => store.user); */
-
-  /*  useEffect(() => {
-    updateUserOrdersToDatabase(user);
-  }, [user]); */
+  const { productos, stock } = useLoaderData();
 
   useEffect(() => {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
-    users && dispatch(sendUsersToStore(users));
-  }, [dispatch, productos, stock, users]);
+  }, [dispatch, productos, stock]);
 
   useEffect(() => {
     checkIsSignInWithEmail();
