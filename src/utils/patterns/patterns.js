@@ -1,7 +1,7 @@
 export const name = new RegExp(/\b([A-ZÀ-ÿ][-,a-z. ']+[ ]*)+$/, 'i');
 
 export const email = new RegExp(
-  /^[A-Za-z0-9_!#$%&'*+/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/,
+  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
   'gm'
 );
 

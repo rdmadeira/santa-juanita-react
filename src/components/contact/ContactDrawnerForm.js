@@ -26,7 +26,7 @@ const ContactDrawnerForm = ({
   register,
   errors,
   dirtyFields,
-  /* , isSubmitting  */
+  touchedFields,
 }) => {
   return (
     <FormBox>
@@ -41,7 +41,7 @@ const ContactDrawnerForm = ({
           variant="filled"
         />
         <FormErrorMessage>
-          {errors.firstName && (
+          {errors.firstName && touchedFields.firstName && (
             <>
               <FormErrorIcon />
               <span>{errors.firstName.message}</span>
@@ -63,7 +63,7 @@ const ContactDrawnerForm = ({
         />
 
         <FormErrorMessage>
-          {errors.lastName && (
+          {errors.lastName && touchedFields.lastName && (
             <>
               <FormErrorIcon />
               <span>{errors.lastName.message}</span>
@@ -95,7 +95,7 @@ const ContactDrawnerForm = ({
         </InputGroup>
 
         <FormErrorMessage>
-          {errors.email && (
+          {errors.email && touchedFields.email && (
             <>
               <FormErrorIcon />
               <span>{errors.email.message}</span>
@@ -119,7 +119,7 @@ const ContactDrawnerForm = ({
           />
         </InputGroup>
         <FormErrorMessage>
-          {errors.telefono && (
+          {errors.telefono && touchedFields.telefono && (
             <>
               <FormErrorIcon />
               <span>{errors.telefono.message}</span>
@@ -134,7 +134,7 @@ const ContactDrawnerForm = ({
           {...register('mensaje', { required: 'Campo obligatório' })}
         />
         <FormErrorMessage>
-          {errors.mensaje && (
+          {errors.mensaje && touchedFields.mensaje && (
             <>
               <FormErrorIcon />
               <span>{errors.mensaje.message}</span>

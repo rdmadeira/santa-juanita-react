@@ -23,7 +23,7 @@ const ContactDrawner = ({ isOpen, onClose }) => {
     handleSubmit,
     register,
     formState,
-    formState: { errors, dirtyFields, isSubmitting },
+    formState: { errors, dirtyFields, isSubmitting, touchedFields },
     reset,
   } = useForm({
     mode: 'onChange',
@@ -60,6 +60,7 @@ const ContactDrawner = ({ isOpen, onClose }) => {
         isClosable: true,
         duration: 3000,
       });
+      reset();
     }
   }, [reset, formState]);
 
@@ -81,6 +82,7 @@ const ContactDrawner = ({ isOpen, onClose }) => {
               dirtyFields={dirtyFields}
               errors={errors}
               register={register}
+              touchedFields={touchedFields}
             />
             {isSubmitting && (
               <Center
