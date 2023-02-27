@@ -49,6 +49,18 @@ const ContactDrawner = ({ isOpen, onClose }) => {
       });
       reset();
     }
+
+    if (formState.isSubmitted && !formState.isSubmitSuccessful) {
+      toast({
+        title: 'Hubo un error inesperado!',
+        status: 'error',
+        description:
+          'Servidor de mensajes no pudo grabar su mensaje. Probá más tarde.',
+        position: 'top',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
   }, [reset, formState]);
 
   const onSubmit = async (data) => {

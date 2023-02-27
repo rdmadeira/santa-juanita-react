@@ -9,8 +9,6 @@ import {
   setDoc,
 } from 'firebase/firestore';
 
-/* import { convertTimestampToDate } from '../utils/orders_utils/ordersUtils'; */
-
 const firebaseConfig = {
   apiKey: 'AIzaSyDTfJwVV27VRZBXXCqLlYKlZGPAiM7NSX8',
   authDomain: 'santa-juanita-377619.firebaseapp.com',
@@ -118,5 +116,8 @@ export const setContactDocument = async (data) => {
       console.log('Mensaje enviada con sucesso!');
       return true;
     })
-    .catch((error) => alert(`Hubo un error inesperado: ${error}`) && false);
+    .catch((error) => {
+      console.log(`Hubo un error inesperado: ${error}`);
+      return false;
+    });
 };
