@@ -207,7 +207,7 @@ export const LoginWithEmailAndPassword = async (
         setIsValidPassword(false);
       }
       error.code === AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER &&
-        alert('error.message');
+        alert(`Muchos intentos, porvor acceder más tarde. ${error.message}`);
       error.code === AuthErrorCodes.INTERNAL_ERROR &&
         alert('Hubo un error En el servidor');
 
