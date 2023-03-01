@@ -20,7 +20,7 @@ const StyledGalleryTitle = styled.h2`
   font-size: max(3.2vw, 26px);
   margin: 3vw 0vw 5vw;
   @media (max-width: 1080px) {
-    font-size: max(5.2vw, 26px);
+    font-size: max(3.2vw, 26px);
   } ;
 `;
 

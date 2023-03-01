@@ -46,6 +46,25 @@ const FormLabel = defineStyleConfig({
   },
 });
 
+const Button = defineStyleConfig({
+  variants: {
+    outline: {
+      background: '#00000017',
+      _hover: {
+        background: '#fff5f55e',
+      },
+    },
+    santaJuanita: {
+      background: 'var(--twilight-lavender)',
+      color: 'var(--snow)',
+      borderRadius: 0,
+      _hover: {
+        background: 'var(--pink-lavender)',
+      },
+    },
+  },
+});
+
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers([
     'container',
@@ -74,6 +93,7 @@ const theme = extendTheme({
     Textarea,
     Form,
     FormLabel,
+    Button,
   },
   styles: {
     global: {

@@ -31,6 +31,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   flex-wrap: nowrap;
   color: var(--opera-mauve);
+  align-items: center;
   ${({ navMenuHidden }) =>
     navMenuHidden &&
     css`
