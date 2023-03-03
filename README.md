@@ -1,10 +1,10 @@
-# PROYECTO INTEGRADOR - REACT - FRONT END
+# NUCBA - PROYECTO INTEGRADOR - REACT - FRONT END
 
 ## Este proyecto fue creado con el objetivo de presentar un desarollo front-end de una sitio web de una tienda de productos naturales para el bien estar personal. Es una single-page-application usando el paquete React-router-dom.
 
-### Consta de una pagina principal de portada, páginas de productos y sus sub-productos, página de galería de fotos y página para contactos. Contiene sección de login y sign-up, sección de carrito, ordenes y paga de stock.
+### Consta de una pagina principal de portada, páginas de productos y sus sub-productos, Y página de galería de fotos, y sesion de mensajes. Contiene sección de login y sign-up, sección de carrito, ordenes y paga de stock.
 
-### Los productos son persistidos en un store de redux-persist, así como usuário, ordenes, carrito y stock.
+### Los productos consultados por base de datos en Firebase Firestore, así como usuário, ordenes, y stock.
 
 ### Los productos sin stock son mostrados como tal y desabilitados para agregar al carrito.
 
@@ -19,6 +19,12 @@
 ### Styled-components v5.3.6
 
 ### uuid v9
+
+### Chakra-ui
+
+### Firebase Firestore y Firebase Auth de Google.
+
+_-----------------------------------------------------------------------------------------------_
 
 ## Getting Started with Create React App
 
