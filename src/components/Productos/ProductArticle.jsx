@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { maxDeviceWidth } from '../../styles/media_queries/mediaQueries';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Text,
+  Flex,
+} from '@chakra-ui/react';
 
 const ProductArticleShadow = styled.div`
   width: 100%;
@@ -35,8 +46,9 @@ const ProductArticleContainer = styled.div`
 `;
 
 const ArticleImage = styled.img`
-  width: 20%;
-  padding: 2vw 1vw;
+  width: 18%;
+  margin: 0vw 0vw 2vw;
+  border-radius: 6px;
 `;
 
 const ArticleContent = styled.div`
@@ -77,7 +89,40 @@ const BtnCerrar = styled.div`
   cursor: pointer;
 `;
 
-const ProductArticle = ({ articleContent }) => {
+const ProductArticle = ({ articleContent, isOpen, onClose }) => {
+  return (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      motionPreset="scale"
+      scrollBehavior="outside"
+      size="2xl">
+      <ModalOverlay />
+      <ModalContent color="var(--twilight-lavender)">
+        <ModalHeader textAlign="center">
+          <ModalCloseButton />
+          {articleContent.title}
+        </ModalHeader>
+        <ModalBody>
+          <Flex direction="column" alignItems="center">
+            <ArticleImage src={articleContent.img} />
+            <Text as="h3" fontSize="2xl" marginBottom="0.7rem">
+              {articleContent.sub_title}
+            </Text>
+            <Flex direction="column">
+              {articleContent.content.map((item) => (
+                <Text key={item.slice(10, 25)}>{item}</Text>
+              ))}
+            </Flex>
+          </Flex>
+        </ModalBody>
+        <ModalFooter></ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
+
+export const ProductArticle1 = ({ articleContent }) => {
   const [hidden, setHidden] = useState(false);
   return (
     !hidden && (

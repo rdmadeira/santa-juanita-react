@@ -12,7 +12,7 @@ const StyledMenu = styled.ul`
   flex-flow: row wrap;
   align-items: flex-end;
   column-gap: 10px;
-  margin-top: 10px;
+
   ${({ hiddenMenu }) => {
     if (!hiddenMenu) {
       return css`

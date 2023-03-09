@@ -60,7 +60,7 @@ const StyledUserLogoDiv = styled.div`
   align-self: end;
   column-gap: 10px;
   color: var(--twilight-lavender);
-  font-size: var(--step--1);
+  font-size: medium;
   border-radius: 10px;
   cursor: pointer;
   padding: 5px 8px;

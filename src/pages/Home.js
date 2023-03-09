@@ -8,7 +8,8 @@ const MainHomeDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  background: #d2691e36;
+
+  background: #76536b;
 `;
 
 const HomeContainer = styled.div`

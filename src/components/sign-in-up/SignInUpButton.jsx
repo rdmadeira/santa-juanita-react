@@ -9,6 +9,9 @@ const Button = styled.button`
   font-size: 1rem;
   border: none;
   cursor: pointer;
+  &:hover {
+    background: var(--pink-lavender);
+  }
   ${({ disabled }) =>
     disabled &&
     css`
