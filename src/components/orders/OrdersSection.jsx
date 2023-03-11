@@ -5,7 +5,8 @@ import { Order } from './Order.jsx';
 import { Heading } from '@chakra-ui/react';
 
 const OrdersMainContainer = styled.section`
-  background: white;
+  background: var(--snow);
+  color: var(--twilight-lavender);
   position: relative;
   width: 100%;
   display: flex;

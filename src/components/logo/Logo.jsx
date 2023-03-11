@@ -3,15 +3,15 @@ import styled from 'styled-components';
 // import LogoImg from '../../assets/logo.png';
 
 const LogoDiv = styled.div`
-  width: min(20vw, 114px);
+  width: ${({ w }) => (w ? w : 'min(20vw, 114px)')};
   margin-left: 20px;
   /* min-width: 127px; */
   transition: 0.5s ease all;
 `;
 
-const Logo = () => {
+const Logo = ({ w }) => {
   return (
-    <LogoDiv>
+    <LogoDiv w={w}>
       <img
         src={process.env.PUBLIC_URL + '/assets/logo.png'}
         alt="logo-of-santa-juanita"

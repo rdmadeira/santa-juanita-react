@@ -10,13 +10,13 @@ const StyledFooter = styled.footer`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  padding: 3vw 0;
+  padding: 10px 0;
   border-top: solid 30px var(--twilight-lavender);
 `;
 
 const LogoFooter = styled(Logo)`
-  width: 12%;
-  min-width: 125px;
+  width: 5% !important;
+  min-width: 80px;
 `;
 
 const SocialLogosContainer = styled.div`
@@ -24,14 +24,14 @@ const SocialLogosContainer = styled.div`
   column-gap: 8vw;
   width: 40%;
   min-width: 280px;
-  margin-top: 20px;
+
   justify-content: center;
 `;
 
 const Footer = () => {
   return (
     <StyledFooter>
-      <LogoFooter />
+      <LogoFooter w="5%" />
       <SocialLogosContainer>
         <SocialLogo
           imageUrl={process.env.PUBLIC_URL + '/assets/instagram-logo-2.svg'}
@@ -54,6 +54,22 @@ const Footer = () => {
           link="#"
         />
       </SocialLogosContainer>
+      <p
+        style={{
+          alignSelf: 'flex-end',
+          position: 'absolute',
+          right: '20px',
+          bottom: '10px',
+        }}>
+        Created by{' '}
+        <a
+          href="https://github.com/rdmadeira"
+          style={{ color: 'blue' }}
+          target="_blank"
+          rel="noreferrer">
+          Madeira
+        </a>
+      </p>
     </StyledFooter>
   );
 };
