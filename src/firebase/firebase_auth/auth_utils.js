@@ -101,14 +101,14 @@ export const checkIsSignInWithEmail = () => {
 
 const createUserDoc = async (userAuth, addicionalData) => {
   if (!userAuth) return;
-  const createdAt = new Date();
+  const createdDateString = dateString();
   let { displayName, email } = userAuth;
   if (!displayName) displayName = addicionalData?.displayName || email;
   const userRef = doc(db, 'users', userAuth.uid);
   const snapshot = await getDoc(userRef);
 
   const newUser = {
-    createdAt,
+    createdAt: createdDateString,
     displayName,
     email,
     orders: [],
@@ -122,7 +122,8 @@ const createUserDoc = async (userAuth, addicionalData) => {
   return userRef;
 };
 
-import { convertTimestampToDate } from '../../utils/orders_utils/ordersUtils';
+import { dateString } from '../../utils/orders_utils/ordersUtils';
+
 export function onAuthStateChange(callback, action) {
   auth.onAuthStateChanged(async (userAuth) => {
     if (userAuth) {
@@ -136,12 +137,6 @@ export function onAuthStateChange(callback, action) {
         action({
           ...snapshot.data(),
           id: snapshot.id,
-          orders: snapshot.data().orders
-            ? snapshot.data().orders.map((order) => ({
-                ...order,
-                createdAt: convertTimestampToDate(order.createdAt),
-              }))
-            : [],
         })
       );
     } else {
@@ -246,6 +241,7 @@ export const checkUserEmailAccounts = (formInputsValue, callback) => {
 };
 
 import { createOrder } from '../../utils/orders_utils/ordersUtils';
+
 export const updateUserOrdersToStoreAndDatabase = async (
   user,
   cartItems,
@@ -264,6 +260,7 @@ export const updateUserOrdersToStoreAndDatabase = async (
     ...user,
     orders: user.orders ? [...user.orders, newOrder] : [],
   };
+  console.log(data);
 
   setDoc(docRef, data, { merge: true })
     .then(() => {

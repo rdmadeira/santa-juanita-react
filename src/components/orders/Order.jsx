@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { formatPrices } from '../../utils/products_utils/formatPrices';
-import { dateFormat } from '../../utils/orders_utils/ordersUtils';
-import { Resume, StyledStatus } from './Resume.jsx';
+/* import { dateFormat } from '../../utils/orders_utils/ordersUtils';
+ */ import { Resume, StyledStatus } from './Resume.jsx';
 
 const OrderContainer = styled.div`
   display: flex;
@@ -20,6 +20,8 @@ const OrderContainer = styled.div`
 
 const StyledLine = styled.hr`
   color: black;
+  background-color: black;
+  height: 1px;
 `;
 
 const StyledItemsP = styled.p`
@@ -35,7 +37,7 @@ export const Order = ({ order, index }) => {
       onMouseLeave={() => setResumeShow(false)}>
       <h4>Pedido {index + 1}</h4>
       <StyledStatus status={order.status}></StyledStatus>
-      <StyledItemsP>Pedido {dateFormat(order.createdAt)}</StyledItemsP>
+      <StyledItemsP>Pedido {order.createdAt}</StyledItemsP>
       <StyledLine />
       <StyledItemsP>Sub-total: {formatPrices(order.sub_total)}</StyledItemsP>
       {resumeShow && <Resume key={order.id.slice(0, 5)} order={order}></Resume>}
