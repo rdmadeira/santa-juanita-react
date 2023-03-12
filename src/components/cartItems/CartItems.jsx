@@ -11,7 +11,7 @@ import {
   AlertTitle,
   AlertDescription,
   CircularProgress,
-  CircularProgressLabel,
+  Heading,
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 
@@ -241,29 +241,46 @@ const MyCartItems = ({ hidden }) => {
                 rightIcon={isSubmitted ? <CheckIcon /> : null}>
                 {isSubmitted ? '' : 'Pagar'}
               </Button>
-              {!(isSubmitted === null) && (
-                <Alert status={isSubmitted ? 'success' : 'error'}>
-                  <AlertIcon />
-                  <AlertTitle>
-                    {isSubmitted ? 'Gracias por su pedido' : 'Error'}
-                  </AlertTitle>
-                  <AlertDescription>
-                    {isSubmitted ? 'Enviado con sucesso!' : 'Pedido no enviado'}
-                  </AlertDescription>
-                </Alert>
-              )}
-              {isSubmitted && (
-                <CircularProgress
-                  isIndeterminate
-                  thickness="6px"
-                  size="70px"
-                  color="pink">
-                  <CircularProgressLabel>
-                    Redireccionando a Ordenes
-                  </CircularProgressLabel>
-                </CircularProgress>
-              )}
             </>
+          )}
+          {!(isSubmitted === null) && (
+            <div
+              style={{
+                position: 'absolute',
+                background: '#ebd9e3d6',
+                width: '100%',
+                height: '100%',
+                top: '0',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Alert
+                status={isSubmitted ? 'success' : 'error'}
+                justifyContent="center">
+                <AlertIcon />
+                <AlertTitle>
+                  {isSubmitted ? 'Gracias por su pedido' : 'Error'}
+                </AlertTitle>
+                <AlertDescription>
+                  {isSubmitted ? 'Enviado con sucesso!' : 'Pedido no enviado'}
+                </AlertDescription>
+              </Alert>
+              {isSubmitted && (
+                <>
+                  <Heading color="var(--twilight-lavender)" size="md">
+                    Redireccionando a Ordenes
+                  </Heading>
+                  <CircularProgress
+                    isIndeterminate
+                    thickness="6px"
+                    size="70px"
+                    color="var(--opera-mauve)"></CircularProgress>{' '}
+                </>
+              )}
+            </div>
           )}
         </MyCartContent>
       </MyCartContainer>

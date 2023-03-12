@@ -138,7 +138,8 @@ const SignInUp = ({ signInUpHidden }) => {
   const [isValidPassword, setIsValidPassword] = useState(null);
   const [isEmailLinkUser, setIsEmailLinkUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
+  /*   const [isSubmitted, setIsSubmitted] = useState(false);
+   */
   /* const initialState = {
     isLogin: null,
     user: null, //prueba!!
@@ -159,6 +160,9 @@ const SignInUp = ({ signInUpHidden }) => {
       setIsLoading(false);
     };
   }, []);
+  useEffect(() => {
+    !isValidPassword && setIsLoading(false);
+  }, [isValidPassword]);
 
   useEffect(() => {
     if (isEmailLinkUser) {
@@ -243,8 +247,7 @@ const SignInUp = ({ signInUpHidden }) => {
     !isEmailLinkUser
       ? LoginWithEmailAndPassword(formState.inputs, setIsValidPassword)
       : signUpWithEmail(formState.inputs.email.value);
-    (await isValidPassword) && setIsLoading(false) && navigate(`/productos`);
-    (await !isValidPassword) && setIsLoading(false);
+    await navigate('/productos');
   };
 
   const closeHandle = () => {
