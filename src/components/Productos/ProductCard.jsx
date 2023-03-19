@@ -138,22 +138,20 @@ const SizeSelect = styled.select`
   }
 `;
 
-export const ProductCard = ({ producto }) => {
+export const ProductCard = ({ producto, prestock }) => {
   const [size, setSize] = useState('medium');
   const user = useSelector((store) => store.user);
-  const stock = useSelector((store) =>
-    store.stock
-      .map((item) => {
-        if (item.id === producto.id) {
-          if (item.type === 'vela') {
-            return item.stock[size];
-          }
-          return item.stock;
+  const stock = prestock
+    .map((item) => {
+      if (item.id === producto.id) {
+        if (item.type === 'vela') {
+          return item.stock[size];
         }
-        return false;
-      })
-      .find((item) => item || item === 0)
-  );
+        return item.stock;
+      }
+      return false;
+    })
+    .find((item) => item || item === 0);
   const dispatch = useDispatch();
 
   const verifyUserLogin = (prod) => {

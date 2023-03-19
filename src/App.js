@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch /* , useSelector */ } from 'react-redux/es/exports';
 import { GlobalStyle } from './styles/GlobalStyle';
 import { AnimationStyles } from './styles/AnimationStyles';
-import { sendProductsToStore } from './redux/productos/productosActions';
-import { sendStockToStore } from './redux/stock/stockActions';
+/* import { sendProductsToStore } from './redux/productos/productosActions';
+import { sendStockToStore } from './redux/stock/stockActions'; */
 import { setUser } from './redux/user/userActions';
-
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Velas from './pages/Velas';
@@ -15,12 +14,12 @@ import Difusores from './pages/Difusores';
 import Galeria from './pages/Galeria';
 import Orders from './pages/Orders';
 
-import { createBrowserRouter, Outlet, useLoaderData } from 'react-router-dom';
-import Index from './pages/Index';
 import {
-  getProductsFromDataBase,
-  getStockFromDataBase,
-} from './firebase/firebase_utils';
+  createBrowserRouter,
+  Outlet /* , useLoaderData */,
+} from 'react-router-dom';
+import Index from './pages/Index';
+
 import {
   onAuthStateChange,
   checkIsSignInWithEmail,
@@ -28,17 +27,21 @@ import {
 } from './firebase/firebase_auth/auth_utils';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from './styles/chakra-ui/theme';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
+/* import { database } from 'firebase-admin';
+ */
 export const router = createBrowserRouter([
   {
     element: <App />,
     path: '/',
-    loader: async () => {
+    /* loader: async () => {
       const productos = await getProductsFromDataBase();
       const stock = await getStockFromDataBase();
 
       return { productos, stock };
-    },
+    }, */
     children: [
       {
         element: <Index />,
@@ -82,14 +85,16 @@ export const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 function App() {
   const dispatch = useDispatch();
-  const { productos, stock } = useLoaderData();
+  /* const { productos, stock } = useLoaderData(); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     productos && dispatch(sendProductsToStore(productos));
     stock && dispatch(sendStockToStore(stock));
-  }, [dispatch, productos, stock]);
+  }, [dispatch, productos, stock]); */
 
   useEffect(() => {
     checkIsSignInWithEmail();
@@ -98,9 +103,12 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <GlobalStyle />
-      <AnimationStyles />
-      <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
+        <GlobalStyle />
+        <AnimationStyles />
+        <Outlet />
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }

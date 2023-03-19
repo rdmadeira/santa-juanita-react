@@ -1,16 +1,38 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import ProductosMain from '../components/Productos/ProductosMain.jsx';
 import { StyledMain } from '../components/Productos/StyledMain.jsx';
+import {
+  getProductsFromDataBase,
+  getStockFromDataBase,
+} from '../firebase/firebase_utils';
+import { useQuery } from 'react-query';
 
 const Products = () => {
-  let productos = useSelector(
-    (store) => store.productos?.todoslosproductos.productos
-  );
+  const {
+    data: productos,
+    isLoading: isLoadingProductos,
+    /* error: errorProductos,
+    isError: isErrorProductos, */
+  } = useQuery('productos', () => getProductsFromDataBase());
+
+  const {
+    data: stock,
+    /*isLoading: isLoadingStock,
+     error: errorStock,
+    isError: isErrorStock, */
+  } = useQuery('stock', () => getStockFromDataBase(), {
+    /* enabled: !!productos, */
+  });
 
   return (
     <StyledMain>
-      <ProductosMain productos={productos} />
+      {isLoadingProductos && <h1>...Loading...</h1>}
+      {productos && (
+        <ProductosMain
+          productos={productos?.todoslosproductos?.productos}
+          prestock={stock}
+        />
+      )}
     </StyledMain>
   );
 };
