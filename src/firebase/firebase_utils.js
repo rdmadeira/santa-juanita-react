@@ -27,22 +27,22 @@ export const getProductsFromDataBase = async () => {
   const productosArray = await snapshot.docs.map((doc) => doc);
   let productosData = new Object();
   if (productosArray) {
-    await productosArray.map((doc) => {
+    productosArray.map((doc) => {
       productosData = {
         ...productosData,
         [doc.id]: doc.data(),
       };
     });
-    return await productosData;
+    return productosData;
   }
   return;
 };
 
 export const getStockFromDataBase = async () => {
-  const querySnapshot = await await getDocs(collection(db, 'stock'));
+  const querySnapshot = await getDocs(collection(db, 'stock'));
   const stock = querySnapshot.docs.map((doc) => doc.data());
 
-  return await stock;
+  return stock;
 };
 
 export const getUsersFromDatabase = async () => {

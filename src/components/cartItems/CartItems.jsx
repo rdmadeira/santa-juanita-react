@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect /* , useState */ } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,11 +21,14 @@ import {
 } from '../../redux/cart/cartActions';
 import * as hiddenCartActions from '../../redux/hiddenSignUp/hiddenSignUpContactActions';
 import * as userActions from '../../redux/user/userActions';
-/* import * as ordersActions from '../../redux/orders/ordersActions'; */
 import * as cartActions from '../../redux/cart/cartActions';
-import { decrementStocktoDatabase } from '../../firebase/firebase_utils';
+import {
+  decrementStocktoDatabase,
+  getStockFromDataBase,
+} from '../../firebase/firebase_utils';
 import { updateUserOrdersToStoreAndDatabase } from '../../firebase/firebase_auth/auth_utils';
-// import { decrementStock } from '../../redux/stock/stockActions';
+import { useMutation, useQueryClient, useQuery } from 'react-query';
+import { createOrder } from '../../utils/orders_utils/ordersUtils';
 
 const MyCartContainer = styled.div`
   width: 100%;
@@ -103,27 +106,44 @@ const ChangeQtyButton = styled.div`
   ${({ disabled }) => disabled && 'opacity: 0.2'}
 `;
 
-/* const ButtonSpinner = () => {
-  return <CircularProgress isIndeterminate size="15px" />;
-}; */
-
 const MyCartItems = ({ hidden }) => {
   const cartItems = useSelector((store) => store.cart);
-  const stock = useSelector((store) => store.stock);
+  const {
+    data: stock,
+    /*isLoading: isLoadingStock,
+     error: errorStock,
+    isError: isErrorStock, */
+  } = useQuery('stock', () => getStockFromDataBase());
   const user = useSelector((store) => store.user);
-
-  const [isLoading, setisLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const updateUserOrder = useMutation(
+    async (user) => {
+      return updateUserOrdersToStoreAndDatabase(user);
+    },
+    {
+      mutationKey: 'update-orders',
+      onSuccess: () => {
+        decrementStocktoDatabase(cartItems, stock);
+        setTimeout(() => {
+          dispatch(cartActions.cartReset());
+          dispatch(userActions.setUserCart([]));
+          dispatch(hiddenCartActions.toggleCart());
+          navigate('/orders');
+        }, 2000);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries('productos');
+        queryClient.invalidateQueries('stock');
+      },
+    }
+  );
 
   useEffect(() => {
     dispatch(userActions.setUserCart(cartItems));
-
-    return () => {
-      setisLoading(false);
-    };
   }, [cartItems, dispatch]);
 
   const changeQuantity = (string, cartItem) => {
@@ -135,26 +155,9 @@ const MyCartItems = ({ hidden }) => {
   };
 
   const goToPayment = () => {
-    setisLoading(true);
+    const newOrder = createOrder(user, cartItems);
 
-    decrementStocktoDatabase(cartItems, stock);
-    /* dispatch(hiddenCartActions.toggleCart());
-    dispatch(cartActions.cartReset());
-    dispatch(userActions.setUserCart([])); */
-
-    updateUserOrdersToStoreAndDatabase(
-      user,
-      cartItems,
-      dispatch,
-      {
-        createOrder: userActions.createOrderSuccess,
-        toggleCart: hiddenCartActions.toggleCart,
-        cartReset: cartActions.cartReset,
-        setUserCart: userActions.setUserCart,
-      },
-      setIsSubmitted,
-      navigate
-    );
+    updateUserOrder.mutate({ ...user, orders: [...user.orders, newOrder] });
   };
 
   return (
@@ -235,15 +238,16 @@ const MyCartItems = ({ hidden }) => {
               </CartItems>
               <Button
                 variant="santaJuanita"
+                zIndex="modal"
                 onClick={goToPayment}
-                isLoading={isLoading && !isSubmitted}
+                isLoading={updateUserOrder.isLoading}
                 loadingText="Wait..."
-                rightIcon={isSubmitted ? <CheckIcon /> : null}>
-                {isSubmitted ? '' : 'Pagar'}
+                rightIcon={updateUserOrder.isSuccess ? <CheckIcon /> : null}>
+                {updateUserOrder.isSuccess ? '' : 'Pagar'}
               </Button>
             </>
           )}
-          {!(isSubmitted === null) && (
+          {!updateUserOrder.isIdle && (
             <div
               style={{
                 position: 'absolute',
@@ -258,17 +262,21 @@ const MyCartItems = ({ hidden }) => {
                 justifyContent: 'center',
               }}>
               <Alert
-                status={isSubmitted ? 'success' : 'error'}
+                status={updateUserOrder.isSuccess ? 'success' : 'error'}
                 justifyContent="center">
                 <AlertIcon />
                 <AlertTitle>
-                  {isSubmitted ? 'Gracias por su pedido' : 'Error'}
+                  {updateUserOrder.isSuccess
+                    ? 'Gracias por su pedido'
+                    : 'Error'}
                 </AlertTitle>
                 <AlertDescription>
-                  {isSubmitted ? 'Enviado con sucesso!' : 'Pedido no enviado'}
+                  {updateUserOrder.isSuccess
+                    ? 'Enviado con sucesso!'
+                    : 'Pedido no enviado'}
                 </AlertDescription>
               </Alert>
-              {isSubmitted && (
+              {updateUserOrder.isSuccess && (
                 <>
                   <Heading color="var(--twilight-lavender)" size="md">
                     Redireccionando a Ordenes

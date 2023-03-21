@@ -15,12 +15,16 @@ const ProductsContain = styled.div`
   width: 100%;
 `;
 
-const ProductosMain = ({ productos }) => {
+const ProductosMain = ({ productos, prestock }) => {
   return (
     <>
       <ProductsContain>
         {productos?.map((producto) => (
-          <Producto producto={producto} key={producto.name + producto.id} />
+          <Producto
+            producto={producto}
+            prestock={prestock}
+            key={producto.name + producto.id}
+          />
         ))}
       </ProductsContain>
     </>

@@ -1,13 +1,30 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import ProductosMain from '../components/Productos/ProductosMain.jsx';
 import ProductArticle from '../components/Productos/ProductArticle.jsx';
 import { StyledMain } from '../components/Productos/StyledMain.jsx';
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, Progress } from '@chakra-ui/react';
+import {
+  getProductsFromDataBase,
+  getStockFromDataBase,
+} from '../firebase/firebase_utils';
+import { useQuery } from 'react-query';
 
 const Sales = () => {
-  let productosType = useSelector((store) => store.productos?.sales);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    data: productos,
+    isLoading: isLoadingProductos,
+    isSuccess,
+    /* error: errorProductos,
+    isError: isErrorProductos, */
+  } = useQuery('productos', () => getProductsFromDataBase());
+
+  const {
+    data: stock,
+    /*isLoading: isLoadingStock,
+     error: errorStock,
+    isError: isErrorStock, */
+  } = useQuery('stock', () => getStockFromDataBase());
 
   useEffect(() => {
     onOpen();
@@ -19,12 +36,29 @@ const Sales = () => {
   return (
     <>
       <StyledMain>
-        <ProductArticle
-          articleContent={productosType.article}
-          isOpen={isOpen}
-          onClose={onClose}
-        />
-        <ProductosMain productos={productosType.productos} />
+        {isLoadingProductos && (
+          <Progress
+            size="lg"
+            isIndeterminate
+            position="absolute"
+            zIndex="50"
+            width="100%"
+            hasStripe
+          />
+        )}
+        {isSuccess && (
+          <>
+            <ProductArticle
+              articleContent={productos?.sales.article}
+              isOpen={isOpen}
+              onClose={onClose}
+            />
+            <ProductosMain
+              productos={productos?.sales.productos}
+              prestock={stock}
+            />
+          </>
+        )}
       </StyledMain>
     </>
   );

@@ -240,41 +240,25 @@ export const checkUserEmailAccounts = (formInputsValue, callback) => {
   });
 };
 
-import { createOrder } from '../../utils/orders_utils/ordersUtils';
-
+/* import { createOrder } from '../../utils/orders_utils/ordersUtils';
+ */
 export const updateUserOrdersToStoreAndDatabase = async (
-  user,
-  cartItems,
-  callback,
+  user
+  /* callback,
   actions,
   setIsSubmitted,
-  navigate
+  navigate */
 ) => {
-  const newOrder = createOrder(user, cartItems);
-  callback(actions.createOrder(newOrder));
-  const db = getFirestore(app);
+  /*   callback(actions.createOrder(newOrder));
+   */ const db = getFirestore(app);
 
   const docRef = doc(db, 'users', user.id);
 
-  const data = {
+  /* const data = {
     ...user,
     orders: user.orders ? [...user.orders, newOrder] : [],
-  };
-  console.log(data);
+  }; */
+  /* console.log(data); */
 
-  setDoc(docRef, data, { merge: true })
-    .then(() => {
-      console.log(`Updated with sucess`);
-      setIsSubmitted(true);
-      setTimeout(() => {
-        callback(actions.toggleCart());
-        callback(actions.cartReset());
-        callback(actions.setUserCart([]));
-        navigate('/orders');
-      }, 2000);
-    })
-    .catch((error) => {
-      console.log(error);
-      setIsSubmitted(false);
-    });
+  setDoc(docRef, user, { merge: true });
 };
