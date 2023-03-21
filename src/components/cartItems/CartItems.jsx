@@ -137,9 +137,12 @@ const MyCartItems = ({ hidden }) => {
       mutationKey: 'update-orders',
       onSuccess: () => {
         decrementStocktoDatabase(cartItems, stock);
-        dispatch(cartActions.cartReset());
-        /*         dispatch(hiddenCartActions.toggleCart());
-         */ navigate('/orders');
+        setTimeout(() => {
+          dispatch(cartActions.cartReset());
+          dispatch(userActions.setUserCart([]));
+          dispatch(hiddenCartActions.toggleCart());
+          navigate('/orders');
+        }, 2000);
       },
       onSettled: () => {
         queryClient.invalidateQueries('productos');
@@ -268,6 +271,7 @@ const MyCartItems = ({ hidden }) => {
               </CartItems>
               <Button
                 variant="santaJuanita"
+                zIndex="modal"
                 onClick={goToPayment}
                 isLoading={updateUserOrder.isLoading}
                 loadingText="Wait..."
