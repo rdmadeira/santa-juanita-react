@@ -1,4 +1,5 @@
 import React from 'react';
+import { Progress } from '@chakra-ui/react';
 import ProductosMain from '../components/Productos/ProductosMain.jsx';
 import { StyledMain } from '../components/Productos/StyledMain.jsx';
 import {
@@ -26,7 +27,17 @@ const Products = () => {
 
   return (
     <StyledMain>
-      {isLoadingProductos && <h1>...Loading...</h1>}
+      {isLoadingProductos && (
+        <Progress
+          size="lg"
+          isIndeterminate
+          position="absolute"
+          zIndex="50"
+          width="100%"
+          hasStripe
+        />
+      )}
+
       {productos && (
         <ProductosMain
           productos={productos?.todoslosproductos?.productos}

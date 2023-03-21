@@ -106,10 +106,6 @@ const ChangeQtyButton = styled.div`
   ${({ disabled }) => disabled && 'opacity: 0.2'}
 `;
 
-/* const ButtonSpinner = () => {
-  return <CircularProgress isIndeterminate size="15px" />;
-}; */
-
 const MyCartItems = ({ hidden }) => {
   const cartItems = useSelector((store) => store.cart);
   const {
@@ -117,14 +113,9 @@ const MyCartItems = ({ hidden }) => {
     /*isLoading: isLoadingStock,
      error: errorStock,
     isError: isErrorStock, */
-  } = useQuery('stock', () => getStockFromDataBase(), {
-    /* enabled: !!productos, */
-  });
+  } = useQuery('stock', () => getStockFromDataBase());
   const user = useSelector((store) => store.user);
 
-  /*   const [isLoading, setisLoading] = useState(false);
-   */ /*   const [isSubmitted, setIsSubmitted] = useState(null);
-   */
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -153,10 +144,6 @@ const MyCartItems = ({ hidden }) => {
 
   useEffect(() => {
     dispatch(userActions.setUserCart(cartItems));
-
-    /* return () => {
-      setisLoading(false);
-    }; */
   }, [cartItems, dispatch]);
 
   const changeQuantity = (string, cartItem) => {
@@ -172,26 +159,6 @@ const MyCartItems = ({ hidden }) => {
 
     updateUserOrder.mutate({ ...user, orders: [...user.orders, newOrder] });
   };
-
-  /* const goToPayment = () => {
-    setisLoading(true);
-
-    decrementStocktoDatabase(cartItems, stock);
-
-    updateUserOrdersToStoreAndDatabase(
-      user,
-      cartItems,
-      dispatch,
-      {
-        createOrder: userActions.createOrderSuccess,
-        toggleCart: hiddenCartActions.toggleCart,
-        cartReset: cartActions.cartReset,
-        setUserCart: userActions.setUserCart,
-      },
-      setIsSubmitted,
-      navigate
-    );
-  }; */
 
   return (
     <>
